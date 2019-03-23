@@ -2,10 +2,10 @@
 This repository is a base to keep my device in sync.
 
 ** TODOs
-*** DONE Collect configuration files.
-*** TODO Write a script to extract the configuration files.
-*** TODO Prepare brewfile.
-*** TODO Install packages from brewfile.
+- [X] Collect configuration files.
+- [ ] Write a script to extract the configuration files.
+- [ ] Prepare brewfile.
+- [ ] Install packages from brewfile.
 
 ** Workaround
 (((((((((((っ･ω･)っ ﾌﾞｰﾝ
