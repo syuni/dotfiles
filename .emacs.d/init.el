@@ -273,19 +273,6 @@
 (global-set-key (kbd "C-M-&") '(lambda () (interactive)
                                  (show-org-buffer "gtd.org")))
 
-;;; pandoc
-(use-package ox-pandoc
-  :ensure t
-  ;; :hook org-mode
-  :config
-  ;; default options for all output formats
-  (setq org-pandoc-options '((standalone . t)))
-  ;; cancel above settings only for 'docx' format
-  (setq org-pandoc-options-for-docx '((standalone . nil)))
-  ;; special settings for beamer-pdf and latex-pdf exporters
-  (setq org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
-  (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))))
-
 
 
 ;; ### packages ###
@@ -585,6 +572,18 @@
   (bind-key "M-p" 'vmd-mode gfm-mode-map)
   (bind-key "M-\\" 'writeroom-mode markdown-mode-map)
   (bind-key "M-\\" 'writeroom-mode gfm-mode-map))
+
+;;; pandoc
+(use-package ox-pandoc
+  :ensure t
+  :config
+  ;; default options for all output formats
+  (setq org-pandoc-options '((standalone . t)))
+  ;; cancel above settings only for 'docx' format
+  (setq org-pandoc-options-for-docx '((standalone . nil)))
+  ;; special settings for beamer-pdf and latex-pdf exporters
+  (setq org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
+  (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))))
 
 ;;; powershell
 (use-package powershell
