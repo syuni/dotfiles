@@ -9,7 +9,7 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 19,
+    fontSize: 16,
 
     // font family with optional fallbacks
     fontFamily:
@@ -142,7 +142,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ['hyper-statusline', "hyper-one-light"],
+  plugins: ['hyper-statusline', "hyper-one-dark"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
