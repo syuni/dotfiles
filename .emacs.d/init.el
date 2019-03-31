@@ -398,6 +398,36 @@
   (bind-key "C-M-;" 'avy-migemo-goto-char-timer)
   (avy-migemo-mode 1))
 
+;;; ddskk
+(use-package ddskk
+  :ensure t
+  :bind (("C-x j" . skk-mode))
+  :init
+  (setq skk-user-directory "~/.ddskk")
+  (setq skk-server-host "localhost")
+  (setq skk-server-portnum 1178)
+  (setq skk-jisyo-code 'utf-8)
+  (setq default-input-method "japanese-skk")
+  (setq skk-show-candidates-always-pop-to-buffer t)
+  (setq skk-henkan-show-candidates-keys 2)
+  (setq skk-dcomp-activate t)
+  (setq skk-dcomp-multiple-activate 10)
+  (setq skk-dcomp-multiple-rows 10)
+  (setq skk-egg-like-newline t)
+  (setq skk-delete-implies-kakutei nil)
+  (setq skk-use-look t)
+  (setq skk-auto-insert-paren t)
+  (setq skk-henkan-strict-okuri-precedence t)
+  (setq skk-isearch-start-mode 'latin)
+  (setq skk-search-katakana 'jisx0201-kana)
+  :config
+  (bind-key "C-j" 'skk-kakutei minibuffer-local-map)
+  (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
+  (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup))
+(require 'skk-study)
+(require 'skk-hint)
+
+
 ;;; magit
 (use-package magit
   :ensure t
