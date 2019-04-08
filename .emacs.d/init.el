@@ -523,7 +523,9 @@
 (use-package flycheck-rust
   :ensure t
   :init
-  (add-hook 'rust-mode-hook #'flycheck-rust-setup))
+  (add-hook 'rust-mode-hook
+	    '(lambda ()
+	       (flycheck-select-checker 'rust))))
 
 ;;; html/javascript
 (use-package web-mode
