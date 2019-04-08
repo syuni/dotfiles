@@ -343,6 +343,10 @@
          ("M-s" . counsel-gtags-find-symbol)
          ("C-t" . counsel-gtags-go-backward)
          ("C-M-t" . counsel-gtags-go-forward)))
+(use-package gxref
+  :ensure t
+  :config
+  (add-to-list 'xref-backend-functions 'gxref-xref-backend))
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
@@ -409,7 +413,6 @@
   (setq skk-jisyo-code 'utf-8)
   (setq default-input-method "japanese-skk")
   (setq skk-show-candidates-always-pop-to-buffer t)
-  (setq skk-henkan-show-candidates-keys 2)
   (setq skk-dcomp-activate t)
   (setq skk-dcomp-multiple-activate 10)
   (setq skk-dcomp-multiple-rows 10)
@@ -426,7 +429,6 @@
   (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup))
 (require 'skk-study)
 (require 'skk-hint)
-
 
 ;;; magit
 (use-package magit
@@ -506,6 +508,23 @@
   :config
   (setq company-go-show-annotation t)
   (add-to-list 'company-backends 'company-go))
+
+;;; rust
+(use-package rust-mode
+  :ensure t
+  :defer t
+  :config
+  (setq rust-format-on-save t))
+(use-package racer
+  :init
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode))
+(use-package flycheck-rust
+  :init
+  (add-hook 'rust-mode-hook
+	    '(lambda ()
+	       (flycheck-mode)
+	       (flycheck-rust-setup))))
 
 ;;; html/javascript
 (use-package web-mode
