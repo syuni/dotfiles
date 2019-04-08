@@ -516,15 +516,14 @@
   :config
   (setq rust-format-on-save t))
 (use-package racer
+  :ensure t
   :init
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode))
 (use-package flycheck-rust
+  :ensure t
   :init
-  (add-hook 'rust-mode-hook
-	    '(lambda ()
-	       (flycheck-mode)
-	       (flycheck-rust-setup))))
+  (add-hook 'rust-mode-hook #'flycheck-rust-setup))
 
 ;;; html/javascript
 (use-package web-mode
