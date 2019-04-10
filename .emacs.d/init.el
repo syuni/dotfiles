@@ -286,11 +286,10 @@
   (exec-path-from-shell-copy-envs '("GOPATH")))
 
 ;;; color theme
-(use-package zerodark-theme
+(use-package leuven-theme
   :ensure t
   :config
-  (load-theme 'zerodark t)
-  (zerodark-setup-modeline-format))
+  (load-theme 'leuven t))
 
 ;;; ace-window
 (use-package ace-window
@@ -406,6 +405,9 @@
 (use-package ddskk
   :ensure t
   :bind (("C-x j" . skk-mode))
+  :hook (prog-mode . (lambda ()
+		       (skk-mode)
+		       (skk-latin-mode-on)))
   :init
   (setq skk-user-directory "~/.ddskk")
   (setq skk-server-host "localhost")
@@ -708,6 +710,8 @@
 (set-file-name-coding-system 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8)
 
+(put 'dired-find-alternate-file 'disabled nil)
+
 (provide 'init)
 ;;; init.el ends here
-(put 'dired-find-alternate-file 'disabled nil)
+
