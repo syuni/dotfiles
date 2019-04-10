@@ -525,6 +525,7 @@
   :init
   (add-hook 'rust-mode-hook
 	    '(lambda ()
+	       (flycheck-rust-setup)
 	       (flycheck-select-checker 'rust))))
 
 ;;; html/javascript
@@ -709,3 +710,4 @@
 
 (provide 'init)
 ;;; init.el ends here
+(put 'dired-find-alternate-file 'disabled nil)
