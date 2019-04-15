@@ -285,11 +285,29 @@
     (exec-path-from-shell-initialize))
   (exec-path-from-shell-copy-envs '("GOPATH")))
 
+;;; yasnippet
+(use-package yasnippet
+  :ensure t
+  :init
+  (setq yas-snippet-dirs
+	'("~/Dropbox/snippets"
+	  "~/.emacs.d/plugins/yasnippet"))
+  :config
+  (bind-key "C-x y i" 'yas-insert-snippet yas-minor-mode-map)
+  (bind-key "C-x y n" 'yas-new-snippet yas-minor-mode-map)
+  (bind-key "C-x y v" 'yas-visit-snippet-file yas-minor-mode-map)
+  (yas-global-mode 1))
+
 ;;; color theme
-(use-package leuven-theme
+(use-package zerodark-theme
   :ensure t
   :config
-  (load-theme 'leuven t))
+  (load-theme 'zerodark t)
+  (zerodark-setup-modeline-format))
+;; (use-package leuven-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'leuven t))
 
 ;;; ace-window
 (use-package ace-window
@@ -409,7 +427,7 @@
 		       (skk-mode)
 		       (skk-latin-mode-on)))
   :init
-  (setq skk-user-directory "~/.ddskk")
+  (setq skk-user-directory "~/Dropbox/skk")
   (setq skk-server-host "localhost")
   (setq skk-server-portnum 1178)
   (setq skk-jisyo-code 'utf-8)
@@ -428,7 +446,9 @@
   :config
   (bind-key "C-j" 'skk-kakutei minibuffer-local-map)
   (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
-  (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup))
+  (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
+  (add-to-list 'skk-completion-prog-list
+	       '(skk-comp-from-jisyo "~/Dropbox/skk/skk-jisyo.utf8")))
 (require 'skk-study)
 (require 'skk-hint)
 
