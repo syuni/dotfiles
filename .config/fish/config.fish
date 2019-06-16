@@ -1,6 +1,5 @@
 # fish
 set -x theme_color_scheme 'light'
-set -x FZF_LEGACY_KEYBINDINGS 0
 
 # XDG Base Directory Specification
 set -x XDG_CONFIG_HOME $HOME/.config
@@ -13,6 +12,9 @@ set -x PATH $HOME/.nodebrew/current/bin $PATH
 # fzf
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob "!.git"'
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head -n 30 {}"'
+
+# fzf(fish integration (https://github.com/jethrokuan/fzf))
+set -x FZF_LEGACY_KEYBINDINGS 0
 
 # local-bin
 set -x PATH $HOME/.local/bin $PATH

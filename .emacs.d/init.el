@@ -11,7 +11,7 @@
 ;; ### package management ###
 
 ;;; initialize
-(setq package-archives
+(setq-default package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
@@ -35,7 +35,7 @@
 (straight-use-package 'use-package)
 
 ;;; fallback
-(setq straight-use-package-by-default t)
+(setq-default straight-use-package-by-default t)
 
 ;;; manual path
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
@@ -45,14 +45,14 @@
 ;; ### general settings ###
 
 ;;; splash
-(setq inhibit-startup-screen t)
+(setq-default inhibit-startup-screen t)
 
 ;;; backupfiles
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+(setq-default make-backup-files nil)
+(setq-default auto-save-default nil)
 
 ;;; scratch default message
-(setq initial-scratch-message "")
+(setq-default initial-scratch-message "")
 
 ;;; "yes or no" to "y or n"
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -68,9 +68,9 @@
 
 ;;; text editing
 (show-paren-mode t)
-(setq indent-tabs-mode nil)
-(setq calendar-week-start-day 1)
-(setq tab-width 2)
+(setq-default calendar-week-start-day 1)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
@@ -85,12 +85,12 @@
 
 ;;; fonts
 (set-face-attribute 'default nil
-                    :family "Fira Code"
-                    :height 160)
+                    :family "FuraCode Nerd Font"
+                    :height 140)
 (set-fontset-font nil 'japanese-jisx0208
-                  (font-spec :family "Cica"))
+                  (font-spec :family "Osaka"))
 (set-fontset-font nil 'katakana-jisx0201
-                  (font-spec :family "Cica"))
+                  (font-spec :family "Osaka"))
 
 ;;;; Workaround for Fira Code
 (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
@@ -293,10 +293,17 @@
 	'("~/Dropbox/snippets"
 	  "~/.emacs.d/plugins/yasnippet"))
   :config
-  (bind-key "C-x y i" 'yas-insert-snippet yas-minor-mode-map)
   (bind-key "C-x y n" 'yas-new-snippet yas-minor-mode-map)
   (bind-key "C-x y v" 'yas-visit-snippet-file yas-minor-mode-map)
   (yas-global-mode 1))
+(use-package ivy-yasnippet
+  :ensure t
+  :config
+  (bind-key "C-x y i" 'ivy-yasnippet))
+
+;;; icons
+(use-package all-the-icons
+  :ensure t)
 
 ;;; color theme
 (use-package zerodark-theme
@@ -304,16 +311,13 @@
   :config
   (load-theme 'zerodark t)
   (zerodark-setup-modeline-format))
-;; (use-package leuven-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'leuven t))
 
 ;;; ace-window
 (use-package ace-window
  :ensure t
  :config
  (global-set-key (kbd "M-o") 'ace-window)
+ (global-set-key (kbd "C-M-o") 'ace-swap-window)
  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
  (setq aw-dispatch-always t)
  (ace-window-display-mode))
@@ -388,9 +392,24 @@
   (counsel-mode 1)
   (global-set-key (kbd "C-s") 'swiper)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "<f6>") 'ivy-resume)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-x C-r") 'counsel-recentf))
+  (global-set-key (kbd "C-x C-r") 'counsel-recentf)
+  (global-set-key (kbd "C-x b") 'counsel-switch-buffer)
+  (global-set-key (kbd "C-x M-b") 'counsel-switch-buffer-other-window)
+  (global-set-key (kbd "C-c f") 'counsel-fzf))
+(use-package all-the-icons-ivy
+  :ensure t
+  :init
+  (setq all-the-icons-ivy-file-commands
+        '(counsel-fzf
+          counsel-switch-buffer
+          counsel-switch-buffer-other-window
+          counsel-find-file
+          counsel-file-jump
+          counsel-recentf
+          counsel-projectile-find-file
+          counsel-projectile-find-dir))
+  :config
+  (all-the-icons-ivy-setup))
 
 ;;; avy
 (use-package avy
@@ -511,11 +530,15 @@
 (use-package ein
   :ensure t)
 
+;;; julia
+(use-package julia-mode
+  :ensure t)
+
 ;;; golang
 (use-package go-mode
   :ensure t
   :init
-  (add-to-list 'exec-path (expand-file-name "/usr/local/go/bin"))
+  (add-to-list 'exec-path (expand-file-name "/usr/local/bin/go"))
   (add-to-list 'exec-path (expand-file-name "~/go/bin"))
   (setq indent-tabs-mode t)
   (setq tab-width 4)
@@ -530,6 +553,10 @@
   :config
   (setq company-go-show-annotation t)
   (add-to-list 'company-backends 'company-go))
+;;; workaround
+(let ((govet (flycheck-checker-get 'go-vet 'command)))
+  (when (equal (cadr govet) "tool")
+    (setf (cdr govet) (cddr govet))))
 
 ;;; rust
 (use-package rust-mode
@@ -676,6 +703,10 @@
 (use-package protobuf-mode
   :ensure t
   :defer t)
+
+;;; docker
+(use-package dockerfile-mode
+  :ensure t)
 
 
 

@@ -1,2 +1,2 @@
-set guifont=Cica:h18
-set guifontwide=Cica:h18
+set guifont=FuraCode\ Nerd\ Font:h16
+set guifontwide=FuraCode\ Nerd\ Font:h16

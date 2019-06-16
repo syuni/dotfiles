@@ -126,6 +126,9 @@ if dein#load_state('~/.cache/dein')
   " icons
   call dein#add('ryanoasis/vim-devicons')
 
+  " color schema
+  call dein#add('joshdick/onedark.vim')
+
   " nerdtree
   call dein#add('scrooloose/nerdtree')
 
@@ -184,6 +187,15 @@ filetype plugin indent on
 
 if dein#check_install()
   call dein#install()
+endif
+
+if (empty($TMUX))
+  if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 endif
 
 syntax on
