@@ -199,6 +199,7 @@ if (empty($TMUX))
 endif
 
 syntax on
+colorscheme onedark
 
 " ### Packages
 " deoplete.vim

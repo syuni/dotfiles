@@ -85,139 +85,12 @@
 
 ;;; fonts
 (set-face-attribute 'default nil
-                    :family "FuraCode Nerd Font"
+                    :family "Monaco Nerd Font"
                     :height 140)
 (set-fontset-font nil 'japanese-jisx0208
                   (font-spec :family "Osaka"))
 (set-fontset-font nil 'katakana-jisx0201
                   (font-spec :family "Osaka"))
-
-;;;; Workaround for Fira Code
-(add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
-(set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")
-(defconst fira-code-font-lock-keywords-alist
-  (mapcar (lambda (regex-char-pair)
-            `(,(car regex-char-pair)
-              (0 (prog1 ()
-                   (compose-region (match-beginning 1)
-                                   (match-end 1)
-                                   ,(concat "	" (list (decode-char 'ucs (cadr regex-char-pair)))))))))
-          '(("\\(www\\)"                   #Xe100)
-            ("[^/]\\(\\*\\*\\)[^/]"        #Xe101)
-            ("\\(\\*\\*\\*\\)"             #Xe102)
-            ("\\(\\*\\*/\\)"               #Xe103)
-            ("\\(\\*>\\)"                  #Xe104)
-            ("[^*]\\(\\*/\\)"              #Xe105)
-            ("\\(\\\\\\\\\\)"              #Xe106)
-            ("\\(\\\\\\\\\\\\\\)"          #Xe107)
-            ("\\({-\\)"                    #Xe108)
-            ("\\(\\[\\]\\)"                #Xe109)
-            ("\\(::\\)"                    #Xe10a)
-            ("\\(:::\\)"                   #Xe10b)
-            ("[^=]\\(:=\\)"                #Xe10c)
-            ("\\(!!\\)"                    #Xe10d)
-            ("\\(!=\\)"                    #Xe10e)
-            ("\\(!==\\)"                   #Xe10f)
-            ("\\(-}\\)"                    #Xe110)
-            ("\\(--\\)"                    #Xe111)
-            ("\\(---\\)"                   #Xe112)
-            ("\\(-->\\)"                   #Xe113)
-            ("[^-]\\(->\\)"                #Xe114)
-            ("\\(->>\\)"                   #Xe115)
-            ("\\(-<\\)"                    #Xe116)
-            ("\\(-<<\\)"                   #Xe117)
-            ("\\(-~\\)"                    #Xe118)
-            ("\\(#{\\)"                    #Xe119)
-            ("\\(#\\[\\)"                  #Xe11a)
-            ("\\(##\\)"                    #Xe11b)
-            ("\\(###\\)"                   #Xe11c)
-            ("\\(####\\)"                  #Xe11d)
-            ("\\(#(\\)"                    #Xe11e)
-            ("\\(#\\?\\)"                  #Xe11f)
-            ("\\(#_\\)"                    #Xe120)
-            ("\\(#_(\\)"                   #Xe121)
-            ("\\(\\.-\\)"                  #Xe122)
-            ("\\(\\.=\\)"                  #Xe123)
-            ("\\(\\.\\.\\)"                #Xe124)
-            ("\\(\\.\\.<\\)"               #Xe125)
-            ("\\(\\.\\.\\.\\)"             #Xe126)
-            ("\\(\\?=\\)"                  #Xe127)
-            ("\\(\\?\\?\\)"                #Xe128)
-            ("\\(;;\\)"                    #Xe129)
-            ("\\(/\\*\\)"                  #Xe12a)
-            ("\\(/\\*\\*\\)"               #Xe12b)
-            ("\\(/=\\)"                    #Xe12c)
-            ("\\(/==\\)"                   #Xe12d)
-            ("\\(/>\\)"                    #Xe12e)
-            ("\\(//\\)"                    #Xe12f)
-            ("\\(///\\)"                   #Xe130)
-            ("\\(&&\\)"                    #Xe131)
-            ("\\(||\\)"                    #Xe132)
-            ("\\(||=\\)"                   #Xe133)
-            ("[^|]\\(|=\\)"                #Xe134)
-            ("\\(|>\\)"                    #Xe135)
-            ("\\(\\^=\\)"                  #Xe136)
-            ("\\(\\$>\\)"                  #Xe137)
-            ("\\(\\+\\+\\)"                #Xe138)
-            ("\\(\\+\\+\\+\\)"             #Xe139)
-            ("\\(\\+>\\)"                  #Xe13a)
-            ("\\(=:=\\)"                   #Xe13b)
-            ("[^!/]\\(==\\)[^>]"           #Xe13c)
-            ("\\(===\\)"                   #Xe13d)
-            ("\\(==>\\)"                   #Xe13e)
-            ("[^=]\\(=>\\)"                #Xe13f)
-            ("\\(=>>\\)"                   #Xe140)
-            ("\\(<=\\)"                    #Xe141)
-            ("\\(=<<\\)"                   #Xe142)
-            ("\\(=/=\\)"                   #Xe143)
-            ("\\(>-\\)"                    #Xe144)
-            ("\\(>=\\)"                    #Xe145)
-            ("\\(>=>\\)"                   #Xe146)
-            ("[^-=]\\(>>\\)"               #Xe147)
-            ("\\(>>-\\)"                   #Xe148)
-            ("\\(>>=\\)"                   #Xe149)
-            ("\\(>>>\\)"                   #Xe14a)
-            ("\\(<\\*\\)"                  #Xe14b)
-            ("\\(<\\*>\\)"                 #Xe14c)
-            ("\\(<|\\)"                    #Xe14d)
-            ("\\(<|>\\)"                   #Xe14e)
-            ("\\(<\\$\\)"                  #Xe14f)
-            ("\\(<\\$>\\)"                 #Xe150)
-            ("\\(<!--\\)"                  #Xe151)
-            ("\\(<-\\)"                    #Xe152)
-            ("\\(<--\\)"                   #Xe153)
-            ("\\(<->\\)"                   #Xe154)
-            ("\\(<\\+\\)"                  #Xe155)
-            ("\\(<\\+>\\)"                 #Xe156)
-            ("\\(<=\\)"                    #Xe157)
-            ("\\(<==\\)"                   #Xe158)
-            ("\\(<=>\\)"                   #Xe159)
-            ("\\(<=<\\)"                   #Xe15a)
-            ("\\(<>\\)"                    #Xe15b)
-            ("[^-=]\\(<<\\)"               #Xe15c)
-            ("\\(<<-\\)"                   #Xe15d)
-            ("\\(<<=\\)"                   #Xe15e)
-            ("\\(<<<\\)"                   #Xe15f)
-            ("\\(<~\\)"                    #Xe160)
-            ("\\(<~~\\)"                   #Xe161)
-            ("\\(</\\)"                    #Xe162)
-            ("\\(</>\\)"                   #Xe163)
-            ("\\(~@\\)"                    #Xe164)
-            ("\\(~-\\)"                    #Xe165)
-            ("\\(~=\\)"                    #Xe166)
-            ("\\(~>\\)"                    #Xe167)
-            ("[^<]\\(~~\\)"                #Xe168)
-            ("\\(~~>\\)"                   #Xe169)
-            ("\\(%%\\)"                    #Xe16a)
-            ;;("\\(x\\)"                     #Xe16b)
-            ("[^:=]\\(:\\)[^:=]"           #Xe16c)
-            ("[^\\+<>]\\(\\+\\)[^\\+<>]"   #Xe16d)
-            ("[^\\*/<>]\\(\\*\\)[^\\*/<>]" #Xe16f))))
-(defun add-fira-code-symbol-keywords ()
-  (font-lock-add-keywords nil fira-code-font-lock-keywords-alist))
-(add-hook 'prog-mode-hook
-          #'add-fira-code-symbol-keywords)
-
 ;;; delete backword char if hit `\C-h`
 (keyboard-translate ?\C-h ?\C-?)
 
@@ -430,13 +303,13 @@
   (migemo-init))
 
 ;;; avy-migemo
-(use-package avy-migemo
-  :ensure t
-  :config
-  (require 'avy-migemo-e.g.ivy)
-  (require 'avy-migemo-e.g.swiper)
-  (bind-key "C-M-;" 'avy-migemo-goto-char-timer)
-  (avy-migemo-mode 1))
+;; (use-package avy-migemo
+;;   :ensure t
+;;   :config
+;;   (require 'avy-migemo-e.g.ivy)
+;;   (require 'avy-migemo-e.g.swiper)
+;;   (bind-key "C-M-;" 'avy-migemo-goto-char-timer)
+;;   (avy-migemo-mode 1))
 
 ;;; ddskk
 (use-package ddskk
@@ -543,20 +416,29 @@
   (setq indent-tabs-mode t)
   (setq tab-width 4)
   (setq gofmt-command "goimports")
-  :bind (:map go-mode-map
-              ("M-." . godef-jump))
   :mode ("\\.go$" . go-mode)
   :config
-  (add-hook 'before-save-hook #'gofmt-before-save))
+  (bind-keys :map go-mode-map
+             ("M-." . godef-jump)
+             ("M-," . pop-tag-mark))
+  (add-hook 'before-save-hook 'gofmt-before-save))
+(use-package go-eldoc
+  :ensure t
+  :config
+  (add-hook 'go-mode-hook 'go-eldoc-setup))
 (use-package company-go
   :ensure t
   :config
   (setq company-go-show-annotation t)
   (add-to-list 'company-backends 'company-go))
-;;; workaround
-(let ((govet (flycheck-checker-get 'go-vet 'command)))
-  (when (equal (cadr govet) "tool")
-    (setf (cdr govet) (cddr govet))))
+(use-package flycheck-gometalinter
+  :ensure t
+  :init
+  (setq flycheck-gometalinter-fast t)
+  (setq flycheck-gometalinter-test t)
+  :config
+  (flycheck-gometalinter-setup)
+  (add-hook 'go-mode-hook 'flycheck-mode))
 
 ;;; rust
 (use-package rust-mode
