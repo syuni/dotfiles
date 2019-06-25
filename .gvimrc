@@ -1,2 +1,3 @@
-set guifont=Monaco\ for\ Powerline:h14
-set guifontwide=Osaka:h14
+set guifont=Monaco\ Nerd\ Font:h14
+set guifontwide=Monaco\ Nerd\ Font:h14
+set transparency=10

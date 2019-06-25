@@ -61,6 +61,8 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(set-frame-parameter (selected-frame) 'alpha '(90 . 50))
+(add-to-list 'default-frame-alist '(alpha . (90 . 50)))
 
 ;;; unbind suspend frame
 (global-unset-key (kbd "C-z"))
@@ -162,13 +164,13 @@
 (use-package yasnippet
   :ensure t
   :init
-  (setq yas-snippet-dirs
-	'("~/Dropbox/snippets"
-	  "~/.emacs.d/plugins/yasnippet"))
+  (setq yas-snippet-dirs '("~/Dropbox/snippets"))
   :config
   (bind-key "C-x y n" 'yas-new-snippet yas-minor-mode-map)
   (bind-key "C-x y v" 'yas-visit-snippet-file yas-minor-mode-map)
   (yas-global-mode 1))
+(use-package yasnippet-snippets
+  :ensure t)
 (use-package ivy-yasnippet
   :ensure t
   :config
@@ -315,6 +317,9 @@
 (use-package ddskk
   :ensure t
   :bind (("C-x j" . skk-mode))
+  :hook (text-mode . (lambda ()
+		       (skk-mode)
+		       (skk-latin-mode-on)))
   :hook (prog-mode . (lambda ()
 		       (skk-mode)
 		       (skk-latin-mode-on)))
@@ -422,6 +427,10 @@
              ("M-." . godef-jump)
              ("M-," . pop-tag-mark))
   (add-hook 'before-save-hook 'gofmt-before-save))
+(use-package go-guru
+  :ensure t
+  :config
+  (go-guru-hl-identifier-mode))
 (use-package go-eldoc
   :ensure t
   :config

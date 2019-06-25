@@ -13,7 +13,7 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      '"Monaco Nerd Font", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      '"Monaco Nerd Font", "Menlo", "Monaco", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -136,7 +136,7 @@ module.exports = {
     },
 
     // for hyper-opacity
-    opacity: 0.95,
+    opacity: 0.9,
   },
 
   // a list of plugins to fetch and install from npm
