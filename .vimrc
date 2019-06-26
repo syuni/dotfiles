@@ -266,7 +266,7 @@ let g:LanguageClient_serverCommands={
   \ 'python': ['pyls'],
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'javascript.jsx': ['javascript-typescript-stdio'],
-  \ 'go': ['go-langserver','-func-snippet-enabled=0','-gocodecompletion=1','-format-tool','goimports','-lint-tool','gometalinter','-diagnostics=1'],
+  \ 'go': ['gopls'],
   \ 'haskell': ['hie-wrapper']
   \ }
 let g:LanguageClient_rootMarkers={
@@ -295,6 +295,7 @@ autocmd BufNewFile,BufRead *.hs setlocal tabstop=4 shiftwidth=4 omnifunc=Languag
 " ### Golang
 " language-settings
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 omnifunc=LanguageClient#complete
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
 " vim-go
 let g:go_auto_type_info=1
