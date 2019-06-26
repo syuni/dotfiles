@@ -12,9 +12,9 @@
 
 ;;; initialize
 (setq-default package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")))
+              '(("gnu" . "http://elpa.gnu.org/packages/")
+                ("melpa" . "http://melpa.org/packages/")
+                ("org" . "http://orgmode.org/elpa/")))
 
 ;;; straight
 (defvar bootstrap-version)
@@ -126,9 +126,9 @@
       '(("g" "GTD" entry
          (file+headline "~/Dropbox/org/gtd.org" "Inbox")
          "* TODO %?\n")
-	("n" "Note" entry
-	 (file+headline "~/Dropbox/org/notes.org" "Notes")
-	 "* %U\n%i%?\n")))
+        ("n" "Note" entry
+         (file+headline "~/Dropbox/org/notes.org" "Notes")
+         "* %U\n%i%?\n")))
 (setq org-agenda-files (list org-directory))
 (setq org-agenda-todo-ignore-with-date t)
 (setq org-agenda-start-on-weekday nil)
@@ -189,13 +189,13 @@
 
 ;;; ace-window
 (use-package ace-window
- :ensure t
- :config
- (global-set-key (kbd "M-o") 'ace-window)
- (global-set-key (kbd "C-M-o") 'ace-swap-window)
- (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
- (setq aw-dispatch-always t)
- (ace-window-display-mode))
+  :ensure t
+  :config
+  (global-set-key (kbd "M-o") 'ace-window)
+  (global-set-key (kbd "C-M-o") 'ace-swap-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-dispatch-always t)
+  (ace-window-display-mode))
 
 ;;; parrot
 (use-package parrot
@@ -318,11 +318,11 @@
   :ensure t
   :bind (("C-x j" . skk-mode))
   :hook (text-mode . (lambda ()
-		       (skk-mode)
-		       (skk-latin-mode-on)))
+                       (skk-mode)
+                       (skk-latin-mode-on)))
   :hook (prog-mode . (lambda ()
-		       (skk-mode)
-		       (skk-latin-mode-on)))
+                       (skk-mode)
+                       (skk-latin-mode-on)))
   :init
   (setq skk-user-directory "~/Dropbox/skk")
   (setq skk-server-host "localhost")
@@ -343,9 +343,7 @@
   :config
   (bind-key "C-j" 'skk-kakutei minibuffer-local-map)
   (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
-  (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
-  (add-to-list 'skk-completion-prog-list
-	       '(skk-comp-from-jisyo "~/Dropbox/skk/skk-jisyo.utf8")))
+  (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup))
 (require 'skk-study)
 (require 'skk-hint)
 
@@ -440,14 +438,9 @@
   :config
   (setq company-go-show-annotation t)
   (add-to-list 'company-backends 'company-go))
-(use-package flycheck-gometalinter
+(use-package flycheck-golangci-lint
   :ensure t
-  :init
-  (setq flycheck-gometalinter-fast t)
-  (setq flycheck-gometalinter-test t)
-  :config
-  (flycheck-gometalinter-setup)
-  (add-hook 'go-mode-hook 'flycheck-mode))
+  :hook (go-mode . flycheck-golangci-lint-setup))
 
 ;;; rust
 (use-package rust-mode
@@ -464,9 +457,9 @@
   :ensure t
   :init
   (add-hook 'rust-mode-hook
-	    '(lambda ()
-	       (flycheck-rust-setup)
-	       (flycheck-select-checker 'rust))))
+            '(lambda ()
+               (flycheck-rust-setup)
+               (flycheck-select-checker 'rust))))
 
 ;;; html/javascript
 (use-package web-mode
