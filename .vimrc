@@ -236,7 +236,7 @@ nnoremap <silent> <C-s> :BLines<CR>
 let g:ale_linters={
   \ 'javascript': ['eslint'],
   \ 'javascript.jsx': ['eslint'],
-  \ 'go': ['gometalinter'],
+  \ 'go': ['golangci-lint'],
   \ 'rust': ['rustc'],
   \ 'haskell': ['hlint'],
   \ 'python': ['flake8']

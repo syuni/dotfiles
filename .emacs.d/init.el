@@ -440,6 +440,8 @@
   (add-to-list 'company-backends 'company-go))
 (use-package flycheck-golangci-lint
   :ensure t
+  :init
+  (setq flycheck-golangci-lint-enable-all t)
   :hook (go-mode . flycheck-golangci-lint-setup))
 
 ;;; rust
