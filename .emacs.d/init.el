@@ -119,12 +119,12 @@
 (global-set-key (kbd "C-c q") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-capture-templates
-      '(("g" "GTD" entry
-         (file+headline "~/Dropbox/org/gtd.org" "Inbox")
+      '(("t" "TODO" entry
+         (file+headline "~/Dropbox/org/todo.org" "Tasks")
          "* TODO %?\n")
         ("n" "Note" entry
          (file+headline "~/Dropbox/org/notes.org" "Notes")
-         "* %U\n%i%?\n")))
+         "* %?\n%U\n%i\n")))
 (setq org-agenda-files (list org-directory))
 (setq org-agenda-todo-ignore-with-date t)
 (setq org-agenda-start-on-weekday nil)
@@ -142,7 +142,7 @@
 (global-set-key (kbd "C-M-^") '(lambda () (interactive)
                                  (show-org-buffer "notes.org")))
 (global-set-key (kbd "C-M-&") '(lambda () (interactive)
-                                 (show-org-buffer "gtd.org")))
+                                 (show-org-buffer "todo.org")))
 
 
 
