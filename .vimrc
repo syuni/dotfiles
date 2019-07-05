@@ -60,7 +60,7 @@ set pumheight=10
 " share with clipboard
 set clipboard+=unnamed
 " close preview when complete done
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " always show signcolumn
 set signcolumn=yes
 " delete backword
@@ -82,13 +82,7 @@ set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 " ### general settings (keys)
-let mapleader='\<Space>'
-
-" wrap move
-nnoremap j gj
-nnoremap k gk
-nnoremap <down> gj
-nnoremap <up> gk
+let mapleader="\<Space>"
 
 " change buffer
 nnoremap <silent> [b :bprevious<CR>
@@ -96,12 +90,112 @@ nnoremap <silent> ]b :bnext<CR>
 " change tab
 nnoremap <silent> [t :tprevious<CR>
 nnoremap <silent> ]t :tnext<CR>
-" change quickfix
-nnoremap <silent> [q :cprevious<CR>
-nnoremap <silent> ]q :cnext<CR>
-" change loclist
-nnoremap <silent> [l :lprevious<CR>
-nnoremap <silent> ]l :lnext<CR>
+
+" ### coc
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " ### packages
 " dein Scripts-----------------------------
@@ -115,13 +209,6 @@ if dein#load_state('~/.cache/dein')
   " setup
   call dein#begin('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " deoplete
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
 
   " icons
   call dein#add('ryanoasis/vim-devicons')
@@ -156,12 +243,12 @@ if dein#load_state('~/.cache/dein')
   " syntaxcheck
   call dein#add('w0rp/ale')
 
+  " completion (lsp)
+  call dein#add('neoclide/coc.nvim', { 'build': './install.sh nightly' })
+
   " markdown
   call dein#add('godlygeek/tabular')
   call dein#add('plasticboy/vim-markdown')
-
-  " lsp-client
-  call dein#add('autozimu/LanguageClient-neovim', {'build': 'bash install.sh'})
 
   " language pack
   call dein#add('sheerun/vim-polyglot')
@@ -202,12 +289,6 @@ syntax on
 colorscheme onedark
 
 " ### Packages
-" deoplete.vim
-let g:deoplete#enable_at_startup=1
-let g:deoplete#auto_complete_delay=0
-let g:deoplete#auto_complete_start_length=1
-let g:deoplete#enable_smart_case=1
-
 " powerline
 set laststatus=2
 let g:airline_powerline_fonts=1
@@ -231,6 +312,12 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview(),
   \   <bang>0)
 nnoremap <silent> <C-s> :BLines<CR>
+nnoremap <silent> <C-x><C-b> :Buffers<CR>
+nnoremap <silent> <C-x><C-w> :Windows<CR>
+nnoremap <silent> <C-x><C-f> :FZF<CR>
+nnoremap <silent> <C-x><C-g> :Rg<CR>
+nnoremap <silent> <C-x><C-]> :BTags<CR>
+nnoremap <silent> <C-x><C-s> :Snippets<CR>
 
 " ale
 let g:ale_linters={
@@ -247,39 +334,23 @@ let g:ale_fixers={
   \ 'go': ['goimports'],
   \ 'rust': ['rustfmt'],
   \ 'haskell': ['stylish-haskell'],
-  \ 'python': ['yapf']
+  \ 'python': ['black', 'isort']
   \ }
 let g:ale_linters_explicit=1
 let g:ale_sign_column_always=1
 let g:ale_fix_on_save=1
 let g:ale_completion_enabled=1
-let g:ale_set_loclist=0
-let g:ale_set_quickfix=1
 let g:ale_echo_msg_error_str='E'
 let g:ale_echo_msg_warning_str='W'
 let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
-
-" languageclient-neovim
-let g:LanguageClient_autoStart=1
-let g:LanguageClient_serverCommands={
-  \ 'rust': ['rls'],
-  \ 'python': ['pyls'],
-  \ 'javascript': ['javascript-typescript-stdio'],
-  \ 'javascript.jsx': ['javascript-typescript-stdio'],
-  \ 'go': ['gopls'],
-  \ 'haskell': ['hie-wrapper']
-  \ }
-let g:LanguageClient_rootMarkers={
-  \ 'haskell': ['*.cabal','stack.yaml']
-  \ }
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+let g:ale_set_loclist=0
+let g:ale_set_quickfix=0
+let g:ale_open_list=0
+let g:ale_keep_list_window_open=0
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " ### Markdown
-" language-settings
-autocmd BufNewFile,BufRead *.md setlocal tabstop=4 shiftwidth=4
-
 " vim-markdown
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_toc_autofit=1
@@ -288,15 +359,7 @@ let g:vim_markdown_frontmatter=1
 let g:vim_markdown_toml_frontmatter=1
 let g:vim_markdown_json_frontmatter=1
 
-" ### Haskell
-" language-settings
-autocmd BufNewFile,BufRead *.hs setlocal tabstop=4 shiftwidth=4 omnifunc=LanguageClient#complete
-
 " ### Golang
-" language-settings
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 omnifunc=LanguageClient#complete
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-
 " vim-go
 let g:go_auto_type_info=1
 let g:go_highlight_types=1
@@ -306,21 +369,16 @@ let g:go_highlight_function_calls=1
 let g:go_highlight_operators=1
 let g:go_highlight_extra_types=1
 let g:go_highlight_build_constraints=1
-let g:go_fmt_command="goimports"
-let g:go_metalinter_autosave=1
+let g:go_metalinter_autosave=0
 let g:go_gocode_propose_builtins=0
+let g:go_def_mapping_enabled=0
+let g:go_doc_keywordprg_enabled=0
 
 " ### Rust
-" language-settings
-autocmd BufNewFile,BufRead *.rs setlocal tabstop=4 shiftwidth=4 omnifunc=LanguageClient#complete
-
 " rust.vim
 let g:rustfmt_autosave=1 
 
 " ### Javascript
-" language-settings
-autocmd BufNewFile,BufRead *.js,*.jsx setlocal tabstop=2 shiftwidth=2 omnifunc=LanguageClient#complete
-
 " tigris.nvim
 let g:tigris#enabled=1
 let g:tigris#on_the_fly_enabled=1

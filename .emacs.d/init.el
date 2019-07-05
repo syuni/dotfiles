@@ -70,6 +70,7 @@
 
 ;;; text editing
 (show-paren-mode t)
+(global-hl-line-mode)
 (setq-default calendar-week-start-day 1)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -105,11 +106,6 @@
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
 (global-set-key (kbd "C-c l") 'windmove-right)
-
-;;; winner-mode
-(winner-mode 1)
-(global-set-key (kbd "C-z") 'winner-undo)
-(global-set-key (kbd "C-M-z") 'winner-redo)
 
 ;;; org-mode
 (setq org-startup-indented t)
@@ -155,10 +151,12 @@
 ;;; exec path
 (use-package exec-path-from-shell
   :ensure t
+  :init
+  (setq exec-path-from-shell-shell-name "/bin/bash")
   :config
   (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
-  (exec-path-from-shell-copy-envs '("GOPATH")))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-envs '("GOROOT" "GOPATH"))))
 
 ;;; yasnippet
 (use-package yasnippet
@@ -227,6 +225,8 @@
 ;;; redo+
 (require 'redo+)
 (global-set-key (kbd "C-M-_") 'redo)
+(global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-M-z") 'redo)
 
 ;;; gtags
 (use-package counsel-gtags
@@ -320,9 +320,6 @@
   :hook (text-mode . (lambda ()
                        (skk-mode)
                        (skk-latin-mode-on)))
-  :hook (prog-mode . (lambda ()
-                       (skk-mode)
-                       (skk-latin-mode-on)))
   :init
   (setq skk-user-directory "~/Dropbox/skk")
   (setq skk-server-host "localhost")
@@ -414,8 +411,6 @@
 (use-package go-mode
   :ensure t
   :init
-  (add-to-list 'exec-path (expand-file-name "/usr/local/bin/go"))
-  (add-to-list 'exec-path (expand-file-name "~/go/bin"))
   (setq indent-tabs-mode t)
   (setq tab-width 4)
   (setq gofmt-command "goimports")
