@@ -1,3 +1,5 @@
+autocmd!
+
 " ### general settings (file)
 " charset
 scriptencoding utf-8
@@ -59,8 +61,6 @@ set smartindent
 set pumheight=10
 " share with clipboard
 set clipboard+=unnamed
-" close preview when complete done
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " always show signcolumn
 set signcolumn=yes
 " delete backword
@@ -83,6 +83,10 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 " ### general settings (keys)
 let mapleader="\<Space>"
+nnoremap [coc] <Nop>
+nmap <Leader>c [coc]
+nnoremap [fzf] <Nop>
+nmap <Leader>f [fzf]
 
 " change buffer
 nnoremap <silent> [b :bprevious<CR>
@@ -139,11 +143,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap [coc]rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <space>f <Plug>(coc-format-selected)
+nmap [coc]f <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -153,19 +157,8 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+nmap [coc]qf  <Plug>(coc-fix-current)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -181,21 +174,21 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> [coc]a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> [coc]e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> [coc]c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> [coc]o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> [coc]s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> [coc]j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> [coc]k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
 
 " ### packages
 " dein Scripts-----------------------------
@@ -286,7 +279,6 @@ if (empty($TMUX))
 endif
 
 syntax on
-colorscheme onedark
 
 " ### Packages
 " powerline
@@ -304,7 +296,7 @@ nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
 " fzf
-let g:fzf_layout={ 'down': '40%' }
+let g:fzf_layout={ 'down': '80%' }
 let g:fzf_buffers_jump=1
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -312,12 +304,12 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview(),
   \   <bang>0)
 nnoremap <silent> <C-s> :BLines<CR>
-nnoremap <silent> <C-x><C-b> :Buffers<CR>
-nnoremap <silent> <C-x><C-w> :Windows<CR>
-nnoremap <silent> <C-x><C-f> :FZF<CR>
-nnoremap <silent> <C-x><C-g> :Rg<CR>
-nnoremap <silent> <C-x><C-]> :BTags<CR>
-nnoremap <silent> <C-x><C-s> :Snippets<CR>
+nnoremap <silent> [fzf]b :Buffers<CR>
+nnoremap <silent> [fzf]w :Windows<CR>
+nnoremap <silent> [fzf]f :FZF<CR>
+nnoremap <silent> [fzf]rg :Rg<CR>
+nnoremap <silent> [fzf]r :History<CR>
+nnoremap <silent> [fzf]s :Snippets<CR>
 
 " ale
 let g:ale_linters={
@@ -383,4 +375,3 @@ let g:rustfmt_autosave=1
 let g:tigris#enabled=1
 let g:tigris#on_the_fly_enabled=1
 let g:tigris#delay=300
-
