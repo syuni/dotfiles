@@ -95,7 +95,173 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [t :tprevious<CR>
 nnoremap <silent> ]t :tnext<CR>
 
-" ### coc
+" ### packages
+" dein Scripts-----------------------------
+if &compatible
+  set nocompatible
+endif
+
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+  " setup
+  call dein#begin('~/.cache/dein')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+  " icons
+  call dein#add('ryanoasis/vim-devicons')
+
+  " color schema
+  call dein#add('joshdick/onedark.vim')
+
+  " nerdtree
+  call dein#add('scrooloose/nerdtree')
+
+  " airline
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
+
+  " indent
+  call dein#add('Yggdroot/indentLine')
+
+  " fzf
+  call dein#add('junegunn/fzf', { 'build': './install --bin', 'merged': 0 })
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+
+  " formatter
+  call dein#add('editorconfig/editorconfig-vim')
+
+  " refactoring
+  call dein#add('tpope/vim-surround')
+
+  " git
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('airblade/vim-gitgutter')
+
+  " syntaxcheck
+  call dein#add('w0rp/ale')
+
+  " completion (lsp)
+  call dein#add('neoclide/coc.nvim', { 'build': './install.sh nightly' })
+
+  " markdown
+  call dein#add('godlygeek/tabular')
+  call dein#add('plasticboy/vim-markdown')
+
+  " language pack
+  call dein#add('sheerun/vim-polyglot')
+
+  " javascript
+  call dein#add('billyvg/tigris.nvim', { 'build': './install.sh' })
+
+  " haskell
+  call dein#add('dag/vim2hs')
+
+  " golang
+  call dein#add('fatih/vim-go')
+
+  " rust
+  call dein#add('rust-lang/rust.vim')
+
+  call dein#end()
+  call dein#save_state()
+endif
+" End dein Scripts-------------------------
+
+filetype plugin indent on
+
+if dein#check_install()
+  call dein#install()
+endif
+
+if (empty($TMUX))
+  if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+syntax on
+colorscheme onedark
+
+if !has('gui_running')
+  augroup TransparentBG
+    autocmd!
+    autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight LineNr ctermbg=none
+    autocmd VimEnter,Colorscheme * highlight Folded ctermbg=none
+    autocmd VimEnter,Colorscheme * highlight EndOfBuffer ctermbg=none 
+    autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
+  augroup END
+endif
+
+" ### Packages
+" powerline
+set laststatus=2
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_idx_mode=1
+let g:airline#extensions#whitespace#mixed_indent_algo=1
+
+" vim-devicons
+let g:WebDevIconsUnicodeDecorateFolderNodes=1
+
+" nerdtree
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+
+" fzf
+let g:fzf_layout={ 'down': '80%' }
+let g:fzf_buffers_jump=1
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(),
+  \   <bang>0)
+nnoremap <silent> <C-s> :BLines<CR>
+nnoremap <silent> [fzf]b :Buffers<CR>
+nnoremap <silent> [fzf]w :Windows<CR>
+nnoremap <silent> [fzf]f :FZF<CR>
+nnoremap <silent> [fzf]rg :Rg<CR>
+nnoremap <silent> [fzf]r :History<CR>
+nnoremap <silent> [fzf]s :Snippets<CR>
+
+" ale
+let g:ale_linters={
+  \ 'javascript': ['eslint'],
+  \ 'javascript.jsx': ['eslint'],
+  \ 'go': ['golangci-lint'],
+  \ 'rust': ['rustc'],
+  \ 'haskell': ['hlint'],
+  \ 'python': ['flake8']
+  \ }
+let g:ale_fixers={
+  \ 'javascript': ['eslint'],
+  \ 'javascript.jsx': ['eslint'],
+  \ 'go': ['goimports'],
+  \ 'rust': ['rustfmt'],
+  \ 'haskell': ['stylish-haskell'],
+  \ 'python': ['black', 'isort']
+  \ }
+let g:ale_linters_explicit=1
+let g:ale_sign_column_always=1
+let g:ale_fix_on_save=1
+let g:ale_completion_enabled=1
+let g:ale_echo_msg_error_str='E'
+let g:ale_echo_msg_warning_str='W'
+let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
+let g:ale_set_loclist=0
+let g:ale_set_quickfix=0
+let g:ale_open_list=0
+let g:ale_keep_list_window_open=0
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" coc
 set nowritebackup
 set cmdheight=2
 set updatetime=300
@@ -189,158 +355,6 @@ nnoremap <silent> [coc]j  :<C-u>CocNext<CR>
 nnoremap <silent> [coc]k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
-
-" ### packages
-" dein Scripts-----------------------------
-if &compatible
-  set nocompatible
-endif
-
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.cache/dein')
-  " setup
-  call dein#begin('~/.cache/dein')
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " icons
-  call dein#add('ryanoasis/vim-devicons')
-
-  " color schema
-  call dein#add('joshdick/onedark.vim')
-
-  " nerdtree
-  call dein#add('scrooloose/nerdtree')
-
-  " airline
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
-
-  " indent
-  call dein#add('Yggdroot/indentLine')
-
-  " fzf
-  call dein#add('junegunn/fzf', { 'build': './install --bin', 'merged': 0 })
-  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-
-  " formatter
-  call dein#add('editorconfig/editorconfig-vim')
-
-  " refactoring
-  call dein#add('tpope/vim-surround')
-
-  " git
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('airblade/vim-gitgutter')
-
-  " syntaxcheck
-  call dein#add('w0rp/ale')
-
-  " completion (lsp)
-  call dein#add('neoclide/coc.nvim', { 'build': './install.sh nightly' })
-
-  " markdown
-  call dein#add('godlygeek/tabular')
-  call dein#add('plasticboy/vim-markdown')
-
-  " language pack
-  call dein#add('sheerun/vim-polyglot')
-
-  " javascript
-  call dein#add('billyvg/tigris.nvim', { 'build': './install.sh' })
-
-  " haskell
-  call dein#add('dag/vim2hs')
-
-  " golang
-  call dein#add('fatih/vim-go')
-
-  " rust
-  call dein#add('rust-lang/rust.vim')
-
-  call dein#end()
-  call dein#save_state()
-endif
-" End dein Scripts-------------------------
-
-filetype plugin indent on
-
-if dein#check_install()
-  call dein#install()
-endif
-
-if (empty($TMUX))
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-
-syntax on
-
-" ### Packages
-" powerline
-set laststatus=2
-let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#buffer_idx_mode=1
-let g:airline#extensions#whitespace#mixed_indent_algo=1
-
-" vim-devicons
-let g:WebDevIconsUnicodeDecorateFolderNodes=1
-
-" nerdtree
-nnoremap <silent> <C-n> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
-
-" fzf
-let g:fzf_layout={ 'down': '80%' }
-let g:fzf_buffers_jump=1
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(),
-  \   <bang>0)
-nnoremap <silent> <C-s> :BLines<CR>
-nnoremap <silent> [fzf]b :Buffers<CR>
-nnoremap <silent> [fzf]w :Windows<CR>
-nnoremap <silent> [fzf]f :FZF<CR>
-nnoremap <silent> [fzf]rg :Rg<CR>
-nnoremap <silent> [fzf]r :History<CR>
-nnoremap <silent> [fzf]s :Snippets<CR>
-
-" ale
-let g:ale_linters={
-  \ 'javascript': ['eslint'],
-  \ 'javascript.jsx': ['eslint'],
-  \ 'go': ['golangci-lint'],
-  \ 'rust': ['rustc'],
-  \ 'haskell': ['hlint'],
-  \ 'python': ['flake8']
-  \ }
-let g:ale_fixers={
-  \ 'javascript': ['eslint'],
-  \ 'javascript.jsx': ['eslint'],
-  \ 'go': ['goimports'],
-  \ 'rust': ['rustfmt'],
-  \ 'haskell': ['stylish-haskell'],
-  \ 'python': ['black', 'isort']
-  \ }
-let g:ale_linters_explicit=1
-let g:ale_sign_column_always=1
-let g:ale_fix_on_save=1
-let g:ale_completion_enabled=1
-let g:ale_echo_msg_error_str='E'
-let g:ale_echo_msg_warning_str='W'
-let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
-let g:ale_set_loclist=0
-let g:ale_set_quickfix=0
-let g:ale_open_list=0
-let g:ale_keep_list_window_open=0
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " ### Markdown
 " vim-markdown
