@@ -87,6 +87,8 @@ nnoremap [coc] <Nop>
 nmap <Leader>c [coc]
 nnoremap [fzf] <Nop>
 nmap <Leader>f [fzf]
+nnoremap [ale] <Nop>
+nmap <Leader>a [ale]
 
 " change buffer
 nnoremap <silent> [b :bprevious<CR>
@@ -260,6 +262,7 @@ let g:ale_open_list=0
 let g:ale_keep_list_window_open=0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
 set nowritebackup
@@ -310,10 +313,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap [coc]rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <space>f <Plug>(coc-format-selected)
-nmap [coc]f <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
