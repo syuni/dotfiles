@@ -237,7 +237,7 @@ let g:ale_linters={
   \ 'javascript': ['eslint'],
   \ 'javascript.jsx': ['eslint'],
   \ 'go': ['golangci-lint'],
-  \ 'rust': ['rustc'],
+  \ 'rust': ['rls', 'cargo', 'rustc'],
   \ 'haskell': ['hlint'],
   \ 'python': ['flake8']
   \ }
@@ -380,6 +380,8 @@ let g:go_def_mapping_enabled=0
 let g:go_doc_keywordprg_enabled=0
 
 " ### Rust
+" ale
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 " rust.vim
 let g:rustfmt_autosave=1 
 
