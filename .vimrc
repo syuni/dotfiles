@@ -208,10 +208,17 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
+  \ 'colorscheme': 'one',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+  \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+  \              [ 'lineinfo'],
+  \              [ 'percent' ],
+  \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+  \ },
+  \ 'component': {
+  \   'charvaluehex': '0x%B'
   \ },
   \ 'component_function': {
   \   'gitbranch': 'fugitive#head'
@@ -229,7 +236,12 @@ let g:lightline.component_type = {
   \     'linter_errors': 'error',
   \     'linter_ok': 'left',
   \ }
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+let g:lightline.active = { 'right': [
+  \ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+  \ [ 'lineinfo'],
+  \ [ 'percent' ],
+  \ [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+  \ }
 
 " vim-devicons
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
