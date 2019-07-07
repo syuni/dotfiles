@@ -119,9 +119,9 @@ if dein#load_state('~/.cache/dein')
   " nerdtree
   call dein#add('scrooloose/nerdtree')
 
-  " airline
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
+  " lightline
+  call dein#add('itchyny/lightline.vim')
+  call dein#add('maximbaz/lightline-ale')
 
   " indent
   call dein#add('Yggdroot/indentLine')
@@ -202,12 +202,34 @@ if !has('gui_running')
 endif
 
 " ### Packages
-" powerline
+" " light powerline
 set laststatus=2
-let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#buffer_idx_mode=1
-let g:airline#extensions#whitespace#mixed_indent_algo=1
+if !has('gui_running')
+  set t_Co=256
+endif
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'fugitive#head'
+  \ },
+  \ }
+let g:lightline.component_expand = {
+  \  'linter_checking': 'lightline#ale#checking',
+  \  'linter_warnings': 'lightline#ale#warnings',
+  \  'linter_errors': 'lightline#ale#errors',
+  \  'linter_ok': 'lightline#ale#ok',
+  \ }
+let g:lightline.component_type = {
+  \     'linter_checking': 'left',
+  \     'linter_warnings': 'warning',
+  \     'linter_errors': 'error',
+  \     'linter_ok': 'left',
+  \ }
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 " vim-devicons
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
