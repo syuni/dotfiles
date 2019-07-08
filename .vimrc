@@ -68,7 +68,10 @@ set whichwrap=b,s,h,l,<,>,[,],~
 set backspace=indent,eol,start
 " show break mark when word is wrapped
 set showbreak=↪
+" leave from insert mode by `jj`
 inoremap <silent> jj <ESC>
+" yank from current column to end of line
+nnoremap <silent> Y y$
 
 " ### general settings (search)
 " ignore uppercase and lowercase
