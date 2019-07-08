@@ -66,6 +66,9 @@ set signcolumn=yes
 " delete backword
 set whichwrap=b,s,h,l,<,>,[,],~
 set backspace=indent,eol,start
+" show break mark when word is wrapped
+set showbreak=↪
+inoremap <silent> jj <ESC>
 
 " ### general settings (search)
 " ignore uppercase and lowercase
@@ -84,7 +87,7 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 " ### general settings (keys)
 let mapleader="\<Space>"
 nnoremap [coc] <Nop>
-nmap <Leader>c [coc]
+nmap <Leader>q [coc]
 nnoremap [fzf] <Nop>
 nmap <Leader>f [fzf]
 nnoremap [ale] <Nop>
@@ -125,6 +128,9 @@ if dein#load_state('~/.cache/dein')
 
   " indent
   call dein#add('Yggdroot/indentLine')
+
+  " comment
+  call dein#add('scrooloose/nerdcommenter')
 
   " fzf
   call dein#add('junegunn/fzf', { 'build': './install --bin', 'merged': 0 })
@@ -202,7 +208,11 @@ if !has('gui_running')
 endif
 
 " ### Packages
-" " light powerline
+" lightline
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_warnings = "\uf071"
+let g:lightline#ale#indicator_errors = "\uf05e"
+let g:lightline#ale#indicator_ok = "\uf00c"
 set laststatus=2
 if !has('gui_running')
   set t_Co=256
@@ -223,6 +233,8 @@ let g:lightline = {
   \ 'component_function': {
   \   'gitbranch': 'fugitive#head'
   \ },
+  \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+  \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
   \ }
 let g:lightline.component_expand = {
   \  'linter_checking': 'lightline#ale#checking',
@@ -236,12 +248,13 @@ let g:lightline.component_type = {
   \     'linter_errors': 'error',
   \     'linter_ok': 'left',
   \ }
-let g:lightline.active = { 'right': [
-  \ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-  \ [ 'lineinfo'],
-  \ [ 'percent' ],
-  \ [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
-  \ }
+
+" indentLine
+let g:indentLine_enabled=1
+
+" nerdcommenter
+let g:NERDSpaceDelims=1
+let g:NERDDefaultAlign='left'
 
 " vim-devicons
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
@@ -290,7 +303,7 @@ let g:ale_completion_enabled=1
 let g:ale_echo_msg_error_str='E'
 let g:ale_echo_msg_warning_str='W'
 let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
-let g:ale_set_loclist=0
+let g:ale_set_loclist=1
 let g:ale_set_quickfix=0
 let g:ale_open_list=0
 let g:ale_keep_list_window_open=0
@@ -399,6 +412,7 @@ let g:vim_markdown_toml_frontmatter=1
 let g:vim_markdown_json_frontmatter=1
 
 " ### Golang
+au BufNewFile,BufRead *.go setl sw=4 ts=4 sts=4 noet
 " vim-go
 let g:go_auto_type_info=1
 let g:go_highlight_types=1
@@ -424,3 +438,4 @@ let g:rustfmt_autosave=1
 let g:tigris#enabled=1
 let g:tigris#on_the_fly_enabled=1
 let g:tigris#delay=300
+

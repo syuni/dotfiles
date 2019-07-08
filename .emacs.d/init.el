@@ -88,7 +88,7 @@
 
 ;;; fonts
 (set-face-attribute 'default nil
-                    :family "Monaco Nerd Font"
+                    :family "Hack Nerd Font"
                     :height 140)
 (set-fontset-font nil 'japanese-jisx0208
                   (font-spec :family "Osaka"))

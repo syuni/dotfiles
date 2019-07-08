@@ -1,6 +1,9 @@
 {
   "suggest.noselect":false,
   "suggest.preferCompleteThanJumpPlaceholder":true,
+  "suggest.enablePreview": true,
+  "coc.preferences.diagnostic.displayByAle": true,
+  "coc.preferences.codeLens.enable": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -57,3 +60,4 @@
     }
   }
 }
+

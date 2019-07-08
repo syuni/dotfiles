@@ -1,4 +1,4 @@
-set guifont=Monaco\ Nerd\ Font:h14
-set guifontwide=Monaco\ Nerd\ Font:h14
+set guifont=Hack\ Nerd\ Font:h14
+set guifontwide=Hack\ Nerd\ Font:h14
 set transparency=10
 colorscheme onedark
