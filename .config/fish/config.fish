@@ -37,6 +37,10 @@ set -x PIPENV_VENV_IN_PROJECT true
 # binutils
 set -g fish_user_paths "/usr/local/opt/binutils/bin" $fish_user_paths
 
+if [ -e ~/.dir_colors ]
+  eval (dircolors -c ~/.dir_colors)
+end
+
 # aliases
 if test -x (which colordiff)
   alias diff="colordiff"

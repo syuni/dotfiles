@@ -121,6 +121,7 @@ if dein#load_state('~/.cache/dein')
 
   " color schema
   call dein#add('joshdick/onedark.vim')
+  call dein#add('arcticicestudio/nord-vim')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -195,7 +196,8 @@ if (empty($TMUX))
 endif
 
 syntax on
-colorscheme onedark
+" colorscheme onedark
+colorscheme nord
 
 if !has('gui_running')
   augroup TransparentBG
@@ -221,7 +223,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-  \ 'colorscheme': 'one',
+  \ 'colorscheme': 'nord',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],

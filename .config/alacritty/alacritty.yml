@@ -108,7 +108,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    family: Hack Nerd Font
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -119,7 +119,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Hack Nerd Font
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -130,13 +130,13 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Hack Nerd Font
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Italic
 
   # Point size
-  size: 14.0
+  size: 16.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -170,36 +170,63 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (One Dark)
+# Colors (Nord)
 colors:
-  # Default colors
   primary:
-    background: '0x282c34'
-    foreground: '0xabb2bf'
-
-  # Normal colors
+    background: '0x2E3440'
+    foreground: '0xD8DEE9'
+  cursor:
+    text: '0x2E3440'
+    cursor: '0xD8DEE9'
   normal:
-    # NOTE: Use '0x131613' for the `black` color if you'd like to see
-    # black text on the background.
-    black:   '0x282c34'
-    red:     '0xe06c75'
-    green:   '0x98c379'
-    yellow:  '0xd19a66'
-    blue:    '0x61afef'
-    magenta: '0xc678dd'
-    cyan:    '0x56b6c2'
-    white:   '0xabb2bf'
-
-  # Bright colors
+    black: '0x3B4252'
+    red: '0xBF616A'
+    green: '0xA3BE8C'
+    yellow: '0xEBCB8B'
+    blue: '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan: '0x88C0D0'
+    white: '0xE5E9F0'
   bright:
-    black:   '0x5c6370'
-    red:     '0xe06c75'
-    green:   '0x98c379'
-    yellow:  '0xd19a66'
-    blue:    '0x61afef'
-    magenta: '0xc678dd'
-    cyan:    '0x56b6c2'
-    white:   '0xffffff'
+    black: '0x4C566A'
+    red: '0xBF616A'
+    green: '0xA3BE8C'
+    yellow: '0xEBCB8B'
+    blue: '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan: '0x8FBCBB'
+    white: '0xECEFF4'
+
+# # Colors (One Dark)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x282c34'
+#     foreground: '0xabb2bf'
+# 
+#   # Normal colors
+#   normal:
+#     # NOTE: Use '0x131613' for the `black` color if you'd like to see
+#     # black text on the background.
+#     black:   '0x282c34'
+#     red:     '0xe06c75'
+#     green:   '0x98c379'
+#     yellow:  '0xd19a66'
+#     blue:    '0x61afef'
+#     magenta: '0xc678dd'
+#     cyan:    '0x56b6c2'
+#     white:   '0xabb2bf'
+# 
+#   # Bright colors
+#   bright:
+#     black:   '0x5c6370'
+#     red:     '0xe06c75'
+#     green:   '0x98c379'
+#     yellow:  '0xd19a66'
+#     blue:    '0x61afef'
+#     magenta: '0xc678dd'
+#     cyan:    '0x56b6c2'
+#     white:   '0xffffff'
 
 # # Colors (Tomorrow Night Bright)
 # colors:
