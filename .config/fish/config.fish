@@ -34,12 +34,9 @@ set -x PATH $HOME/.cargo/bin $PATH
 eval (pyenv init - | source)
 set -x PIPENV_VENV_IN_PROJECT true
 
-# binutils
+# fish_user_paths
 set -g fish_user_paths "/usr/local/opt/binutils/bin" $fish_user_paths
-
-if [ -e ~/.dir_colors ]
-  eval (dircolors -c ~/.dir_colors)
-end
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 
 # aliases
 if test -x (which colordiff)

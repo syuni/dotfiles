@@ -61,8 +61,8 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(set-frame-parameter (selected-frame) 'alpha '(90 . 50))
-(add-to-list 'default-frame-alist '(alpha . (90 . 50)))
+(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
+(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 
 ;;; unbind suspend frame
 (global-unset-key (kbd "C-z"))
@@ -179,11 +179,10 @@
   :ensure t)
 
 ;;; color theme
-(use-package zerodark-theme
+(use-package nord-theme
   :ensure t
   :config
-  (load-theme 'zerodark t)
-  (zerodark-setup-modeline-format))
+  (load-theme 'nord t))
 
 ;;; ace-window
 (use-package ace-window
