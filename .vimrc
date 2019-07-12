@@ -95,13 +95,8 @@ nnoremap [fzf] <Nop>
 nmap <Leader>f [fzf]
 nnoremap [ale] <Nop>
 nmap <Leader>a [ale]
-
-" change buffer
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-" change tab
-nnoremap <silent> [t :tprevious<CR>
-nnoremap <silent> ]t :tnext<CR>
+nnoremap [buf] <Nop>
+nmap <Leader>b [buf]
 
 " ### packages
 " dein Scripts-----------------------------
@@ -129,6 +124,9 @@ if dein#load_state('~/.cache/dein')
   " lightline
   call dein#add('itchyny/lightline.vim')
   call dein#add('maximbaz/lightline-ale')
+
+  " buffer
+  call dein#add('moll/vim-bbye')
 
   " indent
   call dein#add('Yggdroot/indentLine')
@@ -253,6 +251,12 @@ let g:lightline.component_type = {
   \     'linter_errors': 'error',
   \     'linter_ok': 'left',
   \ }
+
+" buffer
+nnoremap <silent> [buf]d :Bdelete<CR>
+nnoremap <silent> [buf]D :bufdo :Bdelete<CR>
+nnoremap <silent> [buf]p :bprevious<CR>
+nnoremap <silent> [buf]n :bnext<CR>
 
 " indentLine
 let g:indentLine_enabled=1
