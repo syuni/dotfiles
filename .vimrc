@@ -328,6 +328,8 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-yaml']
+
 set nowritebackup
 set cmdheight=2
 set updatetime=300
