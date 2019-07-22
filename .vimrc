@@ -90,7 +90,7 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 " ### general settings (keys)
 let mapleader="\<Space>"
 nnoremap [coc] <Nop>
-nmap <Leader>q [coc]
+nmap <Leader>i [coc]
 nnoremap [fzf] <Nop>
 nmap <Leader>f [fzf]
 nnoremap [ale] <Nop>
@@ -117,6 +117,7 @@ if dein#load_state('~/.cache/dein')
   " color schema
   call dein#add('joshdick/onedark.vim')
   call dein#add('arcticicestudio/nord-vim')
+  call dein#add('altercation/vim-colors-solarized')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -124,6 +125,9 @@ if dein#load_state('~/.cache/dein')
   " lightline
   call dein#add('itchyny/lightline.vim')
   call dein#add('maximbaz/lightline-ale')
+
+  " quickfix/location-list
+  call dein#add('Valloric/ListToggle')
 
   " buffer
   call dein#add('moll/vim-bbye')
@@ -195,7 +199,9 @@ endif
 
 syntax on
 " colorscheme onedark
-colorscheme nord
+" colorscheme nord
+set background=dark
+colorscheme solarized
 
 if !has('gui_running')
   augroup TransparentBG
@@ -221,7 +227,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-  \ 'colorscheme': 'nord',
+  \ 'colorscheme': 'solarized',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -293,7 +299,7 @@ let g:ale_linters={
   \ 'javascript': ['eslint'],
   \ 'javascript.jsx': ['eslint'],
   \ 'go': ['golangci-lint'],
-  \ 'rust': ['rls', 'cargo', 'rustc'],
+  \ 'rust': ['cargo'],
   \ 'haskell': ['hlint'],
   \ 'python': ['flake8']
   \ }
@@ -308,7 +314,7 @@ let g:ale_fixers={
 let g:ale_linters_explicit=1
 let g:ale_sign_column_always=1
 let g:ale_fix_on_save=1
-let g:ale_completion_enabled=1
+let g:ale_completion_enabled=0
 let g:ale_echo_msg_error_str='E'
 let g:ale_echo_msg_warning_str='W'
 let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
@@ -316,6 +322,7 @@ let g:ale_set_loclist=1
 let g:ale_set_quickfix=0
 let g:ale_open_list=0
 let g:ale_keep_list_window_open=0
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
@@ -425,12 +432,6 @@ let g:go_metalinter_autosave=0
 let g:go_gocode_propose_builtins=0
 let g:go_def_mapping_enabled=0
 let g:go_doc_keywordprg_enabled=0
-
-" ### Rust
-" ale
-let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
-" rust.vim
-let g:rustfmt_autosave=1 
 
 " ### Javascript
 " tigris.nvim

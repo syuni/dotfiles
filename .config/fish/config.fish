@@ -1,5 +1,6 @@
 # fish
-set -x theme_color_scheme 'light'
+set -x theme_color_scheme ‘dark’
+set -x pure_color_mute (set_color brgreen)
 
 # XDG Base Directory Specification
 set -x XDG_CONFIG_HOME $HOME/.config
@@ -37,6 +38,11 @@ set -x PIPENV_VENV_IN_PROJECT true
 # fish_user_paths
 set -g fish_user_paths "/usr/local/opt/binutils/bin" $fish_user_paths
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/sqlite/bin" $fish_user_paths
+
+set -gx LDFLAGS "-L/usr/local/opt/sqlite/lib"
+set -gx CPPFLAGS "-I/usr/local/opt/sqlite/include"
+set -gx PKG_CONFIG_PATH "/usr/local/opt/sqlite/lib/pkgconfig"
 
 # aliases
 if test -x (which colordiff)

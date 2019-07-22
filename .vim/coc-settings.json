@@ -1,9 +1,7 @@
 {
-  "suggest.noselect":false,
-  "suggest.preferCompleteThanJumpPlaceholder":true,
-  "suggest.enablePreview": true,
-  "coc.preferences.diagnostic.displayByAle": true,
-  "coc.preferences.codeLens.enable": true,
+  "suggest.noselect": false,
+  "diagnostic.displayByAle": true,
+  "diagnostic.checkCurrentLine": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -11,7 +9,7 @@
       "filetypes": ["go"]
     },
     "rust": {
-      "command": "ra_lsp_server",
+      "command": "rls",
       "filetypes": ["rust"],
       "rootPatterns": ["Cargo.toml"]
     },
