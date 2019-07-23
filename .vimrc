@@ -301,7 +301,7 @@ let g:ale_linters={
   \ 'go': ['golangci-lint'],
   \ 'rust': ['cargo'],
   \ 'haskell': ['hlint'],
-  \ 'python': ['flake8']
+  \ 'python': ['flake8', 'mypy']
   \ }
 let g:ale_fixers={
   \ 'javascript': ['eslint'],

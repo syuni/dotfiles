@@ -2,7 +2,8 @@
   "suggest.noselect": false,
   "diagnostic.displayByAle": true,
   "diagnostic.checkCurrentLine": true,
-  "python.jediEnabled": false,
+  "python.jediEnabled": true,
+  "python.autoComplete.addBrackets": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -11,4 +12,3 @@
     }
   }
 }
-
