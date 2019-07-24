@@ -338,6 +338,7 @@
   (setq skk-henkan-strict-okuri-precedence t)
   (setq skk-isearch-start-mode 'latin)
   (setq skk-search-katakana 'jisx0201-kana)
+  (setq skk-kutouten-type 'en)
   :config
   (bind-key "C-j" 'skk-kakutei minibuffer-local-map)
   (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)

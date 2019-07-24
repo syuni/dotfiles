@@ -19,7 +19,7 @@ set -x PATH $HOME/.nodebrew/current/bin $PATH
 # fzf
 set -x FZF_LEGACY_KEYBINDINGS 1
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob "!.git"'
-set -x FZF_DEFAULT_OPTS '--height 80% --layout=reverse --border --preview "head -n 30 {}"'
+set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head -n 30 {}"'
 
 # local-bin
 set -x PATH $HOME/.local/bin $PATH

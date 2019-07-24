@@ -279,13 +279,16 @@ nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
 " fzf
-let g:fzf_layout={ 'down': '80%' }
+let g:fzf_layout={ 'down': '40%' }
 let g:fzf_buffers_jump=1
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(),
   \   <bang>0)
+command! -bang -nargs=* BLines
+  \ call fzf#vim#buffer_lines({'options': '--reverse'}, <bang>0)
+
 nnoremap <silent> <C-s> :BLines<CR>
 nnoremap <silent> [fzf]b :Buffers<CR>
 nnoremap <silent> [fzf]w :Windows<CR>
