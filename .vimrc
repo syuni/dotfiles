@@ -68,6 +68,16 @@ set whichwrap=b,s,h,l,<,>,[,],~
 set backspace=indent,eol,start
 " show break mark when word is wrapped
 set showbreak=↪
+" hidden mode info
+set noshowmode
+" change cursor by mode
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 " leave from insert mode by `jj`
 inoremap <silent> jj <ESC>
 " yank from current column to end of line
@@ -280,6 +290,7 @@ let g:indentLine_enabled=1
 " nerdcommenter
 let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
+let g:NERDCommentEmptyLines=1
 
 " vim-devicons
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
