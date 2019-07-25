@@ -129,6 +129,9 @@ if dein#load_state('~/.cache/dein')
   " quickfix/location-list
   call dein#add('Valloric/ListToggle')
 
+  " easy-motion
+  call dein#add('easymotion/vim-easymotion')
+
   " buffer
   call dein#add('moll/vim-bbye')
 
@@ -257,6 +260,13 @@ let g:lightline.component_type = {
   \     'linter_errors': 'error',
   \     'linter_ok': 'left',
   \ }
+
+" easy-motion
+let g:EasyMotion_do_mapping=0
+let g:EasyMotion_smartcase=1
+nmap s <Plug>(easymotion-bd-f2)
+nmap <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 
 " buffer
 nnoremap <silent> [buf]d :Bdelete<CR>
@@ -425,7 +435,7 @@ let g:vim_markdown_json_frontmatter=1
 " ### Golang
 au BufNewFile,BufRead *.go setl sw=4 ts=4 sts=4 noet
 " vim-go
-let g:go_auto_type_info=1
+let g:go_auto_type_info=0
 let g:go_highlight_types=1
 let g:go_highlight_fields=1
 let g:go_highlight_functions=1
