@@ -1,6 +1,6 @@
 # fish
 set -x theme_color_scheme ‘dark’
-set -x pure_color_mute (set_color brgreen)
+# set -x pure_color_mute (set_color brgreen)
 
 # XDG Base Directory Specification
 set -x XDG_CONFIG_HOME $HOME/.config

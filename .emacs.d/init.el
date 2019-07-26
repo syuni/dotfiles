@@ -179,12 +179,10 @@
   :ensure t)
 
 ;;; color theme
-(use-package color-theme-solarized
+(use-package base16-theme
   :ensure t
   :config
-  (set-frame-parameter nil 'background-mode 'dark)
-  (set-terminal-parameter nil 'background-mode 'dark)
-  (load-theme 'solarized t))
+  (load-theme 'base16-tomorrow-night t))
 
 ;;; ace-window
 (use-package ace-window

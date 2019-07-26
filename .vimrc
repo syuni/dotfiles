@@ -128,6 +128,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('joshdick/onedark.vim')
   call dein#add('arcticicestudio/nord-vim')
   call dein#add('altercation/vim-colors-solarized')
+  call dein#add('chriskempson/base16-vim')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -213,8 +214,8 @@ endif
 syntax on
 " colorscheme onedark
 " colorscheme nord
-set background=dark
-colorscheme solarized
+" colorscheme solarized
+colorscheme base16-tomorrow-night
 
 if !has('gui_running')
   augroup TransparentBG
@@ -240,7 +241,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-  \ 'colorscheme': 'solarized',
+  \ 'colorscheme': 'Tomorrow_Night',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
