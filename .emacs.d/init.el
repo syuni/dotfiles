@@ -179,10 +179,10 @@
   :ensure t)
 
 ;;; color theme
-(use-package base16-theme
+(use-package gruvbox-theme
   :ensure t
   :config
-  (load-theme 'base16-tomorrow-night t))
+  (load-theme 'gruvbox t))
 
 ;;; ace-window
 (use-package ace-window

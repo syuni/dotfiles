@@ -129,6 +129,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('arcticicestudio/nord-vim')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('chriskempson/base16-vim')
+  call dein#add('morhetz/gruvbox')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -212,10 +213,12 @@ if (empty($TMUX))
 endif
 
 syntax on
+set background=dark
 " colorscheme onedark
 " colorscheme nord
 " colorscheme solarized
-colorscheme base16-tomorrow-night
+" colorscheme base16-tomorrow-night
+colorscheme gruvbox
 
 if !has('gui_running')
   augroup TransparentBG
@@ -241,7 +244,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 let g:lightline = {
-  \ 'colorscheme': 'Tomorrow_Night',
+  \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -291,7 +294,6 @@ let g:indentLine_enabled=1
 " nerdcommenter
 let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
-let g:NERDCommentEmptyLines=1
 
 " vim-devicons
 let g:WebDevIconsUnicodeDecorateFolderNodes=1

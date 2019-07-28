@@ -13,7 +13,7 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      '"Hack Nerd Font", "Menlo", "Monaco", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      '"SauceCodePro Nerd Font", "Menlo", "Monaco", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -145,7 +145,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ['hyper-statusline', 'hyper-snazzy', /* "hyper-solarized" */, /* "hyper-one-dark" */, /* "nord-hyper" */, "hyper-opacity"],
+  plugins: ['hyper-statusline', 'hyperterm-gruvbox-dark', /* "hyper-solarized" */, /* "hyper-one-dark" */, /* "nord-hyper" */, "hyper-opacity"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
