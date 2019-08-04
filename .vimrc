@@ -82,6 +82,9 @@ endif
 inoremap <silent> jj <ESC>
 " yank from current column to end of line
 nnoremap <silent> Y y$
+" window
+set splitbelow
+set splitright
 
 " ### general settings (search)
 " ignore uppercase and lowercase
@@ -107,6 +110,14 @@ nnoremap [ale] <Nop>
 nmap <Leader>a [ale]
 nnoremap [buf] <Nop>
 nmap <Leader>b [buf]
+
+" ### diff
+set diffopt=internal,vertical,filler,algorithm:histogram,indent-heuristic
+autocmd WinEnter * if(winnr('$') == 1) && (getbufvar(winbufnr(0), '&diff')) == 1 | diffoff | endif
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+        \ | wincmd p | diffthis
+endif
 
 " ### packages
 " dein Scripts-----------------------------
@@ -239,7 +250,6 @@ let g:lightline#ale#indicator_checking = "\uf110"
 let g:lightline#ale#indicator_warnings = "\uf071"
 let g:lightline#ale#indicator_errors = "\uf05e"
 let g:lightline#ale#indicator_ok = "\uf00c"
-set laststatus=2
 if !has('gui_running')
   set t_Co=256
 endif
@@ -247,33 +257,45 @@ let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+  \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
   \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
   \              [ 'lineinfo'],
   \              [ 'percent' ],
   \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
   \ },
   \ 'component': {
-  \   'charvaluehex': '0x%B'
+  \   'charvaluehex': '0x%B',
+  \   'lineinfo': ' %3l:%-2v',
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'fugitive#head'
+  \   'readonly': 'LightlineReadonly',
+  \   'fugitive': 'LightlineFugitive'
   \ },
   \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
   \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
   \ }
 let g:lightline.component_expand = {
-  \  'linter_checking': 'lightline#ale#checking',
-  \  'linter_warnings': 'lightline#ale#warnings',
-  \  'linter_errors': 'lightline#ale#errors',
-  \  'linter_ok': 'lightline#ale#ok',
+  \ 'linter_checking': 'lightline#ale#checking',
+  \ 'linter_warnings': 'lightline#ale#warnings',
+  \ 'linter_errors': 'lightline#ale#errors',
+  \ 'linter_ok': 'lightline#ale#ok',
   \ }
 let g:lightline.component_type = {
-  \     'linter_checking': 'left',
-  \     'linter_warnings': 'warning',
-  \     'linter_errors': 'error',
-  \     'linter_ok': 'left',
+  \ 'linter_checking': 'left',
+  \ 'linter_warnings': 'warning',
+  \ 'linter_errors': 'error',
+  \ 'linter_ok': 'left',
   \ }
+function! LightlineReadonly()
+  return &readonly ? '' : ''
+endfunction
+function! LightlineFugitive()
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    return branch !=# '' ? ''.branch : ''
+  endif
+  return ''
+endfunction
 
 " easy-motion
 let g:EasyMotion_do_mapping=0
@@ -345,6 +367,9 @@ let g:ale_completion_enabled=0
 let g:ale_echo_msg_error_str='E'
 let g:ale_echo_msg_warning_str='W'
 let g:ale_echo_msg_format='[%linter%] %s [%severity%]'
+let g:ale_sign_error='✘'
+let g:ale_sign_warning='⚠'
+let g:ale_sign_info='⚑'
 let g:ale_set_loclist=1
 let g:ale_set_quickfix=0
 let g:ale_open_list=0
