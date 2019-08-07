@@ -4,7 +4,7 @@
   "diagnostic.checkCurrentLine": true,
   "python.jediEnabled": true,
   "python.autoComplete.addBrackets": true,
-  "rust.show_warnings": false,
+  "rust.show_warnings": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
