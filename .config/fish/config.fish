@@ -1,51 +1,11 @@
 # fish
 set -x theme_color_scheme 'dark'
 
-# XDG Base Directory Specification
-set -x XDG_CONFIG_HOME $HOME/.config
-set -x XDG_CACHE_HOM $HOME/.cache
-set -x XDG_DATA_HOME $HOME/.local/share
-
-# lang
-set -x LANG ja_JP.UTF-8
-
-# editor
-set -x EDITOR vim
-
-# nodebrew
-set -x PATH $HOME/.nodebrew/current/bin $PATH
-
-# fzf
-set -x FZF_LEGACY_KEYBINDINGS 1
-set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob "!.git"'
-set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head -n 30 {}"'
-
-# local-bin
-set -x PATH $HOME/.local/bin $PATH
-
-# golang
-set -x GOPATH $HOME/go
-set -x PATH $GOPATH/bin $PATH
-
-# rust (cargo)
-set -x PATH $HOME/.cargo/bin $PATH
-
-# python
-eval (pyenv init - | source)
-set -x PIPENV_VENV_IN_PROJECT true
-
-# fish_user_paths
-set -g fish_user_paths "/usr/local/opt/binutils/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/sqlite/bin" $fish_user_paths
-
-set -gx LDFLAGS "-L/usr/local/opt/sqlite/lib"
-set -gx CPPFLAGS "-I/usr/local/opt/sqlite/include"
-set -gx PKG_CONFIG_PATH "/usr/local/opt/sqlite/lib/pkgconfig"
-
 # aliases
 if test -x (which colordiff)
-  alias diff="colordiff"
+  alias diff="colordiff -u"
+else
+  alias diff="diff -u"
 end
 
 # functions
