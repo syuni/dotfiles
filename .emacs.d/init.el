@@ -1,4 +1,4 @@
-;;; init.el --- my emacs configuration
+;; init.el --- my emacs configuration
 ;; Author: syuni
 ;;; Commentary:
 ;;
@@ -88,7 +88,7 @@
 
 ;;; fonts
 (set-face-attribute 'default nil
-                    :family "Hack Nerd Font"
+                    :family "SauceCodePro Nerd Font"
                     :height 160)
 (set-fontset-font nil 'japanese-jisx0208
                   (font-spec :family "Osaka"))
