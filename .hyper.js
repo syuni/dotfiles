@@ -13,7 +13,7 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      '"SauceCodePro Nerd Font", "Menlo", "Monaco", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      '"RobotoMono Nerd Font", "Menlo", "Monaco", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',

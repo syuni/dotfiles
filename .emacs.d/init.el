@@ -88,7 +88,7 @@
 
 ;;; fonts
 (set-face-attribute 'default nil
-                    :family "SauceCodePro Nerd Font"
+                    :family "RobotoMono Nerd Font"
                     :height 160)
 (set-fontset-font nil 'japanese-jisx0208
                   (font-spec :family "Osaka"))
@@ -152,7 +152,7 @@
 (use-package exec-path-from-shell
   :ensure t
   :init
-  (setq exec-path-from-shell-shell-name "/bin/bash")
+  (setq exec-path-from-shell-shell-name "/bin/sh")
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)
