@@ -214,6 +214,8 @@ if dein#check_install()
   call dein#install()
 endif
 
+syntax on
+
 if (empty($TMUX))
   if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -223,13 +225,20 @@ if (empty($TMUX))
   endif
 endif
 
-syntax on
+let base16colorspace=256
+
 set background=dark
 " colorscheme onedark
 " colorscheme nord
 " colorscheme solarized
-" colorscheme base16-tomorrow-night
-colorscheme gruvbox
+colorscheme base16-default-dark
+" colorscheme gruvbox
+
+highlight Comment cterm=italic
+
+if !has('gui_running')
+  set t_Co=256
+endif
 
 if !has('gui_running')
   augroup TransparentBG
@@ -250,11 +259,7 @@ let g:lightline#ale#indicator_checking = "\uf110"
 let g:lightline#ale#indicator_warnings = "\uf071"
 let g:lightline#ale#indicator_errors = "\uf05e"
 let g:lightline#ale#indicator_ok = "\uf00c"
-if !has('gui_running')
-  set t_Co=256
-endif
 let g:lightline = {
-  \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],

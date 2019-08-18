@@ -1,11 +1,25 @@
 # fish
 set -x theme_color_scheme 'dark'
 
+# Base16 Shell
+if status --is-interactive
+    set BASE16_SHELL "$HOME/.config/base16-shell/"
+    source "$BASE16_SHELL/profile_helper.fish"
+end
+
 # aliases
+# colordiff
 if test -x (which colordiff)
   alias diff="colordiff -u"
 else
   alias diff="diff -u"
+end
+
+# exa
+if test -x (which exa)
+  alias ls="exa"
+  alias ll="exa -lha -s date -s new --git"
+  alias tree="exa -T"
 end
 
 # functions

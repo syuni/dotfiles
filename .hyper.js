@@ -111,7 +111,9 @@ module.exports = {
     shellArgs: ['--login'],
 
     // for environment variables
-    env: {},
+    env: {
+      TERM: 'xterm-256color-italic'
+    },
 
     // set to `false` for no bell
     bell: false,
@@ -137,6 +139,11 @@ module.exports = {
 
     // for hyper-opacity
     opacity: 0.95,
+
+    base16: {
+      scheme: 'default',
+      base00: '#000000'
+    }
   },
 
   // a list of plugins to fetch and install from npm
@@ -145,7 +152,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ['hyper-statusline', 'hyperterm-gruvbox-dark', /* "hyper-solarized" */, /* "hyper-one-dark" */, /* "nord-hyper" */, "hyper-opacity"],
+  plugins: ['hyper-statusline', 'hypersixteen', /* 'hyperterm-gruvbox-dark', */ /* 'hyper-solarized', */ /* 'hyper-one-dark', */ /* 'nord-hyper', */ 'hyper-opacity'],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

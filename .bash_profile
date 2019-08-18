@@ -15,6 +15,9 @@ export PATH=/usr/local/sbin:$PATH
 # nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+# binutils
+export PATH=/usr/local/opt/binutils/bin:$PATH
+
 # haskell
 export PATH=$HOME/.local/bin:$PATH
 
