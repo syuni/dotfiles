@@ -18,7 +18,7 @@ end
 # exa
 if test -x (which exa)
   alias ls="exa"
-  alias ll="exa -lha -s date -s new --git"
+  alias ll="exa -lh -s date -s new --git"
   alias tree="exa -T"
 end
 
