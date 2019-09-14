@@ -19,6 +19,11 @@
       "initializationOptions": {
         "cacheDirectory": "/tmp/cquery"
       }
+    },
+    "ocaml": {
+      "command": "ocaml-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["ocaml", "reason"]
     }
   }
 }

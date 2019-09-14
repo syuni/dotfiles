@@ -132,15 +132,8 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  " icons
-  call dein#add('ryanoasis/vim-devicons')
-
   " color schema
-  call dein#add('joshdick/onedark.vim')
-  call dein#add('arcticicestudio/nord-vim')
-  call dein#add('altercation/vim-colors-solarized')
-  call dein#add('chriskempson/base16-vim')
-  call dein#add('morhetz/gruvbox')
+  call dein#add('tomasr/molokai')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -148,6 +141,9 @@ if dein#load_state('~/.cache/dein')
   " lightline
   call dein#add('itchyny/lightline.vim')
   call dein#add('maximbaz/lightline-ale')
+
+  " rainbow
+  call dein#add('luochen1990/rainbow')
 
   " quickfix/location-list
   call dein#add('Valloric/ListToggle')
@@ -203,6 +199,12 @@ if dein#load_state('~/.cache/dein')
   " rust
   call dein#add('rust-lang/rust.vim')
 
+  " vlang
+  call dein#add('ollykel/v-vim')
+
+  " icons
+  call dein#add('ryanoasis/vim-devicons')
+
   call dein#end()
   call dein#save_state()
 endif
@@ -216,44 +218,24 @@ endif
 
 syntax on
 
-if (empty($TMUX))
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-
-let base16colorspace=256
-
-set background=dark
-" colorscheme onedark
-" colorscheme nord
-" colorscheme solarized
-colorscheme base16-default-dark
-" colorscheme gruvbox
-
-highlight Comment cterm=italic
-
 if !has('gui_running')
   set t_Co=256
 endif
-
-if !has('gui_running')
-  augroup TransparentBG
-    autocmd!
-    autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
-    autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
-    autocmd VimEnter,ColorScheme * highlight LineNr ctermbg=none
-    autocmd VimEnter,Colorscheme * highlight Folded ctermbg=none
-    autocmd VimEnter,Colorscheme * highlight EndOfBuffer ctermbg=none 
-    autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
-    autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
-  augroup END
+if (has("nvim"))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+if (has("termguicolors"))
+  set termguicolors
 endif
 
+colorscheme molokai
+
+highlight Comment cterm=italic
+
 " ### Packages
+" rainbow
+let g:rainbow_active=1
+
 " lightline
 let g:lightline#ale#indicator_checking = "\uf110"
 let g:lightline#ale#indicator_warnings = "\uf071"
@@ -316,6 +298,7 @@ nnoremap <silent> [buf]p :bprevious<CR>
 nnoremap <silent> [buf]n :bnext<CR>
 
 " indentLine
+set list lcs=tab:\|\ 
 let g:indentLine_enabled=1
 
 " nerdcommenter
@@ -352,18 +335,24 @@ nnoremap <silent> [fzf]s :Snippets<CR>
 let g:ale_linters={
   \ 'javascript': ['eslint'],
   \ 'javascript.jsx': ['eslint'],
+  \ 'typescript': ['eslint'],
+  \ 'typescript.tsx': ['eslint'],
   \ 'go': ['golangci-lint'],
   \ 'rust': ['cargo'],
   \ 'haskell': ['hlint'],
-  \ 'python': ['flake8', 'mypy']
+  \ 'python': ['flake8', 'mypy'],
+  \ 'ocaml': ['ols']
   \ }
 let g:ale_fixers={
   \ 'javascript': ['eslint'],
   \ 'javascript.jsx': ['eslint'],
+  \ 'typescript': ['eslint'],
+  \ 'typescript.tsx': ['eslint'],
   \ 'go': ['goimports'],
   \ 'rust': ['rustfmt'],
   \ 'haskell': ['stylish-haskell'],
-  \ 'python': ['black', 'isort']
+  \ 'python': ['black', 'isort'],
+  \ 'ocaml': ['ocamlformat', 'ocp-indent']
   \ }
 let g:ale_linters_explicit=1
 let g:ale_sign_column_always=1
@@ -379,7 +368,8 @@ let g:ale_set_loclist=1
 let g:ale_set_quickfix=0
 let g:ale_open_list=0
 let g:ale_keep_list_window_open=0
-let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+let g:ale_rust_cargo_use_clippy=executable('cargo-clippy')
+let g:ale_ocaml_ocamlformat_options='--enable-outside-detected-project'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
@@ -388,7 +378,6 @@ nmap <silent> [ale]f <Plug>(ale_fix)
 let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-yaml']
 
 set nowritebackup
-set cmdheight=2
 set updatetime=300
 
 " Use <c-space> to trigger completion.
@@ -469,6 +458,9 @@ nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
 
 " ### Markdown
 " vim-markdown
+let g:vim_markdown_conceal=0
+let g:vim_markdown_conceal_code_blocks=0
+let g:tex_conceal=""
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_toc_autofit=1
 let g:vim_markdown_math=1
@@ -492,7 +484,12 @@ let g:go_gocode_propose_builtins=0
 let g:go_def_mapping_enabled=0
 let g:go_doc_keywordprg_enabled=0
 
+" ### Vlang
+au BufNewFile,BufRead *.v,*.vh setl sw=4 ts=4 sts=4 noet
+
 " ### Javascript
+" polyglot
+autocmd BufReadPost,BufNewFile *_spec.js,*Spec.js set filetype=javascript syntax=javascript
 " tigris.nvim
 let g:tigris#enabled=1
 let g:tigris#on_the_fly_enabled=1

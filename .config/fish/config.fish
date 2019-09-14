@@ -1,12 +1,6 @@
 # fish
 set -x theme_color_scheme 'dark'
 
-# Base16 Shell
-if status --is-interactive
-    set BASE16_SHELL "$HOME/.config/base16-shell/"
-    source "$BASE16_SHELL/profile_helper.fish"
-end
-
 # aliases
 # colordiff
 if test -x (which colordiff)
@@ -21,6 +15,9 @@ if test -x (which exa)
   alias ll="exa -lh -s date -s new --git"
   alias tree="exa -T"
 end
+
+# starship
+eval (starship init fish)
 
 # functions
 function tmux_attatch_session
