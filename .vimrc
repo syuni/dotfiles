@@ -5,7 +5,7 @@ autocmd!
 scriptencoding utf-8
 set enc=utf-8
 set fenc=utf-8
-set ambiwidth=double
+set ambiwidth=single
 " don't make backupfile
 set nobackup
 " don't make swapfile
@@ -237,11 +237,12 @@ highlight Comment cterm=italic
 let g:rainbow_active=1
 
 " lightline
-let g:lightline#ale#indicator_checking = "\uf110"
-let g:lightline#ale#indicator_warnings = "\uf071"
-let g:lightline#ale#indicator_errors = "\uf05e"
-let g:lightline#ale#indicator_ok = "\uf00c"
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
 let g:lightline = {
+  \ 'colorscheme': 'molokai',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -274,12 +275,12 @@ let g:lightline.component_type = {
   \ 'linter_ok': 'left',
   \ }
 function! LightlineReadonly()
-  return &readonly ? '' : ''
+  return &readonly ? ' ' : ''
 endfunction
 function! LightlineFugitive()
   if exists('*fugitive#head')
     let branch = fugitive#head()
-    return branch !=# '' ? ''.branch : ''
+    return branch !=# '' ? ' '.branch : ''
   endif
   return ''
 endfunction
