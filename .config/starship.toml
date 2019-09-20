@@ -3,9 +3,6 @@ full_symbol = "🔋 "
 charging_symbol = "⚡️ "
 discharging_symbol = "💀 "
 
-[git_branch]
-symbol = "🎃 "
-
 [hostname]
 prefix = "⟪"
 suffix = "⟫"
