@@ -28,6 +28,9 @@ export PATH=$HOME/.cargo/bin:$PATH
 # v
 export PATH=$HOME/.ghq/github.com/vlang/v:$PATH
 
+# nodejs
+eval "$(nodenv init -)"
+
 # python
 eval "$(pyenv init -)"
 export PIPENV_VENV_IN_PROJECT=true
