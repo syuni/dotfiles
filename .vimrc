@@ -60,7 +60,8 @@ set smartindent
 " display completion candidates for 10 lines
 set pumheight=10
 " share with clipboard
-set clipboard+=unnamed
+set clipboard&
+set clipboard^=unnamed,unnamedplus
 " always show signcolumn
 set signcolumn=yes
 " delete backword
