@@ -1,6 +1,9 @@
 * dotfiles
 This repository is a base to keep my device in sync.
 
+** Envs
+macOS and Linux Mint
+
 ** TODOs
 - [X] Collect configuration files.
 - [ ] Write a script to extract the configuration files.
