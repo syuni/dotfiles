@@ -490,9 +490,14 @@ let g:go_doc_keywordprg_enabled=0
 au BufNewFile,BufRead *.v,*.vh setl sw=4 ts=4 sts=4 noet
 
 " ### Javascript
-" polyglot
 autocmd BufReadPost,BufNewFile *_spec.js,*Spec.js set filetype=javascript syntax=javascript
 " tigris.nvim
 let g:tigris#enabled=1
 let g:tigris#on_the_fly_enabled=1
 let g:tigris#delay=300
+
+" ### Haskell
+au BufNewFile,BufRead *.hs setl sw=4 ts=4 sts=4
+" vim2hs
+let g:haskell_conceal=0
+let g:haskell_conceal_enumerations=0
