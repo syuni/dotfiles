@@ -232,6 +232,13 @@ endif
 colorscheme molokai
 
 highlight Comment cterm=italic
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
+highlight Folded ctermbg=NONE guibg=NONE
+highlight Special ctermbg=NONE guibg=NONE
+highlight SpecialKey ctermbg=NONE guibg=NONE
+highlight EndOfBuffer ctermbg=NONE guibg=NONE
 
 " ### Packages
 " rainbow
@@ -339,6 +346,7 @@ let g:ale_linters={
   \ 'javascript.jsx': ['eslint'],
   \ 'typescript': ['eslint'],
   \ 'typescript.tsx': ['eslint'],
+  \ 'typescriptreact': ['eslint'],
   \ 'go': ['golangci-lint'],
   \ 'rust': ['cargo'],
   \ 'haskell': ['hlint'],
@@ -350,6 +358,7 @@ let g:ale_fixers={
   \ 'javascript.jsx': ['eslint'],
   \ 'typescript': ['eslint'],
   \ 'typescript.tsx': ['eslint'],
+  \ 'typescriptreact': ['eslint'],
   \ 'go': ['goimports'],
   \ 'rust': ['rustfmt'],
   \ 'haskell': ['stylish-haskell'],
@@ -377,7 +386,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-yaml']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular']
 
 set nowritebackup
 set updatetime=300

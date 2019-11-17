@@ -1,7 +1,19 @@
 [battery]
 full_symbol = "🔋 "
-charging_symbol = "⚡️ "
-discharging_symbol = "💀 "
+charging_symbol = "🔌 "
+discharging_symbol = "⚡️ "
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
+
+[[battery.display]]
+threshold = 50
+style = "bold yellow"
+
+[[battery.display]]
+threshold = 100
+style = "bold green"
 
 [hostname]
 prefix = "⟪"
