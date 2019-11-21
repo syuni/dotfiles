@@ -42,6 +42,15 @@
           "hlintOn": true
         }
       }
+    },
+    "dart": {
+      "command": "dart",
+      "args": [
+        "/usr/local/opt/dart/libexec/bin/snapshots/analysis_server.dart.snapshot",
+        "--lsp"
+      ],
+      "filetypes": ["dart"],
+      "trace.server": "verbose"
     }
   }
 }

@@ -1,0 +1,13 @@
+/.config/coc/
+
+/.config/karabiner/*
+!/.config/karabiner/karabiner.json
+
+/.config/fish/*
+!/.config/fish/config.fish
+!/.config/fish/fishfile
+
+/.config/fisher/
+
+/.config/configstore/
+

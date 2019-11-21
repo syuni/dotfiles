@@ -134,7 +134,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " color schema
-  call dein#add('tomasr/molokai')
+  call dein#add('ayu-theme/ayu-vim')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -191,6 +191,9 @@ if dein#load_state('~/.cache/dein')
   " javascript
   call dein#add('billyvg/tigris.nvim', { 'build': './install.sh' })
 
+  " svelte
+  call dein#add('evanleck/vim-svelte')
+
   " haskell
   call dein#add('dag/vim2hs')
 
@@ -229,9 +232,10 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-colorscheme molokai
+let ayucolor="mirage"
+colorscheme ayu
 
-highlight Comment cterm=italic
+highlight Comment cterm=italic ctermbg=NONE guibg=NONE
 highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE
 highlight LineNr ctermbg=NONE guibg=NONE
@@ -250,7 +254,7 @@ let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
 let g:lightline = {
-  \ 'colorscheme': 'molokai',
+  \ 'colorscheme': 'ayu_mirage',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -341,12 +345,13 @@ nnoremap <silent> [fzf]r :History<CR>
 nnoremap <silent> [fzf]s :Snippets<CR>
 
 " ale
+let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
 let g:ale_linters={
   \ 'javascript': ['eslint'],
-  \ 'javascript.jsx': ['eslint'],
-  \ 'typescript': ['eslint'],
-  \ 'typescript.tsx': ['eslint'],
-  \ 'typescriptreact': ['eslint'],
+  \ 'javascriptreact': ['eslint'],
+  \ 'typescript': ['eslint', 'tslint'],
+  \ 'typescriptreact': ['eslint', 'tslint'],
+  \ 'svelte': ['stylelint', 'eslint'],
   \ 'go': ['golangci-lint'],
   \ 'rust': ['cargo'],
   \ 'haskell': ['hlint'],
@@ -359,6 +364,7 @@ let g:ale_fixers={
   \ 'typescript': ['eslint'],
   \ 'typescript.tsx': ['eslint'],
   \ 'typescriptreact': ['eslint'],
+  \ 'svelte': ['stylelint', 'eslint'],
   \ 'go': ['goimports'],
   \ 'rust': ['rustfmt'],
   \ 'haskell': ['stylish-haskell'],
@@ -386,7 +392,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte']
 
 set nowritebackup
 set updatetime=300
@@ -510,3 +516,23 @@ au BufNewFile,BufRead *.hs setl sw=4 ts=4 sts=4
 " vim2hs
 let g:haskell_conceal=0
 let g:haskell_conceal_enumerations=0
+
+" ### Load local .vimrc
+function! s:openLocalConfig()
+  let currentDir = getcwd()
+  let fsRoorDir = fnamemodify($HOME, ":p:h:h:h")
+
+  if currentDir == $HOME
+    return
+  endif
+
+  while isdirectory(currentDir) && !(currentDir ==# $HOME) && !(currentDir ==# fsRoorDir)
+    if isdirectory(currentDir.'/.vim')
+      execute 'source '.currentDir.'/.vim/.vimrc'
+      return
+    endif
+    let currentDir = fnamemodify(currentDir, ':p:h:h')
+  endwhile
+
+endfunction
+call s:openLocalConfig()

@@ -50,6 +50,9 @@ export FZF_LEGACY_KEYBINDINGS=1
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "head -n 30 {}"'
 
+# flutter
+export PATH=$HOME/flutter/bin:$PATH
+
 # ----- aliases -----
 
 # diff
