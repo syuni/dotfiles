@@ -527,7 +527,7 @@ function! s:openLocalConfig()
   endif
 
   while isdirectory(currentDir) && !(currentDir ==# $HOME) && !(currentDir ==# fsRoorDir)
-    if isdirectory(currentDir.'/.vim')
+    if isdirectory(currentDir.'/.vim') && filereadable(currentDir.'/.vim/.vimrc')
       execute 'source '.currentDir.'/.vim/.vimrc'
       return
     endif
