@@ -527,8 +527,8 @@ function! s:openLocalConfig()
   endif
 
   while isdirectory(currentDir) && !(currentDir ==# $HOME) && !(currentDir ==# fsRoorDir)
-    if isdirectory(currentDir.'/.vim') && filereadable(currentDir.'/.vim/.vimrc')
-      execute 'source '.currentDir.'/.vim/.vimrc'
+    if isdirectory(currentDir.'/.vim') && filereadable(currentDir.'/.vim/vimrc')
+      execute 'source '.currentDir.'/.vim/vimrc'
       return
     endif
     let currentDir = fnamemodify(currentDir, ':p:h:h')
