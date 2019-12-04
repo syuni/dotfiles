@@ -71,14 +71,6 @@ set backspace=indent,eol,start
 set showbreak=↪
 " hidden mode info
 set noshowmode
-" change cursor by mode
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
 " leave from insert mode by `jj`
 inoremap <silent> jj <ESC>
 " yank from current column to end of line
@@ -191,6 +183,9 @@ if dein#load_state('~/.cache/dein')
   " javascript
   call dein#add('billyvg/tigris.nvim', { 'build': './install.sh' })
 
+  " dart
+  call dein#add('dart-lang/dart-vim-plugin')
+
   " svelte
   call dein#add('evanleck/vim-svelte')
 
@@ -232,7 +227,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-let ayucolor="mirage"
+let ayucolor="dark"
 colorscheme ayu
 
 highlight Comment cterm=italic ctermbg=NONE guibg=NONE
@@ -352,6 +347,7 @@ let g:ale_linters={
   \ 'typescript': ['eslint', 'tslint'],
   \ 'typescriptreact': ['eslint', 'tslint'],
   \ 'svelte': ['stylelint', 'eslint'],
+  \ 'dart': ['dartanalyzer'],
   \ 'go': ['golangci-lint'],
   \ 'rust': ['cargo'],
   \ 'haskell': ['hlint'],
@@ -360,11 +356,11 @@ let g:ale_linters={
   \ }
 let g:ale_fixers={
   \ 'javascript': ['eslint'],
-  \ 'javascript.jsx': ['eslint'],
+  \ 'javascriptreact': ['eslint'],
   \ 'typescript': ['eslint'],
-  \ 'typescript.tsx': ['eslint'],
   \ 'typescriptreact': ['eslint'],
   \ 'svelte': ['stylelint', 'eslint'],
+  \ 'dart': ['dartfmt'],
   \ 'go': ['goimports'],
   \ 'rust': ['rustfmt'],
   \ 'haskell': ['stylish-haskell'],
