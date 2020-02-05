@@ -16,5 +16,15 @@ if test -x (which exa)
   alias tree="exa -T"
 end
 
+# nodenv
+nodenv init - | source
+
+# pyenv
+pyenv init - | source
+pyenv virtualenv-init - | source
+
+# goenv
+goenv init - | source
+
 # starship
 eval (starship init fish)

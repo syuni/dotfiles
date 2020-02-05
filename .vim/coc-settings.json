@@ -2,7 +2,11 @@
   "suggest.noselect": false,
   "diagnostic.displayByAle": true,
   "diagnostic.checkCurrentLine": true,
-  "python.jediEnabled": true,
+  "snippets.ultisnips.directories": [
+    "UltiSnips",
+    "gosnippets/UltiSnips"
+  ],
+  "python.jediEnabled": false,
   "python.autoComplete.addBrackets": true,
   "rust.show_warnings": true,
   "languageserver": {
@@ -11,14 +15,11 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     },
-    "cquery": {
-      "command": "cquery",
-      "args": ["--log-file=/tmp/cq.log"],
-      "filetypes": ["c", "cpp"],
+    "clangd": {
+      "command": "clangd",
+      "args": ["--background-index"],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-      "initializationOptions": {
-        "cacheDirectory": "/tmp/cquery"
-      }
+      "filetypes": ["c", "cpp", "objc", "objcpp"]
     },
     "ocaml": {
       "command": "ocaml-language-server",
@@ -51,6 +52,18 @@
       ],
       "filetypes": ["dart"],
       "trace.server": "verbose"
+    },
+    "elm": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"],
+      "trace.server": "verbose",
+      "initializationOptions": {
+        "elmPath": "elm",
+        "elmFormatPath": "elm-format",
+        "elmTestPath": "elm-test",
+        "elmAnalyseTrigger": "change"
+      }
     }
   }
 }

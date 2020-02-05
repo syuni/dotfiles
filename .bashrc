@@ -20,9 +20,15 @@ export PATH=/usr/local/opt/binutils/bin:$PATH
 # haskell
 export PATH=$HOME/.local/bin:$PATH
 
+# clangd
+export PATH=/usr/local/opt/llvm/bin:$PATH
+
 # go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
+eval "$(goenv init -)"
+# export PATH="$GOROOT/bin:$PATH"
+# export PATH="$PATH:$GOPATH/bin"
 
 # rust
 export PATH=$HOME/.cargo/bin:$PATH
@@ -37,6 +43,7 @@ eval "$(nodenv init -)"
 # python
 export PATH=$HOME/.pyenv/bin:$PATH
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 export PIPENV_VENV_IN_PROJECT=true
 
 # ocaml

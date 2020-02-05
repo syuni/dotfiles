@@ -32,6 +32,10 @@ set guioptions-=b
 set number
 " show cursorline
 set cursorline
+" cursorshape
+let &t_SI .= "\e[5 q"
+let &t_EI .= "\e[1 q"
+let &t_SR .= "\e[3 q"
 " one character ahead of the end of the line
 set virtualedit=onemore
 " smart indent
@@ -126,7 +130,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " color schema
-  call dein#add('ayu-theme/ayu-vim')
+  call dein#add('kaicataldo/material.vim')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -163,9 +167,15 @@ if dein#load_state('~/.cache/dein')
   " refactoring
   call dein#add('tpope/vim-surround')
 
+  " match
+  call dein#add('andymass/vim-matchup')
+
   " git
   call dein#add('tpope/vim-fugitive')
   call dein#add('airblade/vim-gitgutter')
+
+  " snippet
+  call dein#add('honza/vim-snippets')
 
   " syntaxcheck
   call dein#add('w0rp/ale')
@@ -188,6 +198,9 @@ if dein#load_state('~/.cache/dein')
 
   " svelte
   call dein#add('evanleck/vim-svelte')
+
+  " elm
+  call dein#add('andys8/vim-elm-syntax')
 
   " haskell
   call dein#add('dag/vim2hs')
@@ -220,15 +233,13 @@ syntax on
 if !has('gui_running')
   set t_Co=256
 endif
-if (has("nvim"))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
 if (has("termguicolors"))
   set termguicolors
 endif
 
-let ayucolor="dark"
-colorscheme ayu
+let g:material_terminal_italics=1
+let g:material_theme_style='default'
+colorscheme material
 
 highlight Comment cterm=italic ctermbg=NONE guibg=NONE
 highlight Normal ctermbg=NONE guibg=NONE
@@ -249,7 +260,7 @@ let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
 let g:lightline = {
-  \ 'colorscheme': 'ayu_mirage',
+  \ 'colorscheme': 'material_vim',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -352,7 +363,8 @@ let g:ale_linters={
   \ 'rust': ['cargo'],
   \ 'haskell': ['hlint'],
   \ 'python': ['flake8', 'mypy'],
-  \ 'ocaml': ['ols']
+  \ 'ocaml': ['ols'],
+  \ 'elm': ['elm_ls']
   \ }
 let g:ale_fixers={
   \ 'javascript': ['eslint'],
@@ -365,7 +377,8 @@ let g:ale_fixers={
   \ 'rust': ['rustfmt'],
   \ 'haskell': ['stylish-haskell'],
   \ 'python': ['black', 'isort'],
-  \ 'ocaml': ['ocamlformat', 'ocp-indent']
+  \ 'ocaml': ['ocamlformat', 'ocp-indent'],
+  \ 'elm': ['elm-format']
   \ }
 let g:ale_linters_explicit=1
 let g:ale_sign_column_always=1
@@ -388,7 +401,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-pairs', 'coc-snippets']
 
 set nowritebackup
 set updatetime=300
@@ -451,6 +464,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Using CocList
 " Show all diagnostics
 nnoremap <silent> [coc]a  :<C-u>CocList diagnostics<cr>
@@ -468,6 +483,9 @@ nnoremap <silent> [coc]j  :<C-u>CocNext<CR>
 nnoremap <silent> [coc]k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
+
+" ### polyglot
+let g:polyglot_disabled=['elm']
 
 " ### Markdown
 " vim-markdown
