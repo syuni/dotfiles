@@ -1,7 +1,13 @@
 {
   "suggest.noselect": false,
-  "diagnostic.displayByAle": true,
+  "diagnostic.displayByAle": false,
+  "diagnostic.locationlist": false,
   "diagnostic.checkCurrentLine": true,
+  "diagnostic.enableSign": true,
+  "diagnostic.hintSign": "⚑",
+  "diagnostic.infoSign": "✔",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.errorSign": "✘",
   "snippets.ultisnips.directories": [
     "UltiSnips",
     "gosnippets/UltiSnips"

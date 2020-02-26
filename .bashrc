@@ -26,12 +26,14 @@ export PATH=/usr/local/opt/llvm/bin:$PATH
 # go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-eval "$(goenv init -)"
-# export PATH="$GOROOT/bin:$PATH"
-# export PATH="$PATH:$GOPATH/bin"
+eval $(goenv init -)
 
 # rust
 export PATH=$HOME/.cargo/bin:$PATH
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v "13")
+export PATH=$JAVA_HOME/bin:$PATH
 
 # v
 export PATH=$HOME/.ghq/github.com/vlang/v:$PATH
