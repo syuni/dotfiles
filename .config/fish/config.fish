@@ -16,15 +16,18 @@ if test -x (which exa)
   alias tree="exa -T"
 end
 
-# nodenv
-nodenv init - | source
+# lazygit
+if test -x (which lazygit)
+  alias lgit="lazygit"
+end
 
-# pyenv
-pyenv init - | source
-pyenv virtualenv-init - | source
+# lazydocker
+if test -x (which lazydocker)
+  alias ldocker="lazydocker"
+end
 
-# goenv
-goenv init - | source
+# anyenv
+anyenv init - | source
 
 # starship
 eval (starship init fish)

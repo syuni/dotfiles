@@ -214,6 +214,12 @@ if dein#load_state('~/.cache/dein')
   " vlang
   call dein#add('ollykel/v-vim')
 
+  " nim
+  call dein#add('zah/nim.vim')
+
+  " lisp
+  call dein#add('kovisoft/slimv')
+
   " icons
   call dein#add('ryanoasis/vim-devicons')
 
@@ -523,11 +529,22 @@ let g:tigris#enabled=1
 let g:tigris#on_the_fly_enabled=1
 let g:tigris#delay=300
 
+" ### Elm
+au BufNewFile,BufRead *.elm setl sw=2 ts=2 sts=2
+
 " ### Haskell
 au BufNewFile,BufRead *.hs setl sw=4 ts=4 sts=4
 " vim2hs
 let g:haskell_conceal=0
 let g:haskell_conceal_enumerations=0
+
+" ### lisp
+" slimv
+let g:slimv_lisp='clisp'
+let g:slimv_impl='clisp'
+let g:slimv_repl_split=2
+let g:slimv_repl_split_size=10
+let g:slimv_repl_name='REPL'
 
 " ### Load local .vimrc
 function! s:openLocalConfig()

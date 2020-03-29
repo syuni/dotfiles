@@ -17,6 +17,9 @@ export PATH=/usr/local/sbin:$PATH
 # binutils
 export PATH=/usr/local/opt/binutils/bin:$PATH
 
+# anyenv
+eval $(anyenv init -)
+
 # haskell
 export PATH=$HOME/.local/bin:$PATH
 
@@ -26,7 +29,6 @@ export PATH=/usr/local/opt/llvm/bin:$PATH
 # go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-eval $(goenv init -)
 
 # rust
 export PATH=$HOME/.cargo/bin:$PATH
@@ -38,14 +40,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 # v
 export PATH=$HOME/.ghq/github.com/vlang/v:$PATH
 
-# nodejs
-export PATH=$HOME/.nodenv/bin:$PATH
-eval "$(nodenv init -)"
-
 # python
-export PATH=$HOME/.pyenv/bin:$PATH
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 export PIPENV_VENV_IN_PROJECT=true
 
 # ocaml
@@ -76,6 +71,16 @@ if [[ -x `which exa` ]]; then
   alias ls='exa'
   alias ll='exa -lha -s date -s new --git'
   alias tree='exa -T'
+fi
+
+# lazygit
+if [[ -x `which lazygit` ]]; then
+  alias lgit='lazygit'
+fi
+
+# lazydocker
+if [[ -x `which lazydocker` ]]; then
+  alias ldocker='lazydocker'
 fi
 
 # ----- execution -----

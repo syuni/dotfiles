@@ -11,3 +11,6 @@
 
 /.config/configstore/
 
+/.config/gh/
+
+/.config/anyenv/
