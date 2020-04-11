@@ -4,7 +4,7 @@
 export LANG=en_US.UTF-8
 
 # Editor
-export EDITOR vim
+export EDITOR=vim
 
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME=$HOME/.config

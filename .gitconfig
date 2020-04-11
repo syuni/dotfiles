@@ -22,4 +22,5 @@
 [mergetool]
 	prompt = false
 [credential]
-	helper = osxkeychain
+  ; helper = osxkeychain
+	helper = /usr/lib/git-core/git-credential-gnome-keyring

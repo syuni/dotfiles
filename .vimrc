@@ -540,8 +540,9 @@ let g:haskell_conceal_enumerations=0
 
 " ### lisp
 " slimv
-let g:slimv_lisp='clisp'
-let g:slimv_impl='clisp'
+let g:slimv_swank_cmd="!ros -e '(ql:quickload :swank) (swank:create-server)' wait &"
+let g:slimv_lisp='ros run'
+let g:slimv_impl='sbcl'
 let g:slimv_repl_split=2
 let g:slimv_repl_split_size=10
 let g:slimv_repl_name='REPL'
