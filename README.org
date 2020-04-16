@@ -3,3 +3,5 @@ This repository is a base to keep my device in sync.
 
 ** Envs
 macOS and Manjaro Cinnamon
+
+(((((((((((っ･ω･)っ ﾌﾞｰﾝ
