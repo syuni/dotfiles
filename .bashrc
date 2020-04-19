@@ -84,13 +84,6 @@ if [[ -x `which lazydocker` ]]; then
 fi
 
 # ----- execution -----
-function tmux_attatch_session() {
-  tmux ls > /dev/null
-  if [ $? -eq 1 -a -z "$TMUX" ]; then
-    exec tmux
-  elif [ -z "$TMUX" ]; then
-    exec tmux a
-  fi
-}
-
-tmux_attatch_session
+if [ $SHLVL = 1 ]; then
+  exec tmux
+fi
