@@ -1,5 +1,6 @@
 {
   "suggest.noselect": true,
+  "coc.preferences.formatOnType": true,
   "diagnostic.displayByAle": false,
   "diagnostic.locationlist": false,
   "diagnostic.checkCurrentLine": true,

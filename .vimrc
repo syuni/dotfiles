@@ -163,9 +163,8 @@ if dein#load_state('~/.cache/dein')
 
   " formatter
   call dein#add('editorconfig/editorconfig-vim')
-
-  " refactoring
   call dein#add('tpope/vim-surround')
+  call dein#add('jiangmiao/auto-pairs')
 
   " match
   call dein#add('andymass/vim-matchup')
@@ -404,7 +403,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-pairs', 'coc-snippets', 'coc-xml', 'coc-svg']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-snippets', 'coc-xml', 'coc-svg']
 
 set nowritebackup
 set updatetime=300
@@ -466,8 +465,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Using CocList
 " Show all diagnostics
