@@ -2,6 +2,11 @@
 set -x theme_color_scheme 'dark'
 
 # aliases
+# neovim
+if test -x (which nvim)
+  alias vim="nvim"
+end
+
 # colordiff
 if test -x (which colordiff)
   alias diff="colordiff -u"

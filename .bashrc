@@ -59,6 +59,11 @@ export PATH=$HOME/flutter/bin:$PATH
 
 # ----- aliases -----
 
+# neovim
+if [[ -x `which nvim` ]]; then
+  alias vim='nvim'
+fi
+
 # diff
 if [[ -x `which colordiff` ]]; then
   alias diff='colordiff -u'

@@ -116,6 +116,14 @@ if !exists(":DiffOrig")
         \ | wincmd p | diffthis
 endif
 
+" ### Providers (for neovim)
+if has("nvim")
+  let g:python_host_prog=$PYENV_ROOT.'/versions/nvim2/bin/python'
+  let g:python3_host_prog=$PYENV_ROOT.'/versions/nvim3/bin/python'
+  let g:ruby_host_prog=$RBENV_ROOT.'/versions/2.7.1/bin/neovim-ruby-host'
+  let g:node_host_prog=$NODENV_ROOT.'/versions/12.16.2/bin/neovim-node-host'
+endif
+
 " ### packages
 " dein Scripts-----------------------------
 if &compatible
@@ -241,6 +249,8 @@ if !has('gui_running')
 endif
 if (has("termguicolors"))
   set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
 colorscheme purify

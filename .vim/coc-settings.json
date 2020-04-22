@@ -1,5 +1,5 @@
 {
-  "suggest.noselect": false,
+  "suggest.noselect": true,
   "diagnostic.displayByAle": false,
   "diagnostic.locationlist": false,
   "diagnostic.checkCurrentLine": true,
