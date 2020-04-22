@@ -116,14 +116,6 @@ if !exists(":DiffOrig")
         \ | wincmd p | diffthis
 endif
 
-" ### Providers (for neovim)
-if has("nvim")
-  let g:python_host_prog=$PYENV_ROOT.'/versions/nvim2/bin/python'
-  let g:python3_host_prog=$PYENV_ROOT.'/versions/nvim3/bin/python'
-  let g:ruby_host_prog=$RBENV_ROOT.'/versions/2.7.1/bin/neovim-ruby-host'
-  let g:node_host_prog=$NODENV_ROOT.'/versions/12.16.2/bin/neovim-node-host'
-endif
-
 " ### packages
 " dein Scripts-----------------------------
 if &compatible
@@ -213,9 +205,6 @@ if dein#load_state('~/.cache/dein')
   " haskell
   call dein#add('dag/vim2hs')
 
-  " golang
-  call dein#add('fatih/vim-go')
-
   " rust
   call dein#add('rust-lang/rust.vim')
 
@@ -235,6 +224,8 @@ if dein#load_state('~/.cache/dein')
   call dein#save_state()
 endif
 " End dein Scripts-------------------------
+
+let g:dein#auto_recache=1
 
 filetype plugin indent on
 
@@ -513,19 +504,6 @@ let g:vim_markdown_json_frontmatter=1
 
 " ### Golang
 au BufNewFile,BufRead *.go setl sw=4 ts=4 sts=4 noet
-" vim-go
-let g:go_auto_type_info=0
-let g:go_highlight_types=1
-let g:go_highlight_fields=1
-let g:go_highlight_functions=1
-let g:go_highlight_function_calls=1
-let g:go_highlight_operators=1
-let g:go_highlight_extra_types=1
-let g:go_highlight_build_constraints=1
-let g:go_metalinter_autosave=0
-let g:go_gocode_propose_builtins=0
-let g:go_def_mapping_enabled=0
-let g:go_doc_keywordprg_enabled=0
 
 " ### Vlang
 au BufNewFile,BufRead *.v,*.vh setl sw=4 ts=4 sts=4 noet
