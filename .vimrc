@@ -164,7 +164,6 @@ if dein#load_state('~/.cache/dein')
   " formatter
   call dein#add('editorconfig/editorconfig-vim')
   call dein#add('tpope/vim-surround')
-  call dein#add('jiangmiao/auto-pairs')
 
   " match
   call dein#add('andymass/vim-matchup')
@@ -399,7 +398,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-snippets', 'coc-xml', 'coc-svg']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-snippets', 'coc-xml', 'coc-svg']
 
 set nowritebackup
 set updatetime=300
@@ -479,6 +478,8 @@ nnoremap <silent> [coc]j  :<C-u>CocNext<CR>
 nnoremap <silent> [coc]k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " ### polyglot
 let g:polyglot_disabled=['elm']
