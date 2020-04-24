@@ -236,6 +236,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 
+let g:onedark_terminal_italics=1
 colorscheme onedark
 
 highlight Comment cterm=italic ctermbg=NONE guibg=NONE
