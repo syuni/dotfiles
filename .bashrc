@@ -18,7 +18,7 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/opt/binutils/bin:$PATH
 
 # anyenv
-eval $(anyenv init -)
+eval "$(anyenv init -)"
 
 # haskell
 export PATH=$HOME/.local/bin:$PATH
@@ -32,13 +32,6 @@ export PATH=$GOPATH/bin:$PATH
 
 # rust
 export PATH=$HOME/.cargo/bin:$PATH
-
-# java
-export JAVA_HOME=$(/usr/libexec/java_home -v "13")
-export PATH=$JAVA_HOME/bin:$PATH
-
-# v
-export PATH=$HOME/.ghq/github.com/vlang/v:$PATH
 
 # python
 export PIPENV_VENV_IN_PROJECT=true
