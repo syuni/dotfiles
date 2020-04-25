@@ -16,6 +16,7 @@
   "python.jediEnabled": false,
   "python.autoComplete.addBrackets": true,
   "rust.show_warnings": true,
+  "pairs.disableLanguages": ["lisp"],
   "languageserver": {
     "golang": {
       "command": "gopls",
