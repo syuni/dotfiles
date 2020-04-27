@@ -298,6 +298,9 @@ bind C-q send-prefix
 # move status line to top
 set -g status-position top
 
+# we don't need repeat prefixes
+set -sg repeat-time 0
+
 # shell
 set-option -g default-shell /usr/bin/fish
 set-option -g default-command /usr/bin/fish
