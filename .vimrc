@@ -348,13 +348,12 @@ nnoremap <silent> [fzf]r :History<CR>
 nnoremap <silent> [fzf]s :Snippets<CR>
 
 " ale
-let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
 let g:ale_linters={
   \ 'javascript': ['eslint'],
   \ 'javascriptreact': ['eslint'],
   \ 'typescript': ['eslint', 'tslint'],
   \ 'typescriptreact': ['eslint', 'tslint'],
-  \ 'svelte': ['stylelint', 'eslint'],
+  \ 'svelte': ['eslint'],
   \ 'dart': ['dartanalyzer'],
   \ 'go': ['golangci-lint'],
   \ 'rust': ['cargo'],
@@ -368,7 +367,7 @@ let g:ale_fixers={
   \ 'javascriptreact': ['eslint'],
   \ 'typescript': ['eslint'],
   \ 'typescriptreact': ['eslint'],
-  \ 'svelte': ['stylelint', 'eslint'],
+  \ 'svelte': ['eslint'],
   \ 'dart': ['dartfmt'],
   \ 'go': ['goimports'],
   \ 'rust': ['rustfmt'],
