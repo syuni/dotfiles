@@ -260,7 +260,8 @@ let g:lightline = {
   \ 'colorscheme': 'onedark',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
+  \             [ 'readonly', 'filename', 'modified' ],
+  \             [ 'gitbranch' ] ],
   \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
   \              [ 'lineinfo'],
   \              [ 'percent' ],
@@ -272,7 +273,7 @@ let g:lightline = {
   \ },
   \ 'component_function': {
   \   'readonly': 'LightlineReadonly',
-  \   'fugitive': 'LightlineFugitive'
+  \   'gitbranch': 'LightlineFugitive'
   \ },
   \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
   \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
@@ -293,11 +294,12 @@ function! LightlineReadonly()
   return &readonly ? ' ' : ''
 endfunction
 function! LightlineFugitive()
-  if exists('*fugitive#head')
-    let branch = fugitive#head()
+  if (exists('*FugitiveHead'))
+    let branch = FugitiveHead()
     return branch !=# '' ? ' '.branch : ''
+  else
+    return ''
   endif
-  return ''
 endfunction
 
 " easy-motion
