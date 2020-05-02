@@ -130,7 +130,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " color schema
-  call dein#add('joshdick/onedark.vim')
+  call dein#add('kyoz/purify', { 'rtp': 'vim' })
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -235,8 +235,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 
-let g:onedark_terminal_italics=1
-colorscheme onedark
+colorscheme purify
 
 highlight Comment cterm=italic ctermbg=NONE guibg=NONE
 highlight Normal ctermbg=NONE guibg=NONE
@@ -257,7 +256,7 @@ let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
+  \ 'colorscheme': 'purify',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified' ],
