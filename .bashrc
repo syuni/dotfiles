@@ -17,9 +17,6 @@ export PATH=/usr/local/sbin:$PATH
 # binutils
 export PATH=/usr/local/opt/binutils/bin:$PATH
 
-# anyenv
-eval "$(anyenv init -)"
-
 # haskell
 export PATH=$HOME/.local/bin:$PATH
 
@@ -50,33 +47,15 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "head 
 # flutter
 export PATH=$HOME/flutter/bin:$PATH
 
-# ----- aliases -----
-
-# diff
-if [[ -x `which colordiff` ]]; then
-  alias diff='colordiff -u'
-else
-  alias diff='diff -u'
-fi
-
-# exa
-if [[ -x `which exa` ]]; then
-  alias ls='exa'
-  alias ll='exa -lha -s date -s new --git'
-  alias tree='exa -T'
-fi
-
-# lazygit
-if [[ -x `which lazygit` ]]; then
-  alias lgit='lazygit'
-fi
-
-# lazydocker
-if [[ -x `which lazydocker` ]]; then
-  alias ldocker='lazydocker'
-fi
-
 # ----- execution -----
-if [ $SHLVL = 1 ]; then
+
+if type -t anyenv > /dev/null; then
+  eval "$(anyenv init -)"
+fi
+
+# tmux
+if type -t tmux > /dev/null && [ $SHLVL = 1 ]; then
   exec tmux
+elif type -t fish > /dev/null; then
+  exec fish
 fi

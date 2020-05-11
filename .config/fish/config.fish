@@ -1,34 +1,39 @@
-# fish
+set WORK_DIR (dirname (status --current-filename))
+
+# theme
 set -x theme_color_scheme 'dark'
+
+if test -e $WORK_DIR/colors.fish
+  source $WORK_DIR/colors.fish
+end
 
 # aliases
 
 # colordiff
-if test -x (which colordiff)
+if type -q colordiff
   alias diff="colordiff -u"
 else
   alias diff="diff -u"
 end
 
 # exa
-if test -x (which exa)
+if type -q exa
   alias ls="exa"
   alias ll="exa -lh -s date -s new --git"
   alias tree="exa -T"
 end
 
 # lazygit
-if test -x (which lazygit)
-  alias lgit="lazygit"
+if type -q lazygit
+  alias lg="lazygit"
 end
 
 # lazydocker
-if test -x (which lazydocker)
-  alias ldocker="lazydocker"
+if type -q lazydocker
+  alias ld="lazydocker"
 end
 
-# anyenv
-anyenv init - | source
-
 # starship
-eval (starship init fish)
+if type -q starship
+  eval (starship init fish)
+end

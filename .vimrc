@@ -130,7 +130,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " color schema
-  call dein#add('kyoz/purify', { 'rtp': 'vim' })
+  call dein#add('dylanaraps/wal.vim')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -235,8 +235,10 @@ if !has('gui_running')
   set t_Co=256
 endif
 
-colorscheme purify
+colorscheme wal
 
+highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=234
+highlight CursorLineNr term=bold cterm=NONE ctermfg=228 ctermbg=NONE
 highlight Comment cterm=italic ctermbg=NONE guibg=NONE
 highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE
@@ -256,7 +258,7 @@ let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
 let g:lightline = {
-  \ 'colorscheme': 'purify',
+  \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified' ],
