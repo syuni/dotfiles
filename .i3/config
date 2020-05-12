@@ -311,7 +311,7 @@ exec_always --no-startup-id fix_xcursor
 exec --no-startup-id autorandr-launcher -d
 exec --no-startup-id autorandr -c
 exec_always --no-startup-id sleep .5; ~/.config/polybar/launch.sh
-exec_always --no-startup-id sleep .5; feh --no-fehbg --bg-scale ~/.config/wal/bg.png
+exec_always --no-startup-id sleep .5; feh --no-fehbg --bg-scale ~/.local/share/wallpaper
 exec_always --no-startup-id sleep .5; picom -b --experimental-backends
 
 #############################
