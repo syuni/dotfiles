@@ -40,8 +40,8 @@ let &t_SR .= "\e[3 q"
 set virtualedit=onemore
 " smart indent
 set smartindent
-" visual display of all beep sounds
-set visualbell
+" don't flash screen
+set visualbell t_vb=
 " move to corresponding parenthesis
 set showmatch
 set matchtime=1
@@ -130,7 +130,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " color schema
-  call dein#add('dylanaraps/wal.vim')
+  call dein#add('kyoz/purify', { 'rtp': 'vim' })
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -160,6 +160,9 @@ if dein#load_state('~/.cache/dein')
   " fzf
   call dein#add('junegunn/fzf', { 'build': './install --bin', 'merged': 0 })
   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+
+  " zen
+  call dein#add('junegunn/goyo.vim')
 
   " formatter
   call dein#add('editorconfig/editorconfig-vim')
@@ -235,7 +238,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 
-colorscheme wal
+colorscheme purify
 
 highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=234
 highlight CursorLineNr term=bold cterm=NONE ctermfg=228 ctermbg=NONE
@@ -258,7 +261,7 @@ let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
+  \ 'colorscheme': 'purify',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified' ],
@@ -307,8 +310,11 @@ endfunction
 let g:EasyMotion_do_mapping=0
 let g:EasyMotion_smartcase=1
 nmap s <Plug>(easymotion-bd-f2)
+nmap S <Plug>(easymotion-overwin-f2)
 nmap <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>F <Plug>(easymotion-overwin-f)
 nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
 " buffer
 nnoremap <silent> [buf]d :Bdelete<CR>
@@ -528,6 +534,12 @@ let g:slimv_impl='sbcl'
 let g:slimv_repl_split=2
 let g:slimv_repl_split_size=10
 let g:slimv_repl_name='REPL'
+
+" ### zen
+" goyo.vim
+let g:goyo_width=120
+let g:goyo_height='85%'
+let g:goyo_linenr=0
 
 " ### Load local .vimrc
 function! s:openLocalConfig()
