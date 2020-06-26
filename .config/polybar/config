@@ -12,7 +12,7 @@ time         = ${xrdb:color2:#222}
 
 [section/base-bar]
 height          = 30
-offset-y        = 6
+offset-y        = 10
 padding = 1
 module-margin = 1
 
@@ -36,7 +36,7 @@ monitor = ${env:MONITOR}
 [bar/desktop]
 inherit       = section/base-bar
 width           = 240
-offset-x        = 9
+offset-x        = 10
 padding = 0
 modules-left    = i3
 override-redirect = true
@@ -45,7 +45,8 @@ override-redirect = true
 [bar/time]
 inherit = section/base-bar
 width           = 100
-offset-x        = 100%:-108
+offset-x        = 100%:-110
+padding = 1
 modules-right  = time-label time
 override-redirect = true
 
@@ -53,15 +54,26 @@ override-redirect = true
 [bar/date]
 inherit = section/base-bar
 width           = 160
-offset-x        = 100%:-275
+offset-x        = 100%:-280
+padding = 1
 modules-right   = date-label date
+override-redirect = true
+click-left = gnome-calendar
+
+
+[bar/battery]
+inherit = section/base-bar
+width = 85
+offset-x = 100%:-375
+padding = 1
+modules-right = battery
 override-redirect = true
 
 
 [bar/pulse]
 inherit = section/base-bar
 width = 200
-offset-x = 100%:-483
+offset-x = 100%:-585
 modules-right = pulse
 override-redirect = true
 
@@ -112,7 +124,6 @@ type = internal/date
 
 label = %time%
 time = "%H:%M"
-time-alt =
 interval = 10
 
 
@@ -151,3 +162,45 @@ click-middle = pulse.sh next-sink
 scroll-up = pulse.sh up
 scroll-down = pulse.sh down
 label-foreground = ${colors.foreground}
+
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+
+battery = BAT0
+adapter = ADP1
+
+poll-interval = 5
+
+time-format = %H:%M
+format-charging = <animation-charging>  <label-charging>
+format-discharging = <ramp-capacity>  <label-discharging>
+format-full = <ramp-capacity>  <label-full>
+
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-framerate = 500

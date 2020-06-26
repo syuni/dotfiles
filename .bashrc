@@ -14,6 +14,9 @@ export XDG_DATA_HOME=$HOME/.local/share
 # homebrew
 export PATH=/usr/local/sbin:$PATH
 
+# asdf-vm
+. /opt/asdf-vm/asdf.sh
+
 # binutils
 export PATH=/usr/local/opt/binutils/bin:$PATH
 
@@ -48,10 +51,6 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "head 
 export PATH=$HOME/flutter/bin:$PATH
 
 # ----- execution -----
-
-if type -t anyenv > /dev/null; then
-  eval "$(anyenv init -)"
-fi
 
 # tmux
 if type -t tmux > /dev/null && [ $SHLVL = 1 ]; then

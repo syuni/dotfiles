@@ -80,7 +80,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Start Applications
 bindsym $mod+Ctrl+b exec kitty -e 'bmenu'
-bindsym $mod+F2 exec brave
+bindsym $mod+F2 exec google-chrome-stable
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
@@ -318,10 +318,10 @@ exec_always --no-startup-id sleep .5; picom -b --experimental-backends
 ### settings for i3-gaps: ###
 #############################
 
-gaps top 34
+gaps top 40
 
 # Set inner/outer gaps
-gaps inner 8
+gaps inner 10
 
 # Smart gaps (gaps used if only more than one container on the workspace)
 # smart_gaps on

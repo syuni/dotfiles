@@ -82,6 +82,8 @@ nnoremap <silent> Y y$
 " window
 set splitbelow
 set splitright
+" conceal
+let g:tex_conceal=""
 
 " ### general settings (search)
 " ignore uppercase and lowercase
@@ -254,6 +256,11 @@ highlight EndOfBuffer ctermbg=NONE guibg=NONE
 " ### Packages
 " rainbow
 let g:rainbow_active=1
+let g:rainbow_conf={
+  \ 'separately': {
+  \    'nerdtree': 0
+  \ }
+  \ }
 
 " lightline
 let g:lightline#ale#indicator_checking = "\uf110 "
@@ -277,7 +284,9 @@ let g:lightline = {
   \ },
   \ 'component_function': {
   \   'readonly': 'LightlineReadonly',
-  \   'gitbranch': 'LightlineFugitive'
+  \   'gitbranch': 'LightlineFugitive',
+  \   'filetype': 'LightlineFiletype',
+  \   'fileformat': 'LightlineFileformat',
   \ },
   \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
   \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
@@ -305,6 +314,12 @@ function! LightlineFugitive()
     return ''
   endif
 endfunction
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " easy-motion
 let g:EasyMotion_do_mapping=0
@@ -331,7 +346,12 @@ let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
 
 " vim-devicons
+let g:webdevicons_enable=1
+let g:webdevicons_enable_nerdtree=1
+let g:webdevicons_conceal_nerdtree_brackets=1
+let g:WebDevIconsUnicodeGlyphDoubleWidth=1
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
+let g:DevIconsEnableFoldersOpenClose=1
 
 " nerdtree
 nnoremap <silent> <C-n> :NERDTreeToggle<CR>
@@ -496,7 +516,6 @@ let g:polyglot_disabled=['elm']
 " vim-markdown
 let g:vim_markdown_conceal=0
 let g:vim_markdown_conceal_code_blocks=0
-let g:tex_conceal=""
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_toc_autofit=1
 let g:vim_markdown_math=1
@@ -518,7 +537,7 @@ let g:tigris#on_the_fly_enabled=1
 let g:tigris#delay=300
 
 " ### Elm
-au BufNewFile,BufRead *.elm setl sw=2 ts=2 sts=2
+au BufNewFile,BufRead *.elm setl sw=4 ts=4 sts=4
 
 " ### Haskell
 au BufNewFile,BufRead *.hs setl sw=4 ts=4 sts=4

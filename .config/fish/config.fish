@@ -7,6 +7,9 @@ if test -e $WORK_DIR/colors.fish
   source $WORK_DIR/colors.fish
 end
 
+# asdf-vm
+source /opt/asdf-vm/asdf.fish
+
 # aliases
 
 # colordiff

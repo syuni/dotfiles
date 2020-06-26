@@ -13,6 +13,7 @@ for m in $(polybar --list-monitors | cut -d":" -f1); do
   MONITOR=$m polybar desktop &
   MONITOR=$m polybar time &
   MONITOR=$m polybar date &
+  MONITOR=$m polybar battery &
   MONITOR=$m PATH=$DIR:$PATH polybar pulse &
 done
 
