@@ -184,7 +184,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('w0rp/ale')
 
   " completion (lsp)
-  call dein#add('neoclide/coc.nvim', { 'build': './install.sh nightly' })
+  call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
 
   " markdown
   call dein#add('godlygeek/tabular')
@@ -238,6 +238,9 @@ syntax on
 
 if !has('gui_running')
   set t_Co=256
+endif
+if has('termguicolors')
+  set termguicolors
 endif
 
 colorscheme purify
@@ -382,6 +385,7 @@ let g:ale_linters={
   \ 'javascriptreact': ['eslint'],
   \ 'typescript': ['eslint', 'tslint'],
   \ 'typescriptreact': ['eslint', 'tslint'],
+  \ 'vue': ['eslint', 'tslint'],
   \ 'svelte': ['eslint'],
   \ 'dart': ['dartanalyzer'],
   \ 'go': ['golangci-lint'],
@@ -389,13 +393,15 @@ let g:ale_linters={
   \ 'haskell': ['hlint'],
   \ 'python': ['flake8', 'mypy'],
   \ 'ocaml': ['ols'],
-  \ 'elm': ['elm_ls']
+  \ 'elm': ['elm_ls'],
+  \ 'terraform': ['terraform']
   \ }
 let g:ale_fixers={
   \ 'javascript': ['eslint'],
   \ 'javascriptreact': ['eslint'],
   \ 'typescript': ['eslint'],
   \ 'typescriptreact': ['eslint'],
+  \ 'vue': ['eslint'],
   \ 'svelte': ['eslint'],
   \ 'dart': ['dartfmt'],
   \ 'go': ['goimports'],
@@ -403,7 +409,8 @@ let g:ale_fixers={
   \ 'haskell': ['stylish-haskell'],
   \ 'python': ['black', 'isort'],
   \ 'ocaml': ['ocamlformat', 'ocp-indent'],
-  \ 'elm': ['elm-format']
+  \ 'elm': ['elm-format'],
+  \ 'terraform': ['terraform']
   \ }
 let g:ale_linters_explicit=1
 let g:ale_sign_column_always=1
@@ -426,7 +433,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-snippets', 'coc-xml', 'coc-svg']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg']
 
 set nowritebackup
 set updatetime=300

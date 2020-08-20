@@ -22,4 +22,6 @@
 [mergetool]
 	prompt = false
 [credential]
-  helper = /usr/share/git/credential/libsecret/git-credential-libsecret
+	helper = osxkeychain
+[pull]
+	rebase = false

@@ -1,3 +1,5 @@
+.DS_Store
+
 /.config/coc/
 
 /.config/karabiner/*
@@ -14,3 +16,11 @@
 /.config/gh/
 
 /.config/anyenv/
+
+/.config/gatsby/
+
+/.config/htop/
+
+/.config/vue/
+
+/.config/wireshark/
