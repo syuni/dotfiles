@@ -60,6 +60,11 @@ if type -q exa
   alias tree="exa -T"
 end
 
+# diff-so-fancy
+if type -q diff-so-fancy
+  alias dsf="diff-so-fancy"
+end
+
 # starship
 if type -q starship
   starship init fish | source

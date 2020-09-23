@@ -8,6 +8,7 @@
 [core]
 	quotepath = false
 	autocrlf = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
