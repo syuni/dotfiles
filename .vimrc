@@ -82,6 +82,15 @@ nnoremap <silent> Y y$
 " window
 set splitbelow
 set splitright
+" terminal
+if has('nvim')
+  autocmd TermOpen * startinsert
+  command! -nargs=* T split | terminal <args>
+  command! -nargs=* VT vsplit | terminal <args>
+  tnoremap <Esc> <C-\><C-n>
+  nnoremap <silent> T :T<CR>
+  nnoremap <silent> VT :VT<CR>
+endif
 " conceal
 let g:tex_conceal=""
 
@@ -117,6 +126,9 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
         \ | wincmd p | diffthis
 endif
+
+" ### polyglot
+let g:polyglot_disabled=['elm']
 
 " ### packages
 " dein Scripts-----------------------------
@@ -178,7 +190,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('airblade/vim-gitgutter')
 
   " snippet
-  call dein#add('honza/vim-snippets')
+  " call dein#add('honza/vim-snippets')
 
   " syntaxcheck
   call dein#add('w0rp/ale')
@@ -389,7 +401,7 @@ let g:ale_linters={
   \ 'svelte': ['eslint'],
   \ 'dart': ['dartanalyzer'],
   \ 'go': ['golangci-lint'],
-  \ 'rust': ['cargo'],
+  \ 'rust': ['rls'],
   \ 'haskell': ['hlint'],
   \ 'python': ['flake8', 'mypy'],
   \ 'ocaml': ['ols'],
@@ -433,7 +445,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-rust-analyzer', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg']
 
 set nowritebackup
 set updatetime=300
@@ -515,9 +527,6 @@ nnoremap <silent> [coc]k  :<C-u>CocPrev<CR>
 nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" ### polyglot
-let g:polyglot_disabled=['elm']
 
 " ### Markdown
 " vim-markdown

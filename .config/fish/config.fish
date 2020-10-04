@@ -46,6 +46,11 @@ set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head 
 
 # aliases
 
+# nvim
+if type -q nvim
+  alias vim="nvim"
+end
+
 # colordiff
 if type -q colordiff
   alias diff="colordiff -up"
