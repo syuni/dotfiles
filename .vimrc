@@ -143,6 +143,9 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
+  " ime
+  call dein#add('fuenor/im_control.vim')
+
   " color schema
   call dein#add('kyoz/purify', { 'rtp': 'vim' })
 
@@ -190,7 +193,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('airblade/vim-gitgutter')
 
   " snippet
-  " call dein#add('honza/vim-snippets')
+  call dein#add('honza/vim-snippets')
 
   " syntaxcheck
   call dein#add('w0rp/ale')
@@ -269,6 +272,19 @@ highlight SpecialKey ctermbg=NONE guibg=NONE
 highlight EndOfBuffer ctermbg=NONE guibg=NONE
 
 " ### Packages
+" ime
+let IM_CtrlMode=1
+inoremap <silent> <C-j><C-r>=IMState('FixMode')<CR>
+function! IMCtrl(cmd)
+  let cmd = a:cmd
+  if cmd == 'On'
+    let res = system('ibus engine "xkb:us::eng"')
+  elseif cmd == 'Off'
+    let res = system('ibus engine "skk"')
+  endif
+  return ''
+endfunction
+
 " rainbow
 let g:rainbow_active=1
 let g:rainbow_conf={
@@ -278,11 +294,11 @@ let g:rainbow_conf={
   \ }
 
 " lightline
-let g:lightline#ale#indicator_checking = "\uf110 "
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = "\uf00c "
-let g:lightline = {
+let g:lightline#ale#indicator_checking="\uf110 "
+let g:lightline#ale#indicator_warnings="\uf071 "
+let g:lightline#ale#indicator_errors="\uf05e "
+let g:lightline#ale#indicator_ok="\uf00c "
+let g:lightline={
   \ 'colorscheme': 'purify',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
@@ -306,13 +322,13 @@ let g:lightline = {
   \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
   \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
   \ }
-let g:lightline.component_expand = {
+let g:lightline.component_expand={
   \ 'linter_checking': 'lightline#ale#checking',
   \ 'linter_warnings': 'lightline#ale#warnings',
   \ 'linter_errors': 'lightline#ale#errors',
   \ 'linter_ok': 'lightline#ale#ok',
   \ }
-let g:lightline.component_type = {
+let g:lightline.component_type={
   \ 'linter_checking': 'left',
   \ 'linter_warnings': 'warning',
   \ 'linter_errors': 'error',

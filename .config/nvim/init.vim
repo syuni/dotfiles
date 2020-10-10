@@ -1,1 +1,1 @@
-/Users/syuni/dotfiles/.vimrc
+/home/syuni/dotfiles/.vimrc

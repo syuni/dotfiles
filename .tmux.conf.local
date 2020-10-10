@@ -14,8 +14,8 @@
 #set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
 # set -g default-terminal "xterm-256color"
 # set -ga terminal-overrides ",xterm-256color:RGB"
-set -g default-terminal "xterm-kitty"
-set -ga terminal-overrides ",xterm-kitty:RGB"
+set -g default-terminal "xterm-256color"
+set -ga terminal-overrides ",xterm-256color:RGB"
 
 # -- windows & pane creation ---------------------------------------------------
 

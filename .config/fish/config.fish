@@ -18,7 +18,7 @@ set -x PATH $HOME/.local/bin $PATH
 set -x PATH /usr/local/opt/mysql-client@5.7/bin $PATH
 
 # asdf
-source (brew --prefix asdf)/asdf.fish
+source /opt/asdf-vm/asdf.fish
 
 # clangd
 set -x PATH /usr/local/opt/llvm/bin $PATH
@@ -92,6 +92,6 @@ function attach_tmux_session_if_needed
   end
 end
 
-if test -z $TMUX && status --is-login
+if test -z $TMUX
   attach_tmux_session_if_needed
 end
