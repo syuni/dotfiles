@@ -20,12 +20,6 @@ set -x PATH /usr/local/opt/mysql-client@5.7/bin $PATH
 # asdf
 source /opt/asdf-vm/asdf.fish
 
-# clangd
-set -x PATH /usr/local/opt/llvm/bin $PATH
-set -x LDFLAGS -L/usr/local/opt/llvm/lib
-set -x CPPFLAGS -I/usr/local/opt/llvm/include
-set -x CPLUS_INCLUDE_PATH /usr/local/Cellar/gcc/9.3.0_1/include/c++/9.3.0/x86_64-apple-darwin19
-
 # go
 set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $PATH
@@ -45,11 +39,6 @@ set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob "!.git"'
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head -n 30 {}"'
 
 # aliases
-
-# nvim
-if type -q nvim
-  alias vim="nvim"
-end
 
 # colordiff
 if type -q colordiff

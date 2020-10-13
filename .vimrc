@@ -83,14 +83,8 @@ nnoremap <silent> Y y$
 set splitbelow
 set splitright
 " terminal
-if has('nvim')
-  autocmd TermOpen * startinsert
-  command! -nargs=* T split | terminal <args>
-  command! -nargs=* VT vsplit | terminal <args>
-  tnoremap <Esc> <C-\><C-n>
-  nnoremap <silent> T :T<CR>
-  nnoremap <silent> VT :VT<CR>
-endif
+nnoremap <silent> T :bo terminal<CR>
+nnoremap <silent> VT :vert terminal<CR>
 " conceal
 let g:tex_conceal=""
 
@@ -127,9 +121,6 @@ if !exists(":DiffOrig")
         \ | wincmd p | diffthis
 endif
 
-" ### polyglot
-let g:polyglot_disabled=['elm']
-
 " ### packages
 " dein Scripts-----------------------------
 if &compatible
@@ -164,9 +155,6 @@ if dein#load_state('~/.cache/dein')
 
   " easy-motion
   call dein#add('easymotion/vim-easymotion')
-
-  " buffer
-  call dein#add('moll/vim-bbye')
 
   " indent
   call dein#add('Yggdroot/indentLine')
@@ -204,9 +192,6 @@ if dein#load_state('~/.cache/dein')
   " markdown
   call dein#add('godlygeek/tabular')
   call dein#add('plasticboy/vim-markdown')
-
-  " language pack
-  call dein#add('sheerun/vim-polyglot')
 
   " javascript
   call dein#add('billyvg/tigris.nvim', { 'build': './install.sh' })
@@ -274,7 +259,6 @@ highlight EndOfBuffer ctermbg=NONE guibg=NONE
 " ### Packages
 " ime
 let IM_CtrlMode=1
-inoremap <silent> <C-j><C-r>=IMState('FixMode')<CR>
 function! IMCtrl(cmd)
   let cmd = a:cmd
   if cmd == 'On'
@@ -363,8 +347,8 @@ nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
 " buffer
-nnoremap <silent> [buf]d :Bdelete<CR>
-nnoremap <silent> [buf]D :bufdo :Bdelete<CR>
+nnoremap <silent> [buf]d :bd<CR>
+nnoremap <silent> [buf]D :bufdo :bd<CR>
 nnoremap <silent> [buf]p :bprevious<CR>
 nnoremap <silent> [buf]n :bnext<CR>
 
@@ -456,8 +440,8 @@ let g:ale_open_list=0
 let g:ale_keep_list_window_open=0
 let g:ale_rust_cargo_use_clippy=executable('cargo-clippy')
 let g:ale_ocaml_ocamlformat_options='--enable-outside-detected-project'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-S-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-S-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
