@@ -156,6 +156,9 @@ if dein#load_state('~/.cache/dein')
   " easy-motion
   call dein#add('easymotion/vim-easymotion')
 
+  " buffer
+  call dein#add('moll/vim-bbye')
+
   " indent
   call dein#add('Yggdroot/indentLine')
 
@@ -188,6 +191,9 @@ if dein#load_state('~/.cache/dein')
 
   " completion (lsp)
   call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
+
+  " json
+  call dein#add('elzr/vim-json')
 
   " markdown
   call dein#add('godlygeek/tabular')
@@ -347,8 +353,10 @@ nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
 " buffer
-nnoremap <silent> [buf]d :bd<CR>
-nnoremap <silent> [buf]D :bufdo :bd<CR>
+nnoremap <silent> [buf]d :Bdelete<CR>
+nnoremap <silent> [buf]ad :bufdo :Bdelete<CR>
+nnoremap <silent> [buf]D :bd<CR>
+nnoremap <silent> [buf]aD :bufdo :bd<CR>
 nnoremap <silent> [buf]p :bprevious<CR>
 nnoremap <silent> [buf]n :bnext<CR>
 
@@ -527,6 +535,10 @@ nnoremap <silent> [coc]k  :<C-u>CocPrev<CR>
 nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" ### Json
+" vim-json
+let g:vim_json_syntax_conceal=0
 
 " ### Markdown
 " vim-markdown
