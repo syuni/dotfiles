@@ -82,9 +82,6 @@ nnoremap <silent> Y y$
 " window
 set splitbelow
 set splitright
-" terminal
-nnoremap <silent> T :bo terminal<CR>
-nnoremap <silent> VT :vert terminal<CR>
 " conceal
 let g:tex_conceal=""
 
@@ -121,6 +118,12 @@ if !exists(":DiffOrig")
         \ | wincmd p | diffthis
 endif
 
+" ### nvim clients
+let g:python_host_prog='/usr/bin/python2'
+let g:python3_host_prog='/usr/bin/python3'
+let g:ruby_host_prog='/usr/bin/neovim-ruby-host'
+let g:node_host_prog='/usr/bin/neovim-node-host'
+
 " ### packages
 " dein Scripts-----------------------------
 if &compatible
@@ -139,6 +142,9 @@ if dein#load_state('~/.cache/dein')
 
   " color schema
   call dein#add('kyoz/purify', { 'rtp': 'vim' })
+
+  " terminal
+  call dein#add('vimlab/split-term.vim')
 
   " nerdtree
   call dein#add('scrooloose/nerdtree')
@@ -224,7 +230,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('zah/nim.vim')
 
   " lisp
-  call dein#add('kovisoft/slimv')
+  call dein#add('vlime/vlime', {'rtp': 'vim'})
 
   " icons
   call dein#add('ryanoasis/vim-devicons')
@@ -263,6 +269,10 @@ highlight SpecialKey ctermbg=NONE guibg=NONE
 highlight EndOfBuffer ctermbg=NONE guibg=NONE
 
 " ### Packages
+" terminal
+nnoremap <silent> T :Term<CR>
+nnoremap <silent> VT :VTerm<CR>
+
 " ime
 let IM_CtrlMode=1
 function! IMCtrl(cmd)
@@ -574,13 +584,14 @@ let g:haskell_conceal=0
 let g:haskell_conceal_enumerations=0
 
 " ### lisp
-" slimv
-let g:slimv_swank_cmd="!ros -e '(ql:quickload :swank) (swank:create-server)' wait &"
-let g:slimv_lisp='ros run'
-let g:slimv_impl='sbcl'
-let g:slimv_repl_split=2
-let g:slimv_repl_split_size=10
-let g:slimv_repl_name='REPL'
+" vlime
+let g:vlime_cl_impl='ros'
+function! VlimeBuildServerCommandFor_ros(vlime_loader, vlime_eval)
+  return ['ros', 'run',
+  \ '--load', '~/.cache/dein/repos/github.com/vlime/vlime/lisp/load-vlime.lisp',
+  \ '--eval', a:vlime_eval
+  \ ]
+endfunction
 
 " ### zen
 " goyo.vim

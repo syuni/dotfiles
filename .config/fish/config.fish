@@ -18,7 +18,8 @@ set -x PATH $HOME/.local/bin $PATH
 set -x PATH /usr/local/opt/mysql-client@5.7/bin $PATH
 
 # asdf
-source /opt/asdf-vm/asdf.fish
+# source /opt/asdf-vm/asdf.fish
+source $HOME/.asdf/asdf.fish
 
 # go
 set -x GOPATH $HOME/go
@@ -39,6 +40,11 @@ set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob "!.git"'
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head -n 30 {}"'
 
 # aliases
+
+# neovim
+if type -q nvim
+  alias vim="nvim"
+end
 
 # colordiff
 if type -q colordiff
