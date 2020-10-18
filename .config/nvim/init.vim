@@ -230,7 +230,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('zah/nim.vim')
 
   " lisp
-  call dein#add('vlime/vlime', {'rtp': 'vim'})
+  call dein#add('kovisoft/slimv')
 
   " icons
   call dein#add('ryanoasis/vim-devicons')
@@ -270,6 +270,8 @@ highlight EndOfBuffer ctermbg=NONE guibg=NONE
 
 " ### Packages
 " terminal
+autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+autocmd TermClose * :bd!
 nnoremap <silent> T :Term<CR>
 nnoremap <silent> VT :VTerm<CR>
 
@@ -584,14 +586,11 @@ let g:haskell_conceal=0
 let g:haskell_conceal_enumerations=0
 
 " ### lisp
-" vlime
-let g:vlime_cl_impl='ros'
-function! VlimeBuildServerCommandFor_ros(vlime_loader, vlime_eval)
-  return ['ros', 'run',
-  \ '--load', '~/.cache/dein/repos/github.com/vlime/vlime/lisp/load-vlime.lisp',
-  \ '--eval', a:vlime_eval
-  \ ]
-endfunction
+" slimv
+let g:slimv_swank_cmd="!ros -e '(ql:quickload :swank) (swank:create-server)' wait > /dev/null 2> /dev/null &"
+let g:slimv_lisp='ros run'
+let g:slimv_impl='sbcl'
+let g:slimv_repl_split=2
 
 " ### zen
 " goyo.vim
