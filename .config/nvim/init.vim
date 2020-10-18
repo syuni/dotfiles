@@ -84,6 +84,11 @@ set splitbelow
 set splitright
 " conceal
 let g:tex_conceal=""
+" move
+nnoremap <silent> <A-h> <C-w>h
+nnoremap <silent> <A-j> <C-w>j
+nnoremap <silent> <A-k> <C-w>k
+nnoremap <silent> <A-l> <C-w>l
 
 " ### general settings (search)
 " ignore uppercase and lowercase
@@ -269,7 +274,7 @@ highlight SpecialKey ctermbg=NONE guibg=NONE
 highlight EndOfBuffer ctermbg=NONE guibg=NONE
 
 " ### Packages
-" terminal
+" terminal (& split-term.vim)
 autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 autocmd TermClose * :bd!
 nnoremap <silent> T :Term<CR>
