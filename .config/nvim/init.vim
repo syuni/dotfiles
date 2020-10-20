@@ -114,6 +114,8 @@ nnoremap [ale] <Nop>
 nmap <Leader>a [ale]
 nnoremap [buf] <Nop>
 nmap <Leader>b [buf]
+nnoremap [term] <Nop>
+nmap <Leader>t [term]
 
 " ### diff
 set diffopt=internal,vertical,filler,algorithm:histogram,indent-heuristic
@@ -277,8 +279,8 @@ highlight EndOfBuffer ctermbg=NONE guibg=NONE
 " terminal (& split-term.vim)
 autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 autocmd TermClose * :bd!
-nnoremap <silent> T :Term<CR>
-nnoremap <silent> VT :VTerm<CR>
+nnoremap <silent> [term]s :Term<CR>
+nnoremap <silent> [term]v :VTerm<CR>
 
 " ime
 let IM_CtrlMode=1
