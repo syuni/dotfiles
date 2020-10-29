@@ -131,6 +131,10 @@ let g:python3_host_prog='/usr/bin/python3'
 let g:ruby_host_prog='/usr/bin/neovim-ruby-host'
 let g:node_host_prog='/usr/bin/neovim-node-host'
 
+" ### Language Pack
+" polyglot
+let g:polyglot_disabled=['lisp']
+
 " ### packages
 " dein Scripts-----------------------------
 if &compatible
@@ -153,8 +157,11 @@ if dein#load_state('~/.cache/dein')
   " terminal
   call dein#add('vimlab/split-term.vim')
 
-  " nerdtree
+  " explorer
   call dein#add('scrooloose/nerdtree')
+
+  " ranger
+  call dein#add('kevinhwang91/rnvimr', { 'do': 'make sync' })
 
   " lightline
   call dein#add('itchyny/lightline.vim')
@@ -203,7 +210,10 @@ if dein#load_state('~/.cache/dein')
   call dein#add('w0rp/ale')
 
   " completion (lsp)
-  call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
+  call dein#add('neoclide/coc.nvim', { 'merged':0, 'rev': 'release' })
+
+  " language pack
+  call dein#add('sheerun/vim-polyglot')
 
   " json
   call dein#add('elzr/vim-json')
@@ -212,8 +222,11 @@ if dein#load_state('~/.cache/dein')
   call dein#add('godlygeek/tabular')
   call dein#add('plasticboy/vim-markdown')
 
-  " javascript
-  call dein#add('billyvg/tigris.nvim', { 'build': './install.sh' })
+  " python
+  call dein#add('numirias/semshi', { 'do': 'UpdateRemotePlugins' })
+
+  " javascript (typescript)
+  call dein#add('HerringtonDarkholme/yats.vim')
 
   " dart
   call dein#add('dart-lang/dart-vim-plugin')
@@ -238,6 +251,9 @@ if dein#load_state('~/.cache/dein')
 
   " lisp
   call dein#add('kovisoft/slimv')
+  
+  " fish
+  call dein#add('dag/vim-fish')
 
   " icons
   call dein#add('ryanoasis/vim-devicons')
@@ -263,17 +279,6 @@ if has('termguicolors')
 endif
 
 colorscheme purify
-
-highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=234
-highlight CursorLineNr term=bold cterm=NONE ctermfg=228 ctermbg=NONE
-highlight Comment cterm=italic ctermbg=NONE guibg=NONE
-highlight Normal ctermbg=NONE guibg=NONE
-highlight NonText ctermbg=NONE guibg=NONE
-highlight LineNr ctermbg=NONE guibg=NONE
-highlight Folded ctermbg=NONE guibg=NONE
-highlight Special ctermbg=NONE guibg=NONE
-highlight SpecialKey ctermbg=NONE guibg=NONE
-highlight EndOfBuffer ctermbg=NONE guibg=NONE
 
 " ### Packages
 " terminal (& split-term.vim)
@@ -399,6 +404,10 @@ let g:DevIconsEnableFoldersOpenClose=1
 nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
+" rnvimr
+let g:rnvimr_ex_enable = 1
+nmap <space>r :RnvimrToggle<CR>
+
 " fzf
 let g:fzf_layout={ 'down': '40%' }
 let g:fzf_buffers_jump=1
@@ -472,7 +481,7 @@ nmap <silent> <C-S-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-rust-analyzer', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg']
+let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-rust-analyzer', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg', 'coc-vimlsp', 'coc-java', 'coc-fish']
 
 set nowritebackup
 set updatetime=300
@@ -508,6 +517,8 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
+hi CocHighlightText ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
+hi CoCHoverRange ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
 
 " Remap for rename current word
 nmap [coc]rn <Plug>(coc-rename)
@@ -570,6 +581,10 @@ let g:vim_markdown_frontmatter=1
 let g:vim_markdown_toml_frontmatter=1
 let g:vim_markdown_json_frontmatter=1
 
+" ### Python
+" semshi
+let g:semshi#mark_selected_nodes=0
+
 " ### Golang
 au BufNewFile,BufRead *.go setl sw=4 ts=4 sts=4 noet
 
@@ -578,10 +593,6 @@ au BufNewFile,BufRead *.v,*.vh setl sw=4 ts=4 sts=4 noet
 
 " ### Javascript
 autocmd BufReadPost,BufNewFile *_spec.js,*Spec.js set filetype=javascript syntax=javascript
-" tigris.nvim
-let g:tigris#enabled=1
-let g:tigris#on_the_fly_enabled=1
-let g:tigris#delay=300
 
 " ### Elm
 au BufNewFile,BufRead *.elm setl sw=4 ts=4 sts=4
@@ -592,7 +603,7 @@ au BufNewFile,BufRead *.hs setl sw=4 ts=4 sts=4
 let g:haskell_conceal=0
 let g:haskell_conceal_enumerations=0
 
-" ### lisp
+" ### Lisp
 " slimv
 let g:slimv_swank_cmd="!ros -e '(ql:quickload :swank) (swank:create-server)' wait > /dev/null 2> /dev/null &"
 let g:slimv_lisp='ros run'

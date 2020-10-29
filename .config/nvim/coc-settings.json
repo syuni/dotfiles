@@ -15,6 +15,11 @@
   "python.jediEnabled": false,
   "python.autoComplete.addBrackets": true,
   "rust.show_warnings": true,
+  "java.referencesCodeLens.enabled": true,
+  "java.implementationsCodeLens.enabled": true,
+  "java.signatureHelp.enabled": true,
+  "java.saveActions.organizeImports": true,
+  "java.completion.guessMethodArguments": true,
   "pairs.disableLanguages": ["lisp"],
   "languageserver": {
     "golang": {

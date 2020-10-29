@@ -1,2 +1,2 @@
 colorscheme purify
-set guifont=RobotoMono\ Nerd\ Font\ Mono:h12
+set guifont=Iosevka:h12
