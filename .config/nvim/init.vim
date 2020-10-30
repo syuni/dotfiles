@@ -152,7 +152,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/im_control.vim')
 
   " color schema
-  call dein#add('kyoz/purify', { 'rtp': 'vim' })
+  call dein#add('ayu-theme/ayu-vim')
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -278,7 +278,8 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme purify
+let ayucolor='mirage'
+colorscheme ayu
 
 " ### Packages
 " terminal (& split-term.vim)
@@ -313,7 +314,7 @@ let g:lightline#ale#indicator_warnings="\uf071 "
 let g:lightline#ale#indicator_errors="\uf05e "
 let g:lightline#ale#indicator_ok="\uf00c "
 let g:lightline={
-  \ 'colorscheme': 'purify',
+  \ 'colorscheme': 'ayu',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified' ],
@@ -481,7 +482,7 @@ nmap <silent> <C-S-j> <Plug>(ale_next_wrap)
 nmap <silent> [ale]f <Plug>(ale_fix)
 
 " coc
-let g:coc_global_extensions=['coc-marketplace', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-rust-analyzer', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg', 'coc-vimlsp', 'coc-java', 'coc-fish']
+let g:coc_global_extensions=['coc-marketplace', 'coc-highlight', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-rust-analyzer', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg', 'coc-vimlsp', 'coc-java', 'coc-fish']
 
 set nowritebackup
 set updatetime=300
