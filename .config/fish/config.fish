@@ -71,22 +71,7 @@ if type -q starship
 end
 
 # tmux
-function attach_tmux_session_if_needed
-  set ID (tmux list-sessions)
-  if test -z "$ID"
-    exec tmux new-session
-    return
-  end
-
-  set new_session "Create New Session" 
-  set ID (echo $ID\n$new_session | fzf | cut -d: -f1)
-  if test "$ID" = "$new_session"
-    exec tmux new-session
-  else if test -n "$ID"
-    exec tmux attach-session -t "$ID"
-  end
-end
-
-if test -z $TMUX
-  attach_tmux_session_if_needed
+if status is-interactive
+and not set -q TMUX
+    exec tmux
 end

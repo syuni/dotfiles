@@ -152,7 +152,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/im_control.vim')
 
   " color schema
-  call dein#add('ayu-theme/ayu-vim')
+  call dein#add('dracula/vim', { 'as': 'dracula' })
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -278,13 +278,20 @@ if has('termguicolors')
   set termguicolors
 endif
 
-let ayucolor='mirage'
-colorscheme ayu
+colorscheme dracula
+
+" transparent backgroud
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
+highlight Folded ctermbg=NONE guibg=NONE
+highlight Special ctermbg=NONE guibg=NONE
+highlight SpecialKey ctermbg=NONE guibg=NONE
+highlight EndOfBuffer ctermbg=NONE guibg=NONE
 
 " ### Packages
 " terminal (& split-term.vim)
 autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
-autocmd TermClose * :bd!
 nnoremap <silent> [term]s :Term<CR>
 nnoremap <silent> [term]v :VTerm<CR>
 
@@ -314,7 +321,7 @@ let g:lightline#ale#indicator_warnings="\uf071 "
 let g:lightline#ale#indicator_errors="\uf05e "
 let g:lightline#ale#indicator_ok="\uf00c "
 let g:lightline={
-  \ 'colorscheme': 'ayu',
+  \ 'colorscheme': 'dracula',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified' ],
