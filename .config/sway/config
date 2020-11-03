@@ -17,6 +17,10 @@ set $term tilix
 # Launcher
 set $menu rofi -show combi | xargs swaymsg exec
 
+# Screenshot
+set $screenshot-region slurp | grim -g - $HOME/Pictures/$(date +%Y%m%d%H%M%S).png
+set $screenshot-window swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp | grim -g - $HOME/Pictures/$(date +%Y%m%d%H%M%S).png
+set $screenshot-screen grim $HOME/Pictures/$(date +%Y%m%d%H%M%S).png
 
 #
 # Appearance
@@ -87,6 +91,11 @@ bindsym $mod+d exec $menu
 
 # Floating window
 floating_modifier $mod normal
+
+# Take screenshot
+bindsym $mod+p exec $screenshot-region
+bindsym $mod+Shift+p exec $screenshot-window
+bindsym $mod+Control+p exec $screenshot-screen
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
