@@ -12,7 +12,7 @@ set $up k
 set $right l
 
 # Terminal emulator
-set $term tilix
+set $term termite
 
 # Launcher
 set $menu rofi -show combi | xargs swaymsg exec
