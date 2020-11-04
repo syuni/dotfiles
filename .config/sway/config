@@ -37,8 +37,8 @@ default_border pixel 2
 #
 
 # Display
-output eDP-1 resolution 2880x1800 position 1920,0 scale 1.2
-output HDMI-A-3 resolution 1920x1080 position 0,0
+output eDP-1 resolution 2880x1800 position 0,0 scale 1.2
+output HDMI-A-3 resolution 1920x1080 position -2400,0 scale 0.8
 
 # Wallpaper
 output * bg $HOME/.local/share/background/dracula.png fill
