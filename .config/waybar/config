@@ -1,0 +1,50 @@
+{
+  "layer": "top",
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["custom/spotify"],
+  "modules-right": ["network", "pulseaudio", "temperature", "cpu", "memory", "battery", "clock"],
+  "custom/spotify": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "$HOME/.config/waybar/mediaplayer 2> /dev/null",
+    "exec-if": "pgrep spotify",
+    "max-length": 80
+  },
+  "pulseaudio": {
+    "tooltip": false,
+    "scroll-step": 5,
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon}  {volume}%",
+    "format-muted": " mute",
+    "format-icons": {
+      "headphone": "",
+      "default": ["奄", "奔", "墳"]
+    }
+  },
+  "network": {
+    "tooltip": false,
+    "format-wifi": " {essid} {ipaddr}",
+    "format-ethernet": " {ipaddr}"
+  },
+  "temperature": {
+    "format": " {temperatureC}°C"
+  },
+  "cpu": {
+    "tooltip": false,
+    "format": " {}%"
+  },
+  "memory": {
+    "tooltip": false,
+    "format": " {}%"
+  },
+  "battery": {
+    "states": {
+        "warning": 30,
+        "critical": 15
+    },
+    "format": "{icon} {}% ",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25
+  }
+}
+}
