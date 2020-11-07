@@ -14,11 +14,12 @@ set -x XDG_DATA_HOME $HOME/.local/share
 # bin
 set -x PATH $HOME/.local/bin $PATH
 
-# additional binaries
-set -x PATH /usr/local/opt/mysql-client@5.7/bin $PATH
+# ssh-agent
+if type -q ssh-agent
+  eval (ssh-agent -c) > /dev/null
+end
 
 # asdf
-# source /opt/asdf-vm/asdf.fish
 source $HOME/.asdf/asdf.fish
 
 # go
@@ -64,6 +65,8 @@ end
 if type -q diff-so-fancy
   alias dsf="diff-so-fancy"
 end
+
+# launch
 
 # starship
 if type -q starship
