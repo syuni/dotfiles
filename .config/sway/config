@@ -12,7 +12,7 @@ set $up k
 set $right l
 
 # Terminal emulator
-set $term termite
+set $term env WINIT_UNIX_BACKEND=x11 alacritty
 
 # Launcher
 set $menu rofi -show combi | xargs swaymsg exec
