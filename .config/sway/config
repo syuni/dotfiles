@@ -37,13 +37,11 @@ default_border pixel 2
 #
 
 # Display
-# output eDP-1 resolution 2880x1800 position 0,0 scale 1.2
-# output HDMI-A-3 resolution 1920x1080 position -2400,0 scale 0.8
 output eDP-1 resolution 2880x1800 position 2400,0 scale 1.2
 output HDMI-A-3 resolution 1920x1080 position 0,0 scale 0.8
 
 # Wallpaper
-output * bg $HOME/.local/share/background/dracula.png fill
+output * bg $HOME/.local/share/backgrounds/dracula-arch.png fill
 
 
 #
@@ -264,13 +262,6 @@ bindsym $mod+r mode "resize"
 
 
 #
-# Input method
-#
-
-exec ibus-daemon -drx
-
-
-#
 # Status Bar
 #
 
@@ -280,21 +271,11 @@ bar {
 
 
 #
-# Theme
-#
-
-exec_always {
-  gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
-  gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
-  gsettings set org.gnome.desktop.interface icon-theme 'Dracula' 
-}
-
-
-
-
-#
 # Autostart
 #
+
+# Input method
+exec fcitx-autostart
 
 # Notification
 exec mako

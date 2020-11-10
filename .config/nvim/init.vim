@@ -296,13 +296,16 @@ nnoremap <silent> [term]s :Term<CR>
 nnoremap <silent> [term]v :VTerm<CR>
 
 " ime
-let IM_CtrlMode=1
+" let IM_CtrlMode=6
+" inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+let IM_CtrlMode = 1
+inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 function! IMCtrl(cmd)
   let cmd = a:cmd
   if cmd == 'On'
-    let res = system('ibus engine "xkb:us::eng"')
+    let res = system('fcitx-remote -c')
   elseif cmd == 'Off'
-    let res = system('ibus engine "skk"')
+    let res = system('fcitx-remote -o')
   endif
   return ''
 endfunction

@@ -3,6 +3,9 @@ set -x theme_color_scheme 'dark'
 
 # environments
 
+# backends
+set -x GDK_BACKEND x11
+
 # lang
 set -x LANG en_US.UTF-8
 

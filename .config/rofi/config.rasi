@@ -2,7 +2,7 @@ configuration {
   modi: "combi,drun,run,ssh,window";
   lines: 12;
   show-icons: true;
-  terminal: "tilix";
+  terminal: "termite";
   run-shell-command: "{terminal} --window -- bash";
   drun-icon-theme: "Papirus-Dark";
   combi-modi: "drun,run,ssh,window";
