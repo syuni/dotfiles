@@ -152,7 +152,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/im_control.vim')
 
   " color schema
-  call dein#add('dracula/vim', { 'as': 'dracula' })
+  call dein#add('liuchengxu/space-vim-dark')
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -211,6 +211,7 @@ if dein#load_state('~/.cache/dein')
 
   " completion (lsp)
   call dein#add('neoclide/coc.nvim', { 'merged':0, 'rev': 'release' })
+  call dein#add('liuchengxu/vista.vim')
 
   " language pack
   call dein#add('sheerun/vim-polyglot')
@@ -278,7 +279,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme dracula
+colorscheme space-vim-dark
 
 " transparent backgroud
 highlight Normal ctermbg=NONE guibg=NONE
@@ -324,7 +325,7 @@ let g:lightline#ale#indicator_warnings="\uf071 "
 let g:lightline#ale#indicator_errors="\uf05e "
 let g:lightline#ale#indicator_ok="\uf00c "
 let g:lightline={
-  \ 'colorscheme': 'dracula',
+  \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified' ],
@@ -495,7 +496,7 @@ nmap <silent> [ale]f <Plug>(ale_fix)
 let g:coc_global_extensions=['coc-marketplace', 'coc-highlight', 'coc-json', 'coc-pairs', 'coc-python', 'coc-rls', 'coc-rust-analyzer', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-yaml', 'coc-vetur', 'coc-angular', 'coc-svelte', 'coc-flutter', 'coc-snippets', 'coc-xml', 'coc-svg', 'coc-vimlsp', 'coc-java', 'coc-fish']
 
 set nowritebackup
-set updatetime=300
+set updatetime=100
 
 " Use <c-space> to trigger completion.
 imap <Nul> <C-Space>
@@ -527,9 +528,9 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-hi CocHighlightText ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
-hi CoCHoverRange ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+" hi CocHighlightText ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
+" hi CoCHoverRange ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
 
 " Remap for rename current word
 nmap [coc]rn <Plug>(coc-rename)
