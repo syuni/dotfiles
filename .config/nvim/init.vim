@@ -163,7 +163,7 @@ if dein#load_state('~/.cache/dein')
   " ranger
   call dein#add('kevinhwang91/rnvimr', { 'do': 'make sync' })
 
-  " lightline
+  " status line
   call dein#add('itchyny/lightline.vim')
   call dein#add('maximbaz/lightline-ale')
 
@@ -201,7 +201,7 @@ if dein#load_state('~/.cache/dein')
 
   " git
   call dein#add('tpope/vim-fugitive')
-  call dein#add('airblade/vim-gitgutter')
+  call dein#add('mhinz/vim-signify')
 
   " snippet
   call dein#add('honza/vim-snippets')
@@ -328,7 +328,7 @@ let g:lightline={
   \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'readonly', 'filename', 'modified' ],
+  \             [ 'readonly', 'filename', 'modified', 'vista' ],
   \             [ 'gitbranch' ] ],
   \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
   \              [ 'lineinfo'],
@@ -344,6 +344,7 @@ let g:lightline={
   \   'gitbranch': 'LightlineFugitive',
   \   'filetype': 'LightlineFiletype',
   \   'fileformat': 'LightlineFileformat',
+  \   'vista': 'NearestMethodOrFunction'
   \ },
   \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
   \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
@@ -377,6 +378,16 @@ endfunction
 function! LightlineFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
+function! NearestMethodOrFunction() abort
+  return !empty(get(b:, 'vista_nearest_method_or_function', '')) ? ' '.b:vista_nearest_method_or_function : ''
+endfunction
+
+" vista
+nnoremap <silent> <C-]> :Vista!!<CR>
+nnoremap <silent> <C-\> :Vista finder<CR>
+let g:vista_default_executive='coc'
+" let g:vista_icon_indent=['╰─▸ ', '├─▸ ']
+let g:vista#renderer#enable_icon=1
 
 " easy-motion
 let g:EasyMotion_do_mapping=0
@@ -544,37 +555,37 @@ augroup mygroup
 augroup end
 
 " Fix autofix problem of current line
-nmap [coc]qf  <Plug>(coc-fix-current)
+nmap [coc]qf <Plug>(coc-fix-current)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> [coc]a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> [coc]a :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> [coc]e  :<C-u>CocList extensions<cr>
+nnoremap <silent> [coc]e :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> [coc]c  :<C-u>CocList commands<cr>
+nnoremap <silent> [coc]c :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> [coc]o  :<C-u>CocList outline<cr>
+nnoremap <silent> [coc]o :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> [coc]s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> [coc]s :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> [coc]j  :<C-u>CocNext<CR>
+nnoremap <silent> [coc]j :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> [coc]k  :<C-u>CocPrev<CR>
+nnoremap <silent> [coc]k :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> [coc]p  :<C-u>CocListResume<CR>
+nnoremap <silent> [coc]p :<C-u>CocListResume<CR>
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
