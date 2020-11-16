@@ -152,7 +152,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/im_control.vim')
 
   " color schema
-  call dein#add('liuchengxu/space-vim-dark')
+  call dein#add('dracula/vim', { 'as': 'dracula' })
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -279,7 +279,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme space-vim-dark
+colorscheme dracula
 
 " transparent backgroud
 highlight Normal ctermbg=NONE guibg=NONE
@@ -325,7 +325,7 @@ let g:lightline#ale#indicator_warnings="\uf071 "
 let g:lightline#ale#indicator_errors="\uf05e "
 let g:lightline#ale#indicator_ok="\uf00c "
 let g:lightline={
-  \ 'colorscheme': 'wombat',
+  \ 'colorscheme': 'dracula',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified', 'vista' ],
