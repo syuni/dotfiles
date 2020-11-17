@@ -152,7 +152,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/im_control.vim')
 
   " color schema
-  call dein#add('dracula/vim', { 'as': 'dracula' })
+  call dein#add('liuchengxu/space-vim-dark')
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -279,16 +279,10 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme dracula
-
-" transparent backgroud
-highlight Normal ctermbg=NONE guibg=NONE
-highlight NonText ctermbg=NONE guibg=NONE
-highlight LineNr ctermbg=NONE guibg=NONE
-highlight Folded ctermbg=NONE guibg=NONE
-highlight Special ctermbg=NONE guibg=NONE
-highlight SpecialKey ctermbg=NONE guibg=NONE
-highlight EndOfBuffer ctermbg=NONE guibg=NONE
+colorscheme space-vim-dark
+hi Normal     ctermbg=NONE guibg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
 
 " ### Packages
 " terminal (& split-term.vim)
@@ -297,8 +291,6 @@ nnoremap <silent> [term]s :Term<CR>
 nnoremap <silent> [term]v :VTerm<CR>
 
 " ime
-" let IM_CtrlMode=6
-" inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 let IM_CtrlMode = 1
 inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 function! IMCtrl(cmd)
@@ -325,7 +317,7 @@ let g:lightline#ale#indicator_warnings="\uf071 "
 let g:lightline#ale#indicator_errors="\uf05e "
 let g:lightline#ale#indicator_ok="\uf00c "
 let g:lightline={
-  \ 'colorscheme': 'dracula',
+  \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'readonly', 'filename', 'modified', 'vista' ],
