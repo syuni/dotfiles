@@ -185,6 +185,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('scrooloose/nerdcommenter')
 
   " finder
+  call dein#add('junegunn/fzf', { 'build': './install --bin', 'merged': 0 })
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
   call dein#add('nvim-lua/popup.nvim')
   call dein#add('nvim-lua/plenary.nvim')
   call dein#add('nvim-telescope/telescope.nvim')
