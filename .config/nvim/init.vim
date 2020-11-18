@@ -108,8 +108,8 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 let mapleader="\<Space>"
 nnoremap [coc] <Nop>
 nmap <Leader>i [coc]
-nnoremap [fzf] <Nop>
-nmap <Leader>f [fzf]
+nnoremap [finder] <Nop>
+nmap <Leader>f [finder]
 nnoremap [ale] <Nop>
 nmap <Leader>a [ale]
 nnoremap [buf] <Nop>
@@ -152,20 +152,19 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/im_control.vim')
 
   " color schema
-  call dein#add('liuchengxu/space-vim-dark')
+  call dein#add('dracula/vim', { 'as': 'dracula' })
 
   " terminal
   call dein#add('vimlab/split-term.vim')
 
   " explorer
-  call dein#add('scrooloose/nerdtree')
+  call dein#add('kyazdani42/nvim-tree.lua')
 
   " ranger
   call dein#add('kevinhwang91/rnvimr', { 'do': 'make sync' })
 
   " status line
-  call dein#add('itchyny/lightline.vim')
-  call dein#add('maximbaz/lightline-ale')
+  call dein#add('glepnir/galaxyline.nvim')
 
   " rainbow
   call dein#add('luochen1990/rainbow')
@@ -185,9 +184,10 @@ if dein#load_state('~/.cache/dein')
   " comment
   call dein#add('scrooloose/nerdcommenter')
 
-  " fzf
-  call dein#add('junegunn/fzf', { 'build': './install --bin', 'merged': 0 })
-  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+  " finder
+  call dein#add('nvim-lua/popup.nvim')
+  call dein#add('nvim-lua/plenary.nvim')
+  call dein#add('nvim-telescope/telescope.nvim')
 
   " zen
   call dein#add('junegunn/goyo.vim')
@@ -213,24 +213,16 @@ if dein#load_state('~/.cache/dein')
   call dein#add('neoclide/coc.nvim', { 'merged':0, 'rev': 'release' })
   call dein#add('liuchengxu/vista.vim')
 
+  " tree sitter
+  call dein#add('nvim-treesitter/nvim-treesitter')
+  call dein#add('romgrk/nvim-treesitter-context')
+
   " language pack
   call dein#add('sheerun/vim-polyglot')
-
-  " json
-  call dein#add('elzr/vim-json')
 
   " markdown
   call dein#add('godlygeek/tabular')
   call dein#add('plasticboy/vim-markdown')
-
-  " python
-  call dein#add('numirias/semshi', { 'do': 'UpdateRemotePlugins' })
-
-  " javascript (typescript)
-  call dein#add('HerringtonDarkholme/yats.vim')
-
-  " dart
-  call dein#add('dart-lang/dart-vim-plugin')
 
   " svelte
   call dein#add('evanleck/vim-svelte')
@@ -240,12 +232,6 @@ if dein#load_state('~/.cache/dein')
 
   " haskell
   call dein#add('dag/vim2hs')
-
-  " rust
-  call dein#add('rust-lang/rust.vim')
-
-  " vlang
-  call dein#add('ollykel/v-vim')
 
   " nim
   call dein#add('zah/nim.vim')
@@ -257,7 +243,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('dag/vim-fish')
 
   " icons
-  call dein#add('ryanoasis/vim-devicons')
+  call dein#add('kyazdani42/nvim-web-devicons')
 
   call dein#end()
   call dein#save_state()
@@ -279,10 +265,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme space-vim-dark
-hi Normal     ctermbg=NONE guibg=NONE
-hi LineNr     ctermbg=NONE guibg=NONE
-hi SignColumn ctermbg=NONE guibg=NONE
+colorscheme dracula
 
 " ### Packages
 " terminal (& split-term.vim)
@@ -305,74 +288,17 @@ endfunction
 
 " rainbow
 let g:rainbow_active=1
-let g:rainbow_conf={
-  \ 'separately': {
-  \    'nerdtree': 0
-  \ }
-  \ }
 
-" lightline
-let g:lightline#ale#indicator_checking="\uf110 "
-let g:lightline#ale#indicator_warnings="\uf071 "
-let g:lightline#ale#indicator_errors="\uf05e "
-let g:lightline#ale#indicator_ok="\uf00c "
-let g:lightline={
-  \ 'colorscheme': 'wombat',
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'readonly', 'filename', 'modified', 'vista' ],
-  \             [ 'gitbranch' ] ],
-  \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-  \              [ 'lineinfo'],
-  \              [ 'percent' ],
-  \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
-  \ },
-  \ 'component': {
-  \   'charvaluehex': '0x%B',
-  \   'lineinfo': ' %3l:%-2v',
-  \ },
-  \ 'component_function': {
-  \   'readonly': 'LightlineReadonly',
-  \   'gitbranch': 'LightlineFugitive',
-  \   'filetype': 'LightlineFiletype',
-  \   'fileformat': 'LightlineFileformat',
-  \   'vista': 'NearestMethodOrFunction'
-  \ },
-  \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-  \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-  \ }
-let g:lightline.component_expand={
-  \ 'linter_checking': 'lightline#ale#checking',
-  \ 'linter_warnings': 'lightline#ale#warnings',
-  \ 'linter_errors': 'lightline#ale#errors',
-  \ 'linter_ok': 'lightline#ale#ok',
-  \ }
-let g:lightline.component_type={
-  \ 'linter_checking': 'left',
-  \ 'linter_warnings': 'warning',
-  \ 'linter_errors': 'error',
-  \ 'linter_ok': 'left',
-  \ }
-function! LightlineReadonly()
-  return &readonly ? ' ' : ''
-endfunction
-function! LightlineFugitive()
-  if (exists('*FugitiveHead'))
-    let branch = FugitiveHead()
-    return branch !=# '' ? ' '.branch : ''
-  else
-    return ''
-  endif
-endfunction
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-function! NearestMethodOrFunction() abort
-  return !empty(get(b:, 'vista_nearest_method_or_function', '')) ? ' '.b:vista_nearest_method_or_function : ''
-endfunction
+" nvimtree
+let g:lua_tree_side='left'
+let g:lua_tree_width=40
+let g:lua_tree_quit_on_open=1 
+let g:lua_tree_follow=1
+let g:lua_tree_indent_markers=1
+let g:lua_tree_hide_dotfiles=1
+let g:lua_tree_git_hl=1
+let g:lua_tree_allow_resize=1
+nnoremap <C-n> :LuaTreeToggle<CR>
 
 " vista
 nnoremap <silent> <C-]> :Vista!!<CR>
@@ -407,40 +333,16 @@ let g:indentLine_enabled=1
 let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
 
-" vim-devicons
-let g:webdevicons_enable=1
-let g:webdevicons_enable_nerdtree=1
-let g:webdevicons_conceal_nerdtree_brackets=1
-let g:WebDevIconsUnicodeGlyphDoubleWidth=1
-let g:WebDevIconsUnicodeDecorateFolderNodes=1
-let g:DevIconsEnableFoldersOpenClose=1
-
-" nerdtree
-nnoremap <silent> <C-n> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
-
 " rnvimr
 let g:rnvimr_ex_enable = 1
 nmap <space>r :RnvimrToggle<CR>
 
-" fzf
-let g:fzf_layout={ 'down': '40%' }
-let g:fzf_buffers_jump=1
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(),
-  \   <bang>0)
-command! -bang -nargs=* BLines
-  \ call fzf#vim#buffer_lines({'options': '--reverse'}, <bang>0)
-
-nnoremap <silent> <C-s> :BLines<CR>
-nnoremap <silent> [fzf]b :Buffers<CR>
-nnoremap <silent> [fzf]w :Windows<CR>
-nnoremap <silent> [fzf]f :FZF<CR>
-nnoremap <silent> [fzf]rg :Rg<CR>
-nnoremap <silent> [fzf]r :History<CR>
-nnoremap <silent> [fzf]s :Snippets<CR>
+" telescope
+nnoremap <C-s> :Telescope current_buffer_fuzzy_find<CR>
+nnoremap [finder]f :Telescope find_files<CR>
+nnoremap [finder]g :Telescope live_grep<CR>
+nnoremap [finder]b :Telescope buffers<CR>
+nnoremap [finder]h :Telescope help_tags<CR>
 
 " ale
 let g:ale_linters={
@@ -581,10 +483,6 @@ nnoremap <silent> [coc]p :<C-u>CocListResume<CR>
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" ### Json
-" vim-json
-let g:vim_json_syntax_conceal=0
-
 " ### Markdown
 " vim-markdown
 let g:vim_markdown_conceal=0
@@ -596,15 +494,8 @@ let g:vim_markdown_frontmatter=1
 let g:vim_markdown_toml_frontmatter=1
 let g:vim_markdown_json_frontmatter=1
 
-" ### Python
-" semshi
-let g:semshi#mark_selected_nodes=0
-
 " ### Golang
 au BufNewFile,BufRead *.go setl sw=4 ts=4 sts=4 noet
-
-" ### Vlang
-au BufNewFile,BufRead *.v,*.vh setl sw=4 ts=4 sts=4 noet
 
 " ### Javascript
 autocmd BufReadPost,BufNewFile *_spec.js,*Spec.js set filetype=javascript syntax=javascript
@@ -630,6 +521,10 @@ let g:slimv_repl_split=2
 let g:goyo_width=120
 let g:goyo_height='85%'
 let g:goyo_linenr=0
+
+" ### Lua plugins
+lua require('treesitter')
+lua require('eviline')
 
 " ### Load local .vimrc
 function! s:openLocalConfig()
