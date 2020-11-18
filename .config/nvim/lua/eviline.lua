@@ -144,7 +144,7 @@ gls.left[13] = {
 gls.right[1]= {
   FileFormat = {
     provider = 'FileFormat',
-    separator = ' ',
+    separator = '  ',
     separator_highlight = {colors.bg,colors.line_bg},
     highlight = {colors.fg,colors.line_bg},
   }
