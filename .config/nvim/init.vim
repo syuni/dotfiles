@@ -176,7 +176,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('easymotion/vim-easymotion')
 
   " buffer
-  call dein#add('moll/vim-bbye')
+  call dein#add('romgrk/barbar.nvim')
 
   " indent
   call dein#add('Yggdroot/indentLine')
@@ -297,7 +297,7 @@ let g:lua_tree_width=40
 let g:lua_tree_quit_on_open=1 
 let g:lua_tree_follow=1
 let g:lua_tree_indent_markers=1
-let g:lua_tree_hide_dotfiles=1
+let g:lua_tree_hide_dotfiles=0
 let g:lua_tree_git_hl=1
 let g:lua_tree_allow_resize=1
 nnoremap <C-n> :LuaTreeToggle<CR>
@@ -319,9 +319,29 @@ nmap <Leader><Leader>F <Plug>(easymotion-overwin-f)
 nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
-" buffer
-nnoremap <silent> [buf]d :Bdelete<CR>
-nnoremap <silent> [buf]ad :bufdo :Bdelete<CR>
+" barbar.nvim
+let bufferline = {
+  \ 'closable': v:false,
+  \ 'clickable': v:false
+  \ }
+nnoremap <silent> [buf]s :BufferPick<CR>
+nnoremap <silent> [buf]od :BufferOrderByDirectory<CR>
+nnoremap <silent> [buf]ol :BufferOrderByLanguage<CR>
+nnoremap <silent> <A-,> :BufferPrevious<CR>
+nnoremap <silent> <A-.> :BufferNext<CR>
+nnoremap <silent> <A-<> :BufferMovePrevious<CR>
+nnoremap <silent> <A->> :BufferMoveNext<CR>
+nnoremap <silent> <A-1> :BufferGoto 1<CR>
+nnoremap <silent> <A-2> :BufferGoto 2<CR>
+nnoremap <silent> <A-3> :BufferGoto 3<CR>
+nnoremap <silent> <A-4> :BufferGoto 4<CR>
+nnoremap <silent> <A-5> :BufferGoto 5<CR>
+nnoremap <silent> <A-6> :BufferGoto 6<CR>
+nnoremap <silent> <A-7> :BufferGoto 7<CR>
+nnoremap <silent> <A-8> :BufferGoto 8<CR>
+nnoremap <silent> <A-9> :BufferLast<CR>
+nnoremap <silent>[buf]d :BufferClose<CR>
+nnoremap <silent>[buf]ad :bufdo :BufferClose<CR>
 nnoremap <silent> [buf]D :bd<CR>
 nnoremap <silent> [buf]aD :bufdo :bd<CR>
 nnoremap <silent> [buf]p :bprevious<CR>

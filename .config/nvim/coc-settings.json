@@ -8,6 +8,10 @@
   "diagnostic.infoSign": "✔",
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✘",
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k"
+  },
   "snippets.ultisnips.directories": [
     "UltiSnips",
     "gosnippets/UltiSnips"
