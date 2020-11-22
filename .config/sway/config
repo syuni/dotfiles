@@ -58,14 +58,21 @@ exec swayidle -w \
 # Input configuration
 #
 
-# Capslock as ctrl
+# Keyboard
 input * {
-    xkb_options "ctrl:nocaps"
+  xkb_options "ctrl:nocaps"
+}
+input "1452:628:Apple_Inc._Apple_Internal_Keyboard_/_Trackpad" {
+  repeat_delay 300
+}
+input "1278:514:HHKB-BT_Keyboard" {
+  repeat_delay 300
 }
 
-# Keyboard
-input "1452:628:Apple_Inc._Apple_Internal_Keyboard_/_Trackpad" {
-    repeat_delay 300
+# Mouse
+input "1390:305:ELECOM_TrackBall_Mouse_DEFT_Pro_TrackBall_Mouse" {
+  accel_profile flat
+  pointer_accel 0.1
 }
 
 # Touch pad

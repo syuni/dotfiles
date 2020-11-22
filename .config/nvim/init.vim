@@ -176,7 +176,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('easymotion/vim-easymotion')
 
   " buffer
-  call dein#add('romgrk/barbar.nvim')
+  call dein#add('moll/vim-bbye')
+  call dein#add('akinsho/nvim-bufferline.lua')
 
   " indent
   call dein#add('Yggdroot/indentLine')
@@ -221,6 +222,9 @@ if dein#load_state('~/.cache/dein')
 
   " language pack
   call dein#add('sheerun/vim-polyglot')
+
+  " org-mode
+  call dein#add('jceb/vim-orgmode')
 
   " markdown
   call dein#add('godlygeek/tabular')
@@ -319,33 +323,18 @@ nmap <Leader><Leader>F <Plug>(easymotion-overwin-f)
 nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
-" barbar.nvim
-let bufferline = {
-  \ 'closable': v:false,
-  \ 'clickable': v:false
-  \ }
-nnoremap <silent> [buf]s :BufferPick<CR>
-nnoremap <silent> [buf]od :BufferOrderByDirectory<CR>
-nnoremap <silent> [buf]ol :BufferOrderByLanguage<CR>
-nnoremap <silent> <A-,> :BufferPrevious<CR>
-nnoremap <silent> <A-.> :BufferNext<CR>
-nnoremap <silent> <A-<> :BufferMovePrevious<CR>
-nnoremap <silent> <A->> :BufferMoveNext<CR>
-nnoremap <silent> <A-1> :BufferGoto 1<CR>
-nnoremap <silent> <A-2> :BufferGoto 2<CR>
-nnoremap <silent> <A-3> :BufferGoto 3<CR>
-nnoremap <silent> <A-4> :BufferGoto 4<CR>
-nnoremap <silent> <A-5> :BufferGoto 5<CR>
-nnoremap <silent> <A-6> :BufferGoto 6<CR>
-nnoremap <silent> <A-7> :BufferGoto 7<CR>
-nnoremap <silent> <A-8> :BufferGoto 8<CR>
-nnoremap <silent> <A-9> :BufferLast<CR>
-nnoremap <silent>[buf]d :BufferClose<CR>
-nnoremap <silent>[buf]ad :bufdo :BufferClose<CR>
+" nvim-bufferline
+nnoremap <silent> [buf]s :BufferLinePick<CR>
+nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
+nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
+nnoremap <silent> [buf]p :BufferLineCyclePrev<CR>
+nnoremap <silent> [buf]n :BufferLineCycleNext<CR>
+
+" vim-bbye
+nnoremap <silent>[buf]d :Bdelete<CR>
+nnoremap <silent>[buf]ad :bufdo :Bdelete<CR>
 nnoremap <silent> [buf]D :bd<CR>
 nnoremap <silent> [buf]aD :bufdo :bd<CR>
-nnoremap <silent> [buf]p :bprevious<CR>
-nnoremap <silent> [buf]n :bnext<CR>
 
 " indentLine
 set list lcs=tab:\|\ 
@@ -547,6 +536,7 @@ let g:goyo_linenr=0
 " ### Lua plugins
 lua require('treesitter')
 lua require('eviline')
+lua require('bline')
 
 " ### Load local .vimrc
 function! s:openLocalConfig()
