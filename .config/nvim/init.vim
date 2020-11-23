@@ -304,13 +304,28 @@ let g:lua_tree_indent_markers=1
 let g:lua_tree_hide_dotfiles=0
 let g:lua_tree_git_hl=1
 let g:lua_tree_allow_resize=1
+let g:lua_tree_icons = {
+  \ 'default': '',
+  \ 'symlink': '',
+  \ 'git': {
+  \   'unstaged': "✗",
+  \   'staged': "✓",
+  \   'unmerged': "",
+  \   'renamed': "➜",
+  \   'untracked': "★"
+  \   },
+  \ 'folder': {
+  \   'default': "",
+  \   'open': ""
+  \   }
+  \ }
 nnoremap <C-n> :LuaTreeToggle<CR>
 
 " vista
 nnoremap <silent> <C-]> :Vista!!<CR>
 nnoremap <silent> <C-\> :Vista finder<CR>
 let g:vista_default_executive='coc'
-" let g:vista_icon_indent=['╰─▸ ', '├─▸ ']
+let g:vista_icon_indent=['╰─▸ ', '├─▸ ']
 let g:vista#renderer#enable_icon=1
 
 " easy-motion
