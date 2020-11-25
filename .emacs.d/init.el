@@ -19,15 +19,9 @@
 ;;; Encoding
 
 (prefer-coding-system 'utf-8)
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-file-name-coding-system 'utf-8)
 
 
-;;;
+;;; Performance
 
 (setq-default gc-cons-threshold 100000000)
 (setq-default read-process-output-max (* 1024 1024))
@@ -124,17 +118,26 @@
   :custom
   (doom-themes-enable-italic t)
   (doom-themes-enable-bold t)
+  (doom-themes-neotree-file-icons t)
   :config
   (load-theme 'doom-dracula t)
+  (doom-themes-neotree-config)
   (doom-themes-org-config)
   (use-package doom-modeline
     :ensure t
     :hook (after-init . doom-modeline-mode)))
 
-(use-package hide-mode-line
+(use-package centaur-tabs
   :ensure t
-  :hook
-  ((neotree-mode imenu-list-minor-mode) . hide-mode-line-mode))
+  :demand
+  :custom
+  (centaur-tabs-style "bar")
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-gray-out-icons 'buffer)
+  (centaur-tabs-set-bar 'left)
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-headline-match))
 
 (use-package all-the-icons-dired
   :ensure t
@@ -142,9 +145,9 @@
 
 (use-package neotree
   :ensure t
+  :bind ("C-q" . neotree-toggle)
   :custom
-  (neo-show-hidden-files t)
-  (neo-theme 'icons))
+  (neo-show-hidden-files t))
 
 (use-package which-key
   :ensure t
@@ -205,7 +208,6 @@
     (global-evil-leader-mode)
     (evil-leader/set-leader "SPC")
     (evil-leader/set-key
-      "t" 'neotree-toggle
       "ll" 'my/flycheck-list-errors-toggle
       "ln" 'flycheck-next-error
       "lp" 'flycheck-previous-error
@@ -234,7 +236,7 @@
   (key-chord-mode 1)
   (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
   (key-chord-define evil-normal-state-map "gd" 'lsp-ui-peek-find-definitions)
-  (key-chord-define evil-normal-state-map "gt" 'lsp-find-type-definition)
+  (key-chord-define evil-normal-state-map "gD" 'lsp-find-type-definition)
   (key-chord-define evil-normal-state-map "gr" 'lsp-ui-peek-find-references)
   (key-chord-define evil-normal-state-map "gi" 'lsp-ui-peek-find-implementation))
 
@@ -302,7 +304,6 @@
 (use-package lsp-mode
   :ensure t
   :hook ((go-mode . lsp-deferred)
-         (python-mode . lsp-deferred)
          (terraform-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :custom
@@ -363,9 +364,10 @@
     :hook ((company-mode . company-box-mode))
     :custom
     (company-box-icons-alist 'company-box-icons-all-the-icons)
-    (company-box-backends-colors nil)
+    (company-box-scrollbar nil)
     (company-box-show-single-candidate t)
-    (company-box-doc-enable t)))
+    (company-box-doc-enable t)
+    (company-box-doc-delay 0.1)))
 
 (use-package go-mode
   :ensure t
@@ -380,13 +382,13 @@
                 ("C-c f"   . go-test-current-file)
                 ("C-c a"   . go-test-current-project))))
 
-(use-package lsp-pyright
+(use-package lsp-python-ms
   :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred)))
   :custom
-  (lsp-pyright-venv-path ".venv"))
+  (lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp-deferred))))
 
 (use-package terraform-mode
   :ensure t
