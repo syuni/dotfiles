@@ -71,8 +71,7 @@
 (global-display-line-numbers-mode)
 (electric-pair-mode)
 (setq-default scroll-conservatively 1)
-(setq-default scroll-margin 2)
-(setq-default scroll-preserve-screen-position t)
+(setq-default scroll-margin 1)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default truncate-lines t)
@@ -93,12 +92,24 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+(use-package org-mode
+  :ensure nil
+  :custom
+  (org-directory "~/org")
+  (org-default-notes-file "notes.org")
+  :config
+  (use-package org-bullets
+    :ensure t
+    :hook (org-mode . org-bullets-mode)
+    :custom
+    (org-bullets-bullet-list '("" "" "" "" "" "" "" "" "" ""))))
+
 (use-package ddskk
   :ensure t
   :bind ("C-x C-j" . skk-mode)
   :custom
+  (skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
   (skk-user-directory "~/.ddskk")
-  (skk-jisyo-code 'utf-8)
   (skk-isearch-start-mode 'latin)
   (skk-search-katakana 'jisx0201-kana)
   (skk-japanese-message-and-error nil)
@@ -110,6 +121,65 @@
   (use-package skk-study)
   (use-package skk-hint))
 
+(use-package smart-jump
+  :ensure t
+  :config
+  (smart-jump-setup-default-registers))
+
+(use-package evil
+  :ensure t
+  :custom
+  (evil-want-keybinding nil)
+  (evil-undo-system 'undo-fu)
+  (evil-want-C-u-scroll t)
+  :config
+  (evil-mode 1)
+  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "o") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-quick-look)
+  (evil-define-key 'normal neotree-mode-map (kbd "C-v") 'neotree-enter-vertical-split)
+  (evil-define-key 'normal neotree-mode-map (kbd "C-x") 'neotree-enter-horizontal-split)
+  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+  (evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-refresh)
+  (evil-define-key 'normal neotree-mode-map (kbd "n") 'neotree-next-line)
+  (evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-previous-line)
+  (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
+  (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "SPC")
+    (evil-leader/set-key
+      "ll" 'my/flycheck-list-errors-toggle
+      "ln" 'flycheck-next-error
+      "lp" 'flycheck-previous-error
+      "cl" 'evilnc-comment-or-uncomment-lines
+      "cp" 'evilnc-comment-or-uncomment-paragraphs
+      "cr" 'comment-or-uncomment-region
+      "h" 'lsp-ui-doc-show))
+  (use-package evil-nerd-commenter
+    :ensure t)
+  (use-package undo-fu
+    :ensure t)
+  (use-package evil-surround
+    :ensure t
+    :config (global-evil-surround-mode 1))
+  (use-package evil-matchit
+    :ensure t
+    :config (global-evil-matchit-mode 1)))
+
+(use-package key-chord
+  :ensure t
+  :custom
+  (key-chord-one-key-delay 0.3)
+  (key-chord-two-keys-delay 0.3)
+  :config
+  (key-chord-mode 1)
+  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+  (key-chord-define evil-normal-state-map "gd" 'smart-jump-go)
+  (key-chord-define evil-normal-state-map "gr" 'smart-jump-references))
+
 (use-package all-the-icons
   :ensure t)
 
@@ -120,24 +190,13 @@
   (doom-themes-enable-bold t)
   (doom-themes-neotree-file-icons t)
   :config
-  (load-theme 'doom-dracula t)
+  ;; (load-theme 'doom-dracula t)
+  (load-theme 'doom-one t)
   (doom-themes-neotree-config)
   (doom-themes-org-config)
   (use-package doom-modeline
     :ensure t
     :hook (after-init . doom-modeline-mode)))
-
-(use-package centaur-tabs
-  :ensure t
-  :demand
-  :custom
-  (centaur-tabs-style "bar")
-  (centaur-tabs-set-icons t)
-  (centaur-tabs-gray-out-icons 'buffer)
-  (centaur-tabs-set-bar 'left)
-  :config
-  (centaur-tabs-mode t)
-  (centaur-tabs-headline-match))
 
 (use-package all-the-icons-dired
   :ensure t
@@ -157,8 +216,8 @@
   :ensure t
   :custom
   (nyan-animate-nyancat t)
-  :hook
-  (doom-modeline-mode . nyan-mode))
+  :config
+  (nyan-mode))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -184,66 +243,42 @@
   :config
   (global-git-gutter-mode +1))
 
-(use-package evil
-  :ensure t
-  :custom
-  (evil-undo-system 'undo-fu)
-  (evil-want-C-u-scroll t)
-  :config
-  (evil-mode 1)
-  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-  (evil-define-key 'normal neotree-mode-map (kbd "o") 'neotree-enter)
-  (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-quick-look)
-  (evil-define-key 'normal neotree-mode-map (kbd "C-v") 'neotree-enter-vertical-split)
-  (evil-define-key 'normal neotree-mode-map (kbd "C-x") 'neotree-enter-horizontal-split)
-  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-  (evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-refresh)
-  (evil-define-key 'normal neotree-mode-map (kbd "n") 'neotree-next-line)
-  (evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-previous-line)
-  (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
-  (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
-  (use-package evil-leader
-    :ensure t
-    :config
-    (global-evil-leader-mode)
-    (evil-leader/set-leader "SPC")
-    (evil-leader/set-key
-      "ll" 'my/flycheck-list-errors-toggle
-      "ln" 'flycheck-next-error
-      "lp" 'flycheck-previous-error
-      "ci" 'evilnc-comment-or-uncomment-lines
-      "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
-      "cp" 'evilnc-comment-or-uncomment-paragraphs
-      "cr" 'comment-or-uncomment-region
-      "h" 'lsp-ui-doc-show))
-  (use-package evil-nerd-commenter
-    :ensure t)
-  (use-package undo-fu
-    :ensure t)
-  (use-package evil-surround
-    :ensure t
-    :config (global-evil-surround-mode 1))
-  (use-package evil-matchit
-    :ensure t
-    :config (global-evil-matchit-mode 1)))
+(use-package ibuffer
+  :ensure nil
+  :bind ("C-x C-b" . ibuffer))
 
-(use-package key-chord
+(use-package highlight-indent-guides
   :ensure t
+  :hook (prog-mode . highlight-indent-guides-mode)
   :custom
-  (key-chord-one-key-delay 0.3)
-  (key-chord-two-keys-delay 0.3)
-  :config
-  (key-chord-mode 1)
-  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
-  (key-chord-define evil-normal-state-map "gd" 'lsp-ui-peek-find-definitions)
-  (key-chord-define evil-normal-state-map "gD" 'lsp-find-type-definition)
-  (key-chord-define evil-normal-state-map "gr" 'lsp-ui-peek-find-references)
-  (key-chord-define evil-normal-state-map "gi" 'lsp-ui-peek-find-implementation))
+  (highlight-indent-guides-auto-enabled t)
+  (highlight-indent-guides-responsive t)
+  (highlight-indent-guides-method 'character))
+
+(use-package ace-window
+  :ensure t
+  :bind ("C-x o" . ace-window)
+  :custom
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :custom-face
+  (aw-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 3.0))))
+  (aw-minibuffer-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 2.0))))
+  (aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t)))))
+
+(use-package anzu
+  :ensure t
+  :bind
+  ("C-r" . anzu-query-replace-regexp)
+  ("C-M-r" . anzu-query-replace-at-cursor-thing)
+  :hook
+  (after-init . global-anzu-mode))
 
 (use-package ivy
   :ensure t
   :custom
-  (ivy-use-virtual-buffers t)
+  (ivy-initial-inputs-alist nil)
+  (ivy-wrap t)
+  (ivy-use-virtual-buffers nil)
   (enable-recursive-minibuffers t)
   :config
   (ivy-mode 1)
@@ -255,10 +290,13 @@
     :config (ivy-rich-mode 1))
   (use-package swiper
     :ensure t
-    :bind ("C-s" . swiper))
+    :bind (("C-s" . swiper)
+           ("C-M-s" . swiper-thing-at-point)))
   (use-package counsel
     :ensure t
     :bind (("M-x" . counsel-M-x)
+           ("C-x b" . counsel-switch-buffer)
+           ("C-x B" . counsel-switch-buffer-other-window)
            ("C-x C-f" . counsel-find-file)
            ("C-x C-r" . counsel-recentf))))
 
@@ -292,18 +330,26 @@
   :ensure t)
 
 (reformatter-define go-format
-                    :program "goimports"
-                    :group 'go
-                    :lighter "GoFmt")
+  :program "goimports"
+  :group 'go
+  :lighter "GoFmt")
+(reformatter-define rust-format
+  :program "rustfmt"
+  :group 'rust
+  :lighter "RustFmt")
 (reformatter-define terraform-format
-                    :program "terraform"
-                    :args '("fmt" "-no-color" "--check=true" "-")
-                    :group 'terraform
-                    :lighter "TfFmt")
+  :program "terraform"
+  :args '("fmt" "-no-color" "--check=true" "-")
+  :group 'terraform
+  :lighter "TfFmt")
 
 (use-package lsp-mode
   :ensure t
   :hook ((go-mode . lsp-deferred)
+         (rust-mode . lsp-deferred)
+         (web-mode . lsp-deferred)
+         (js2-mode . lsp-deferred)
+         (typescript-mode . lsp-deferred)
          (terraform-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :custom
@@ -318,6 +364,7 @@
   (lsp-enable-text-document-color t)
   (lsp-headerline-breadcrumb-enable t)
   (lsp-headerline-breadcrumb-segments '(project file symbols))
+  (lsp-rust-clippy-preference 'on)
   :config
   (use-package lsp-ui
     :ensure t
@@ -327,7 +374,7 @@
     (lsp-ui-doc-include-signature t)
     (lsp-ui-doc-position 'top)
     (lsp-ui-doc-use-childframe t)
-    (lsp-ui-doc-use-webkit nil)
+    (lsp-ui-doc-use-webkit t)
     (lsp-ui-doc-border nil)
     (lsp-ui-doc-position 'top)
     (lsp-ui-doc-max-width 160)
@@ -337,19 +384,24 @@
     (lsp-ui-imenu-enable nil)
     (lsp-ui-peek-enable t)
     (lsp-ui-peek-fontify 'on-demand)
+    :bind
+    ("C-c C-d" . lsp-ui-peek-find-definitions)
+    ("C-c C-r" . lsp-ui-peek-find-references)
+    ("C-c C-i"   . lsp-ui-peek-find-implementation)
     :hook
     (lsp-mode . lsp-ui-mode)))
 
 (use-package company
   :ensure t
   :bind (("C-SPC" . company-complete)
-	     :map company-active-map
-	     ("C-n" . company-select-next)
-	     ("C-p" . company-select-previous)
-	     ("<tab>" . company-complete-selection)
-	     :map company-search-map
-	     ("C-n" . company-select-next)
-	     ("C-p" . company-select-previous))
+         :map company-active-map
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous)
+         ("<return>" . company-complete-selection)
+         ("<tab>" . company-complete-common-or-cycle)
+         :map company-search-map
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous))
   :hook (after-init . global-company-mode)
   :custom
   (company-transformers '(company-sort-by-backend-importance))
@@ -371,7 +423,6 @@
 
 (use-package go-mode
   :ensure t
-  :mode "\\.go\\'"
   :hook (go-mode . go-format-on-save-mode)
   :config
   (use-package gotest
@@ -382,13 +433,35 @@
                 ("C-c f"   . go-test-current-file)
                 ("C-c a"   . go-test-current-project))))
 
+(use-package rust-mode
+  :ensure t
+  :hook (rust-mode . rust-format-on-save-mode)
+  :bind (:map rust-mode-map
+              ("C-c C-n" . rust-run)
+              ("C-c ." . rust-test)))
+
 (use-package lsp-python-ms
   :ensure t
   :custom
   (lsp-python-ms-auto-install-server t)
   :hook (python-mode . (lambda ()
-                          (require 'lsp-python-ms)
-                          (lsp-deferred))))
+                         (require 'lsp-python-ms)
+                         (lsp-deferred))))
+
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html\\'"
+         "\\.jsx\\'"
+         "\\.tsx\\'"
+         "\\.vue\\'"))
+
+(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'")
+
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.ts\\'")
 
 (use-package terraform-mode
   :ensure t

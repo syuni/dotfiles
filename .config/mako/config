@@ -1,7 +1,7 @@
 font=RobotoMono 12
-text-color=#F8F8F2
-background-color=#282A36
-border-color=#FF79C6
+text-color=#C678DD
+background-color=#282C34
+border-color=#61AFEF
 border-radius=20
 margin=20
 padding=12

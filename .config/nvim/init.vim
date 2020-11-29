@@ -152,7 +152,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fuenor/im_control.vim')
 
   " color schema
-  call dein#add('dracula/vim', { 'as': 'dracula' })
+  call dein#add('joshdick/onedark.vim')
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -271,7 +271,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme dracula
+colorscheme onedark
 
 " ### Packages
 " terminal (& split-term.vim)
@@ -298,7 +298,7 @@ let g:rainbow_active=1
 " nvimtree
 let g:lua_tree_side='left'
 let g:lua_tree_width=40
-let g:lua_tree_quit_on_open=1 
+let g:lua_tree_quit_on_open=0 
 let g:lua_tree_follow=1
 let g:lua_tree_indent_markers=1
 let g:lua_tree_hide_dotfiles=0
@@ -525,6 +525,7 @@ au BufNewFile,BufRead *.go setl sw=4 ts=4 sts=4 noet
 
 " ### Javascript
 autocmd BufReadPost,BufNewFile *_spec.js,*Spec.js set filetype=javascript syntax=javascript
+let g:vue_pre_processors='detect_on_enter'
 
 " ### Elm
 au BufNewFile,BufRead *.elm setl sw=4 ts=4 sts=4

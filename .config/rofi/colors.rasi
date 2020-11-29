@@ -1,13 +1,13 @@
 /**
- * Base theme:: Dralula (https://github.com/dracula/dracula-theme)
+ * Base theme:: One dark (https://github.com/joshdick/onedark.vim)
  */
 
 * {
-  accentcolor: #50fa7b;
-  backgroundcolor: #282a36f3;
+  accentcolor: #61afef;
+  backgroundcolor: #282c34;
   separatorcolor: transparent;
   foregroundcolor: #f8f8f2;
-  selectioncolor: #ff79c6;
+  selectioncolor: #c678dd;
   
   background-color: transparent;
   text-color: @foregroundcolor;
