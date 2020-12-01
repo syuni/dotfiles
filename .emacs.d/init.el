@@ -100,7 +100,7 @@
   :ensure nil
   :custom
   (org-directory "~/org/")
-  (org-default-notes-file (concat org-directory "notes.org"))
+  (org-default-notes-file (concat org-directory "note.org"))
   (org-startup-truncated nil)
   (org-src-fontify-natively t)
   (org-confirm-babel-evaluate nil)
@@ -327,6 +327,9 @@
   (use-package ivy-rich
     :ensure t
     :config (ivy-rich-mode 1))
+  (use-package ivy-yasnippet
+    :ensure t
+    :bind ("C-c y" . ivy-yasnippet))
   (use-package swiper
     :ensure t
     :bind (("C-s" . swiper)
@@ -355,6 +358,15 @@
   :config
   (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
   (use-package tree-sitter-langs
+    :ensure t))
+
+(use-package yasnippet
+  :ensure t
+  :hook (after-init . yas-global-mode)
+  :custom
+  (yas-snippet-dirs '("~/.emacs.d/snippets"))
+  :config
+  (use-package yasnippet-snippets
     :ensure t))
 
 (use-package flycheck
@@ -439,7 +451,7 @@
     :bind
     ("C-c C-d" . lsp-ui-peek-find-definitions)
     ("C-c C-r" . lsp-ui-peek-find-references)
-    ("C-c C-i"   . lsp-ui-peek-find-implementation)
+    ("C-c C-i" . lsp-ui-peek-find-implementation)
     :hook
     (lsp-mode . lsp-ui-mode)))
 
@@ -508,6 +520,10 @@
   :hook (python-mode . (lambda ()
                          (require 'lsp-python-ms)
                          (lsp-deferred))))
+
+(use-package lsp-java
+  :ensure t
+  :hook (java-mode . lsp-deferred))
 
 (use-package web-mode
   :ensure t
