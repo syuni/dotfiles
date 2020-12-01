@@ -1,5 +1,9 @@
 .DS_Store
 
+/.emacs.d/*
+!/.emacs.d/init.el
+!/.emacs.d/site-lisp/*
+
 /.config/coc/
 
 /.config/karabiner/*

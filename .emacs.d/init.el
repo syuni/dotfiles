@@ -11,9 +11,9 @@
                     :family "Hack Nerd Font"
                     :height 120)
 (set-fontset-font nil 'japanese-jisx0208
-                  (font-spec :family "Noto Sans Mono CJK JP"))
+                  (font-spec :family "Rounded Mgen+ 1m"))
 (set-fontset-font nil 'katakana-jisx0201
-                  (font-spec :family "Noto Sans Mono CJK JP"))
+                  (font-spec :family "Rounded Mgen+ 1m"))
 
 
 ;;; Encoding
@@ -57,10 +57,11 @@
 (scroll-bar-mode -1)
 
 
-;;; Unbind global keys
+;;; Global keys
 
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
+(global-set-key (kbd "C-c t") 'toggle-truncate-lines)
 
 
 ;;; Global text edit settings
@@ -69,16 +70,19 @@
 (show-paren-mode t)
 (global-hl-line-mode)
 (global-display-line-numbers-mode)
-(electric-pair-mode)
+(electric-pair-mode t)
 (setq-default scroll-conservatively 1)
 (setq-default scroll-margin 1)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq-default truncate-lines t)
-(setq-default truncate-partial-width-windows t)
+(setq indent-tabs-mode nil)
+(setq tab-width 4)
+(setq truncate-lines t)
+(setq truncate-partial-width-windows t)
 
 
 ;;; Packages
+
+(let ((default-directory  "~/.emacs.d/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
 
 (setq-default package-archives
               '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -95,14 +99,48 @@
 (use-package org
   :ensure nil
   :custom
-  (org-directory "~/org")
-  (org-default-notes-file "notes.org")
+  (org-directory "~/org/")
+  (org-default-notes-file (concat org-directory "notes.org"))
+  (org-startup-truncated nil)
+  (org-src-fontify-natively t)
+  (org-confirm-babel-evaluate nil)
+  (org-clock-out-remove-zero-time-clocks t)
+  (org-startup-indented t)
+  (org-startup-folded 'content)
+  :custom-face
+  (org-document-title ((t (:height 1.5))))
+  (org-level-1 ((t (:inherit outline-1 :height 1.3))))
+  (org-level-2 ((t (:inherit outline-2 :height 1.2))))
+  (org-level-3 ((t (:inherit outline-3 :height 1.1))))
+  :bind
+  (("C-c a" . org-agenda)
+   ("C-c c" . org-capture)
+   ("C-c l" . org-store-link)
+   ("C-c o i" . org-clock-in)
+   ("C-c o o" . org-clock-out)
+   ("C-c o e" . org-set-effort)
+   ("C-c o p" . org-pomodoro))
   :config
   (use-package org-bullets
     :ensure t
-    :hook (org-mode . org-bullets-mode)
+    :hook (org-mode . org-bullets-mode))
+  (use-package org-pomodoro
+    :ensure t
     :custom
-    (org-bullets-bullet-list '("" "" "" "" "" "" "" "" "" ""))))
+    (org-pomodoro-ask-upon-killing t)
+    (org-pomodoro-format " %s")
+    (org-pomodoro-short-break-format " %s")
+    (org-pomodoro-long-break-format  " %s")
+    :custom-face
+    (org-pomodoro-mode-line ((t (:foreground "#e06c75"))))
+    (org-pomodoro-mode-line-break ((t (:foreground "#98c379"))))
+    :hook
+    (org-pomodoro-started . (lambda () (notifications-notify
+                                        :app-name "org-pomodoro"
+					:title "Let's focus for 25 minutes!")))
+    (org-pomodoro-finished . (lambda () (notifications-notify
+                                         :app-name "org-pomodoro"
+					 :title "Well done! Take a break.")))))
 
 (use-package ddskk
   :ensure t
@@ -132,6 +170,8 @@
   (evil-want-keybinding nil)
   (evil-undo-system 'undo-fu)
   (evil-want-C-u-scroll t)
+  (evil-want-fine-undo t)
+  (evil-move-beyond-eol t)
   :config
   (evil-mode 1)
   (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
@@ -190,7 +230,6 @@
   (doom-themes-enable-bold t)
   (doom-themes-neotree-file-icons t)
   :config
-  ;; (load-theme 'doom-dracula t)
   (load-theme 'doom-one t)
   (doom-themes-neotree-config)
   (doom-themes-org-config)
@@ -237,9 +276,9 @@
   (git-gutter:added-sign    " ")
   (git-gutter:deleted-sign  " ")
   :custom-face
-  (git-gutter:modified ((t (:background "#f1fa8c"))))
-  (git-gutter:added    ((t (:background "#50fa7b"))))
-  (git-gutter:deleted  ((t (:background "#ff79c6"))))
+  (git-gutter:modified ((t (:background "#e5c07b"))))
+  (git-gutter:added    ((t (:background "#98c379"))))
+  (git-gutter:deleted  ((t (:background "#e06c75"))))
   :config
   (global-git-gutter-mode +1))
 
@@ -292,6 +331,9 @@
     :ensure t
     :bind (("C-s" . swiper)
            ("C-M-s" . swiper-thing-at-point)))
+  (use-package counsel-ghq
+    :ensure nil
+    :bind ("C-x g" . counsel-ghq))
   (use-package counsel
     :ensure t
     :bind (("M-x" . counsel-M-x)
@@ -333,6 +375,16 @@
   :program "goimports"
   :group 'go
   :lighter "GoFmt")
+(reformatter-define python-black
+  :program "black"
+  :args '("-q" "-")
+  :group 'python
+  :lighter "PyBlack")
+(reformatter-define python-isort
+  :program "isort"
+  :args '("-q" "-")
+  :group 'python
+  :lighter "PyIsort")
 (reformatter-define rust-format
   :program "rustfmt"
   :group 'rust
@@ -439,6 +491,15 @@
   :bind (:map rust-mode-map
               ("C-c C-n" . rust-run)
               ("C-c ." . rust-test)))
+
+(use-package auto-virtualenvwrapper
+  :ensure t
+  :hook (python-mode . auto-virtualenvwrapper-activate))
+
+(use-package python-mode
+  :ensure nil
+  :hook ((python-mode . python-black-on-save-mode)
+	 (python-mode . python-isort-on-save-mode)))
 
 (use-package lsp-python-ms
   :ensure t
