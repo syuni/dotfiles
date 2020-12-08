@@ -72,7 +72,7 @@
 (global-hl-line-mode)
 (global-display-line-numbers-mode)
 (global-reveal-mode)
-(electric-pair-mode t)
+(add-hook 'prog-mode-hook 'electric-pair-local-mode)
 (setq-default scroll-conservatively 1)
 (setq-default scroll-margin 1)
 (setq-default truncate-lines t)
@@ -105,6 +105,10 @@
                 ("melpa" . "http://melpa.org/packages/")
                 ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
+
+(use-package elec-pair
+  :ensure nil
+  :hook (prog-mode . electric-pair-local-mode))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -163,6 +167,7 @@
 (use-package ddskk
   :ensure t
   :bind ("C-x C-j" . skk-mode)
+  :hook (text-mode . skk-mode)
   :custom
   (skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
   (skk-user-directory "~/.ddskk")
@@ -171,7 +176,7 @@
   (skk-japanese-message-and-error nil)
   (skk-status-indicator nil)
   (skk-egg-like-newline t)
-  (skk-auto-insert-paren t)
+  (skk-auto-insert-paren nil)
   (skk-henkan-strict-okuri-precedence t)
   :config
   (use-package skk-study)
@@ -194,6 +199,7 @@
   (evil-mode 1)
   (evil-set-initial-state 'dired-mode 'emacs)
   (evil-set-initial-state 'treemacs-mode 'emacs)
+  (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
   (use-package evil-leader
     :ensure t
     :config
@@ -543,6 +549,7 @@
   :custom
   (lsp-python-ms-auto-install-server t))
 
+;; apply local variables (.dir-locals.el) before lsp-mode starts
 (add-hook 'hack-local-variables-hook
           (lambda ()
             (when (derived-mode-p 'python-mode)
