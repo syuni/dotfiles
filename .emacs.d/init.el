@@ -55,6 +55,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(setq-default ring-bell-function 'ignore)
 
 
 ;;; Global keys
@@ -70,13 +71,28 @@
 (show-paren-mode t)
 (global-hl-line-mode)
 (global-display-line-numbers-mode)
+(global-reveal-mode)
 (electric-pair-mode t)
 (setq-default scroll-conservatively 1)
 (setq-default scroll-margin 1)
-(setq indent-tabs-mode nil)
-(setq tab-width 4)
-(setq truncate-lines t)
-(setq truncate-partial-width-windows t)
+(setq-default truncate-lines t)
+(setq-default truncate-partial-width-windows t)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+
+
+;;; Standalone functions
+
+(defun my/today ()
+  "Insert current date."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d" (current-time))))
+
+(defun my/datetime ()
+  "Insert current datetime."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d %H:%M:%S" (current-time))))
 
 
 ;;; Packages
@@ -140,7 +156,9 @@
 					:title "Let's focus for 25 minutes!")))
     (org-pomodoro-finished . (lambda () (notifications-notify
                                          :app-name "org-pomodoro"
-					 :title "Well done! Take a break.")))))
+					                     :title "Well done! Take a break."))))
+  (use-package ox-reveal
+    :ensure t))
 
 (use-package ddskk
   :ensure t
@@ -174,17 +192,8 @@
   (evil-move-beyond-eol t)
   :config
   (evil-mode 1)
-  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-  (evil-define-key 'normal neotree-mode-map (kbd "o") 'neotree-enter)
-  (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-quick-look)
-  (evil-define-key 'normal neotree-mode-map (kbd "C-v") 'neotree-enter-vertical-split)
-  (evil-define-key 'normal neotree-mode-map (kbd "C-x") 'neotree-enter-horizontal-split)
-  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-  (evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-refresh)
-  (evil-define-key 'normal neotree-mode-map (kbd "n") 'neotree-next-line)
-  (evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-previous-line)
-  (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
-  (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
+  (evil-set-initial-state 'dired-mode 'emacs)
+  (evil-set-initial-state 'treemacs-mode 'emacs)
   (use-package evil-leader
     :ensure t
     :config
@@ -228,11 +237,11 @@
   :custom
   (doom-themes-enable-italic t)
   (doom-themes-enable-bold t)
-  (doom-themes-neotree-file-icons t)
+  (doom-themes-treemacs-theme "doom-colors")
   :config
   (load-theme 'doom-one t)
-  (doom-themes-neotree-config)
   (doom-themes-org-config)
+  (doom-themes-treemacs-config)
   (use-package doom-modeline
     :ensure t
     :hook (after-init . doom-modeline-mode)))
@@ -241,11 +250,20 @@
   :ensure t
   :hook (dired-mode . all-the-icons-dired-mode))
 
-(use-package neotree
+(use-package projectile
   :ensure t
-  :bind ("C-q" . neotree-toggle)
-  :custom
-  (neo-show-hidden-files t))
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map)))
+
+(use-package treemacs
+  :ensure t
+  :bind (("C-q" . treemacs)
+         ("M-q" . treemacs-select-window))
+  :config
+  (use-package treemacs-projectile
+    :ensure t))
 
 (use-package which-key
   :ensure t
@@ -369,6 +387,11 @@
   (use-package yasnippet-snippets
     :ensure t))
 
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 (use-package flycheck
   :ensure t
   :config
@@ -444,14 +467,15 @@
     (lsp-ui-doc-max-width 160)
     (lsp-ui-doc-max-height 160)
     (lsp-ui-sideline-enable t)
+    (lsp-ui-sideline-show-code-actions nil)
     (lsp-ui-sideline-update-mode 'line)
     (lsp-ui-imenu-enable nil)
     (lsp-ui-peek-enable t)
     (lsp-ui-peek-fontify 'on-demand)
     :bind
-    ("C-c C-d" . lsp-ui-peek-find-definitions)
-    ("C-c C-r" . lsp-ui-peek-find-references)
-    ("C-c C-i" . lsp-ui-peek-find-implementation)
+    ("C-c d" . lsp-ui-peek-find-definitions)
+    ("C-c r" . lsp-ui-peek-find-references)
+    ("C-c i" . lsp-ui-peek-find-implementation)
     :hook
     (lsp-mode . lsp-ui-mode)))
 
@@ -470,6 +494,7 @@
   :custom
   (company-transformers '(company-sort-by-backend-importance))
   (company-idle-delay 0)
+  (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
@@ -516,10 +541,13 @@
 (use-package lsp-python-ms
   :ensure t
   :custom
-  (lsp-python-ms-auto-install-server t)
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (lsp-deferred))))
+  (lsp-python-ms-auto-install-server t))
+
+(add-hook 'hack-local-variables-hook
+          (lambda ()
+            (when (derived-mode-p 'python-mode)
+              (require 'lsp-python-ms)
+              (lsp-deferred))))
 
 (use-package lsp-java
   :ensure t

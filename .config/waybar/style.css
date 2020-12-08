@@ -25,14 +25,6 @@ window#waybar.hidden {
   background: transparent;
 }
 
-window#waybar.termite #window,
-window#waybar.Firefox #window,
-window#waybar.Navigator #window,
-window#waybar.PCSX2 #window {
-  color: #44475a;
-  background: #282c34;
-}
-
 #workspaces {
   margin-top: 8px;
   margin-left: 12px;
@@ -68,8 +60,8 @@ window#waybar.PCSX2 #window {
   margin-bottom: 0;
   border-radius: 26px;
   transition: none;
-  color: #44475a;
-  background: #bd93f9;
+  color: #282c34;
+  background: #98c379;
 }
 
 #network {
@@ -80,7 +72,7 @@ window#waybar.PCSX2 #window {
   margin-bottom: 0;
   border-radius: 26px;
   transition: none;
-  color: #44475a;
+  color: #282c34;
   background: #c678dd;
 }
 
@@ -92,7 +84,7 @@ window#waybar.PCSX2 #window {
   margin-bottom: 0;
   border-radius: 26px;
   transition: none;
-  color: #44475a;
+  color: #282c34;
   background: #56b6c2;
 }
 
@@ -104,7 +96,7 @@ window#waybar.PCSX2 #window {
   margin-bottom: 0;
   border-radius: 26px;
   transition: none;
-  color: #44475a;
+  color: #282c34;
   background: #98c379;
 }
 
@@ -116,7 +108,7 @@ window#waybar.PCSX2 #window {
   margin-bottom: 0;
   border-radius: 26px;
   transition: none;
-  color: #44475a;
+  color: #282c34;
   background: #e5c07b;
 }
 
@@ -128,7 +120,7 @@ window#waybar.PCSX2 #window {
   margin-bottom: 0;
   border-radius: 26px;
   transition: none;
-  color: #44475a;
+  color: #282c34;
   background: #ffb86c;
 }
 
@@ -140,7 +132,7 @@ window#waybar.PCSX2 #window {
   margin-bottom: 0;
   border-radius: 26px;
   transition: none;
-  color: #44475a;
+  color: #282c34;
   background: #e06c75;
 }
 
