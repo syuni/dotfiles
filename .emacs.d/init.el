@@ -200,6 +200,8 @@
   (evil-set-initial-state 'dired-mode 'emacs)
   (evil-set-initial-state 'treemacs-mode 'emacs)
   (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
+  (evil-set-initial-state 'imenu-list-major-mode 'emacs)
+  (evil-set-initial-state 'slime-repl-mode 'emacs)
   (use-package evil-leader
     :ensure t
     :config
@@ -320,7 +322,10 @@
 
 (use-package ace-window
   :ensure t
-  :bind ("C-x o" . ace-window)
+  :bind (("C-x o" . ace-window)
+         ("C-x O" . ace-swap-window)
+         ("C-x 0" . ace-delete-window)
+         ("C-x 1" . ace-delete-other-windows))
   :custom
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   :custom-face
@@ -555,6 +560,13 @@
             (when (derived-mode-p 'python-mode)
               (require 'lsp-python-ms)
               (lsp-deferred))))
+
+(use-package slime
+  :if (file-exists-p "~/.roswell/helper.el")
+  :ensure slime-company
+  :init (load "~/.roswell/helper.el")
+  :custom (inferior-lisp-program "ros -Q run")
+  :config (slime-setup '(slime-fancy slime-company)))
 
 (use-package lsp-java
   :ensure t
