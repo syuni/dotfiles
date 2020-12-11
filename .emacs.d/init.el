@@ -101,24 +101,33 @@
 (let ((default-directory  "~/.emacs.d/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-(setq-default package-archives
-              '(("gnu" . "http://elpa.gnu.org/packages/")
-                ("melpa" . "http://melpa.org/packages/")
-                ("org" . "http://orgmode.org/elpa/")))
-(package-initialize)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
 
 (use-package elec-pair
-  :ensure nil
+  :straight nil
   :hook (prog-mode . electric-pair-local-mode))
 
 (use-package exec-path-from-shell
-  :ensure t
+  :straight t
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
 (use-package org
-  :ensure nil
+  :straight nil
   :custom
   (org-directory "~/org/")
   (org-default-notes-file (concat org-directory "note.org"))
@@ -143,10 +152,10 @@
    ("C-c o p" . org-pomodoro))
   :config
   (use-package org-bullets
-    :ensure t
+    :straight t
     :hook (org-mode . org-bullets-mode))
   (use-package org-pomodoro
-    :ensure t
+    :straight t
     :custom
     (org-pomodoro-ask-upon-killing t)
     (org-pomodoro-format " %s")
@@ -163,10 +172,10 @@
                                          :app-name "org-pomodoro"
 					                     :title "Well done! Take a break."))))
   (use-package ox-reveal
-    :ensure t))
+    :straight t))
 
 (use-package ddskk
-  :ensure t
+  :straight t
   :bind ("C-x C-j" . skk-mode)
   :hook ((text-mode . (lambda () (skk-mode) (skk-latin-mode-on)))
          (prog-mode . (lambda () (skk-mode) (skk-latin-mode-on))))
@@ -185,12 +194,12 @@
   (use-package skk-hint))
 
 (use-package smart-jump
-  :ensure t
+  :straight t
   :config
   (smart-jump-setup-default-registers))
 
 (use-package evil
-  :ensure t
+  :straight t
   :custom
   (evil-want-keybinding nil)
   (evil-undo-system 'undo-fu)
@@ -205,7 +214,7 @@
   (evil-set-initial-state 'imenu-list-major-mode 'emacs)
   (evil-set-initial-state 'slime-repl-mode 'emacs)
   (use-package evil-leader
-    :ensure t
+    :straight t
     :config
     (global-evil-leader-mode)
     (evil-leader/set-leader "SPC")
@@ -218,18 +227,18 @@
       "cr" 'comment-or-uncomment-region
       "h" 'lsp-ui-doc-show))
   (use-package evil-nerd-commenter
-    :ensure t)
+    :straight t)
   (use-package undo-fu
-    :ensure t)
+    :straight t)
   (use-package evil-surround
-    :ensure t
+    :straight t
     :config (global-evil-surround-mode 1))
   (use-package evil-matchit
-    :ensure t
+    :straight t
     :config (global-evil-matchit-mode 1)))
 
 (use-package key-chord
-  :ensure t
+  :straight t
   :custom
   (key-chord-one-key-delay 0.3)
   (key-chord-two-keys-delay 0.3)
@@ -240,10 +249,10 @@
   (key-chord-define evil-normal-state-map "gr" 'smart-jump-references))
 
 (use-package all-the-icons
-  :ensure t)
+  :straight t)
 
 (use-package doom-themes
-  :ensure t
+  :straight t
   :custom
   (doom-themes-enable-italic t)
   (doom-themes-enable-bold t)
@@ -253,52 +262,52 @@
   (doom-themes-org-config)
   (doom-themes-treemacs-config)
   (use-package doom-modeline
-    :ensure t
+    :straight t
     :hook (after-init . doom-modeline-mode)))
 
 (use-package all-the-icons-dired
-  :ensure t
+  :straight t
   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package projectile
-  :ensure t
+  :straight t
   :init
   (projectile-mode +1)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)))
 
 (use-package treemacs
-  :ensure t
+  :straight t
   :bind (("C-q" . treemacs)
          ("M-q" . treemacs-select-window))
   :config
   (use-package treemacs-projectile
-    :ensure t))
+    :straight t))
 
 (use-package which-key
-  :ensure t
+  :straight t
   :hook (after-init . which-key-mode))
 
 (use-package nyan-mode
-  :ensure t
+  :straight t
   :custom
   (nyan-animate-nyancat t)
   :config
   (nyan-mode))
 
 (use-package rainbow-delimiters
-  :ensure t
+  :straight t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package rainbow-mode
-  :ensure t
+  :straight t
   :hook (after-init . rainbow-mode))
 
 (use-package presentation
-  :ensure t)
+  :straight t)
 
 (use-package git-gutter
-  :ensure t
+  :straight t
   :custom
   (git-gutter:modified-sign " ")
   (git-gutter:added-sign    " ")
@@ -311,11 +320,11 @@
   (global-git-gutter-mode +1))
 
 (use-package ibuffer
-  :ensure nil
+  :straight nil
   :bind ("C-x C-b" . ibuffer))
 
 (use-package highlight-indent-guides
-  :ensure t
+  :straight t
   :hook (prog-mode . highlight-indent-guides-mode)
   :custom
   (highlight-indent-guides-auto-enabled t)
@@ -323,7 +332,7 @@
   (highlight-indent-guides-method 'character))
 
 (use-package ace-window
-  :ensure t
+  :straight t
   :bind (("C-x o" . ace-window)
          ("C-x O" . ace-swap-window)
          ("C-x 0" . ace-delete-window)
@@ -336,7 +345,7 @@
   (aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t)))))
 
 (use-package anzu
-  :ensure t
+  :straight t
   :bind
   ("C-r" . anzu-query-replace-regexp)
   ("C-M-r" . anzu-query-replace-at-cursor-thing)
@@ -344,7 +353,7 @@
   (after-init . global-anzu-mode))
 
 (use-package migemo
-  :ensure t
+  :straight t
   :custom
   (migemo-command "cmigemo")
   (migemo-options '("-q" "--emacs"))
@@ -356,7 +365,7 @@
   (migemo-init))
 
 (use-package ivy
-  :ensure t
+  :straight t
   :after migemo
   :custom
   (ivy-initial-inputs-alist nil)
@@ -377,23 +386,23 @@
   (setq ivy-re-builders-alist '((t . ivy--regex-plus)
                                 (swiper . my/ivy-migemo-re-builder)))
   (use-package all-the-icons-ivy-rich
-    :ensure t
+    :straight t
     :config (all-the-icons-ivy-rich-mode 1))
   (use-package ivy-rich
-    :ensure t
+    :straight t
     :config (ivy-rich-mode 1))
   (use-package ivy-yasnippet
-    :ensure t
+    :straight t
     :bind ("C-c y" . ivy-yasnippet))
   (use-package swiper
-    :ensure t
+    :straight t
     :bind (("C-s" . swiper)
            ("C-M-s" . swiper-thing-at-point)))
   (use-package counsel-ghq
-    :ensure nil
+    :straight nil
     :bind ("C-x g" . counsel-ghq))
   (use-package counsel
-    :ensure t
+    :straight t
     :bind (("M-x" . counsel-M-x)
            ("C-x b" . counsel-switch-buffer)
            ("C-x B" . counsel-switch-buffer-other-window)
@@ -401,36 +410,36 @@
            ("C-x C-r" . counsel-recentf))))
 
 (use-package imenu-list
-  :ensure t
+  :straight t
   :bind ("C-'" . imenu-list-smart-toggle)
   :custom
   (imenu-list-focus-after-activation t)
   (imenu-list-auto-resize nil))
 
 (use-package tree-sitter
-  :ensure t
+  :straight t
   :hook (after-init . global-tree-sitter-mode)
   :config
   (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
   (use-package tree-sitter-langs
-    :ensure t))
+    :straight t))
 
 (use-package yasnippet
-  :ensure t
+  :straight t
   :hook (after-init . yas-global-mode)
   :custom
   (yas-snippet-dirs '("~/.emacs.d/snippets"))
   :config
   (use-package yasnippet-snippets
-    :ensure t))
+    :straight t))
 
 (use-package editorconfig
-  :ensure t
+  :straight t
   :config
   (editorconfig-mode 1))
 
 (use-package flycheck
-  :ensure t
+  :straight t
   :config
   (defun my/flycheck-list-errors-toggle ()
     (interactive)
@@ -441,7 +450,7 @@
   (global-flycheck-mode))
 
 (use-package reformatter
-  :ensure t)
+  :straight t)
 
 (reformatter-define go-format
   :program "goimports"
@@ -468,7 +477,7 @@
   :lighter "TfFmt")
 
 (use-package lsp-mode
-  :ensure t
+  :straight t
   :hook ((go-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
          (web-mode . lsp-deferred)
@@ -491,7 +500,7 @@
   (lsp-rust-clippy-preference 'on)
   :config
   (use-package lsp-ui
-    :ensure t
+    :straight t
     :custom
     (lsp-ui-doc-enable nil)
     (lsp-ui-doc-header t)
@@ -517,7 +526,7 @@
     (lsp-mode . lsp-ui-mode)))
 
 (use-package company
-  :ensure t
+  :straight t
   :bind (("C-SPC" . company-complete)
          :map company-active-map
          ("C-n" . company-select-next)
@@ -537,7 +546,7 @@
   (completion-ignore-case t)
   :config
   (use-package company-box
-    :ensure t
+    :straight t
     :after (company all-the-icons)
     :hook ((company-mode . company-box-mode))
     :custom
@@ -548,11 +557,11 @@
     (company-box-doc-delay 0.1)))
 
 (use-package go-mode
-  :ensure t
+  :straight t
   :hook (go-mode . go-format-on-save-mode)
   :config
   (use-package gotest
-    :ensure t
+    :straight t
     :bind (:map go-mode-map
                 ("C-c C-n" . go-run)
                 ("C-c ."   . go-test-current-test)
@@ -560,23 +569,23 @@
                 ("C-c a"   . go-test-current-project))))
 
 (use-package rust-mode
-  :ensure t
+  :straight t
   :hook (rust-mode . rust-format-on-save-mode)
   :bind (:map rust-mode-map
               ("C-c C-n" . rust-run)
               ("C-c ." . rust-test)))
 
 (use-package auto-virtualenvwrapper
-  :ensure t
+  :straight t
   :hook (python-mode . auto-virtualenvwrapper-activate))
 
 (use-package python-mode
-  :ensure nil
+  :straight nil
   :hook ((python-mode . python-black-on-save-mode)
 	 (python-mode . python-isort-on-save-mode)))
 
 (use-package lsp-python-ms
-  :ensure t
+  :straight t
   :custom
   (lsp-python-ms-auto-install-server t))
 
@@ -589,43 +598,43 @@
 
 (use-package slime
   :if (file-exists-p "~/.roswell/helper.el")
-  :ensure slime-company
+  :straight slime-company
   :init (load "~/.roswell/helper.el")
   :custom (inferior-lisp-program "ros -Q run")
   :config (slime-setup '(slime-fancy slime-company)))
 
 (use-package lsp-java
-  :ensure t
+  :straight t
   :hook (java-mode . lsp-deferred))
 
 (use-package web-mode
-  :ensure t
+  :straight t
   :mode ("\\.html\\'"
          "\\.jsx\\'"
          "\\.tsx\\'"
          "\\.vue\\'"))
 
 (use-package js2-mode
-  :ensure t
+  :straight t
   :mode "\\.js\\'")
 
 (use-package typescript-mode
-  :ensure t
+  :straight t
   :mode "\\.ts\\'")
 
 (use-package terraform-mode
-  :ensure t
+  :straight t
   :mode "\\.tf\\'"
   :hook (terraform-mode . terraform-format-on-save-mode))
 
 (use-package dockerfile-mode
-  :ensure t)
+  :straight t)
 
 (use-package json-mode
-  :ensure t)
+  :straight t)
 
 (use-package yaml-mode
-  :ensure t)
+  :straight t)
 
 (provide 'init)
 
