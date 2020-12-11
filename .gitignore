@@ -28,3 +28,5 @@
 /.config/vue/
 
 /.config/wireshark/
+
+/.log/

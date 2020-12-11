@@ -14,11 +14,12 @@
                   (font-spec :family "Rounded Mgen+ 1m"))
 (set-fontset-font nil 'katakana-jisx0201
                   (font-spec :family "Rounded Mgen+ 1m"))
+(set-fontset-font nil '(#x1F000 . #x1FAFF) "Noto Color Emoji")
 
 
 ;;; Encoding
 
-(prefer-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)
 
 
 ;;; Performance
@@ -167,7 +168,8 @@
 (use-package ddskk
   :ensure t
   :bind ("C-x C-j" . skk-mode)
-  :hook (text-mode . skk-mode)
+  :hook ((text-mode . (lambda () (skk-mode) (skk-latin-mode-on)))
+         (prog-mode . (lambda () (skk-mode) (skk-latin-mode-on))))
   :custom
   (skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
   (skk-user-directory "~/.ddskk")
@@ -341,8 +343,21 @@
   :hook
   (after-init . global-anzu-mode))
 
+(use-package migemo
+  :ensure t
+  :custom
+  (migemo-command "cmigemo")
+  (migemo-options '("-q" "--emacs"))
+  (migemo-coding-system 'utf-8-unix)
+  (migemo-dictionary "/usr/share/migemo/utf-8/migemo-dict")
+  (migemo-user-dictionary nil)
+  (migemo-regex-dictionary nil)
+  :config
+  (migemo-init))
+
 (use-package ivy
   :ensure t
+  :after migemo
   :custom
   (ivy-initial-inputs-alist nil)
   (ivy-wrap t)
@@ -350,6 +365,17 @@
   (enable-recursive-minibuffers t)
   :config
   (ivy-mode 1)
+  (defun my/ivy-migemo-re-builder (str)
+    (let* ((sep " \\|\\^\\|\\.\\|\\*")
+           (splitted (--map (s-join "" it)
+                            (--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
+                                            (s-split "" str t)))))
+      (s-join "" (--map (cond ((s-equals? it " ") ".*?")
+                              ((s-matches? sep it) it)
+                              (t (migemo-get-pattern it)))
+                        splitted))))
+  (setq ivy-re-builders-alist '((t . ivy--regex-plus)
+                                (swiper . my/ivy-migemo-re-builder)))
   (use-package all-the-icons-ivy-rich
     :ensure t
     :config (all-the-icons-ivy-rich-mode 1))
@@ -591,6 +617,15 @@
   :ensure t
   :mode "\\.tf\\'"
   :hook (terraform-mode . terraform-format-on-save-mode))
+
+(use-package dockerfile-mode
+  :ensure t)
+
+(use-package json-mode
+  :ensure t)
+
+(use-package yaml-mode
+  :ensure t)
 
 (provide 'init)
 

@@ -1,7 +1,1 @@
-#+TITLE: Source codes
-
-* Python
-
-#+BEGIN_SRC python
-
-#+END_SRC
+#+TITLE: dotfiles
