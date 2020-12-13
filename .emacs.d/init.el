@@ -393,7 +393,7 @@
     :config (all-the-icons-ivy-rich-mode 1))
   (use-package ivy-rich
     :straight t
-    :after all-the-icons-ivy-rich
+    :after (counsel all-the-icons-ivy-rich)
     :config (ivy-rich-mode 1))
   (use-package ivy-yasnippet
     :straight t
