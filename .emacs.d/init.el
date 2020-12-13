@@ -73,14 +73,12 @@
 (global-hl-line-mode)
 (global-display-line-numbers-mode)
 (global-reveal-mode)
-(add-hook 'prog-mode-hook 'electric-pair-local-mode)
 (setq-default scroll-conservatively 1)
 (setq-default scroll-margin 1)
 (setq-default truncate-lines t)
 (setq-default truncate-partial-width-windows t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-
 
 
 ;;; Standalone functions
@@ -96,7 +94,9 @@
   (insert (format-time-string "%Y-%m-%d %H:%M:%S" (current-time))))
 
 
-;;; Packages
+;;; Bootstrap
+
+(setq package-native-compile t)
 
 (let ((default-directory  "~/.emacs.d/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
@@ -115,6 +115,9 @@
   (load bootstrap-file nil 'nomessage))
 
 (straight-use-package 'use-package)
+
+
+;;; Packages
 
 (use-package elec-pair
   :straight nil
@@ -390,6 +393,7 @@
     :config (all-the-icons-ivy-rich-mode 1))
   (use-package ivy-rich
     :straight t
+    :after all-the-icons-ivy-rich
     :config (ivy-rich-mode 1))
   (use-package ivy-yasnippet
     :straight t
@@ -483,6 +487,7 @@
          (web-mode . lsp-deferred)
          (js2-mode . lsp-deferred)
          (typescript-mode . lsp-deferred)
+         (lua-mode . lsp-deferred)
          (terraform-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :custom
@@ -621,6 +626,15 @@
 (use-package typescript-mode
   :straight t
   :mode "\\.ts\\'")
+
+(use-package lua-mode
+  :straight t
+  :mode "\\.lua\\'"
+  :interpreter "lua"
+  :bind (:map lua-mode-map
+              ("C-c C-n" . lua-send-buffer)
+              ("C-c C-l" . lua-send-current-line)
+              ("C-c C-r" . lua-send-region)))
 
 (use-package terraform-mode
   :straight t
