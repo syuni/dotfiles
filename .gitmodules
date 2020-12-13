@@ -1,3 +1,0 @@
-[submodule ".emacs.d/site-lisp/counsel-ghq"]
-	path = .emacs.d/site-lisp/counsel-ghq
-	url = https://github.com/windymelt/counsel-ghq.git
