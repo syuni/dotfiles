@@ -130,7 +130,7 @@
     (exec-path-from-shell-initialize)))
 
 (use-package org
-  :straight nil
+  :straight t
   :custom
   (org-directory "~/org/")
   (org-default-notes-file (concat org-directory "note.org"))
@@ -403,7 +403,7 @@
     :bind (("C-s" . swiper)
            ("C-M-s" . swiper-thing-at-point)))
   (use-package counsel-ghq
-    :straight nil
+    :straight (:host github :repo "windymelt/counsel-ghq" :branch "master")
     :bind ("C-x g" . counsel-ghq))
   (use-package counsel
     :straight t
