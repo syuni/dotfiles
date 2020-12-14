@@ -94,6 +94,14 @@
   (insert (format-time-string "%Y-%m-%d %H:%M:%S" (current-time))))
 
 
+;;; Environment for asdf
+(setenv "PATH" (concat
+                (expand-file-name "~/.asdf/shims") ":"
+                (getenv "PATH")))
+(setq exec-path (parse-colon-path (getenv "PATH")))
+(setq eshell-path-env (getenv "PATH"))
+
+
 ;;; Bootstrap
 
 (setq package-native-compile t)
@@ -528,7 +536,10 @@
     ("C-c r" . lsp-ui-peek-find-references)
     ("C-c i" . lsp-ui-peek-find-implementation)
     :hook
-    (lsp-mode . lsp-ui-mode)))
+    (lsp-mode . lsp-ui-mode)
+    :config
+    (define-key lsp-ui-mode-map [remap smart-jump-go] #'lsp-ui-peek-find-definitions)
+    (define-key lsp-ui-mode-map [remap smart-jump-references] #'lsp-ui-peek-find-references)))
 
 (use-package company
   :straight t
