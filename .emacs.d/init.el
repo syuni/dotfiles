@@ -14,7 +14,7 @@
                   (font-spec :family "Rounded Mgen+ 1m"))
 (set-fontset-font nil 'katakana-jisx0201
                   (font-spec :family "Rounded Mgen+ 1m"))
-(set-fontset-font nil '(#x1F000 . #x1FAFF) "Noto Color Emoji")
+(set-fontset-font t 'symbol "Noto Color Emoji")
 
 
 ;;; Encoding
@@ -654,6 +654,12 @@
 
 (use-package dockerfile-mode
   :straight t)
+
+(use-package markdown-mode
+  :straight t
+  :mode (("README\\.md\\'" . gfm-mode))
+  :custom
+  (markdown-command "multimarkdown"))
 
 (use-package json-mode
   :straight t)
