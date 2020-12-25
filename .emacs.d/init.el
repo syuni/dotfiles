@@ -9,7 +9,7 @@
 
 (set-face-attribute 'default nil
                     :family "Hack Nerd Font"
-                    :height 120)
+                    :height 130)
 (set-fontset-font nil 'japanese-jisx0208
                   (font-spec :family "Rounded Mgen+ 1m"))
 (set-fontset-font nil 'katakana-jisx0201
@@ -73,8 +73,12 @@
 (global-hl-line-mode)
 (global-display-line-numbers-mode)
 (global-reveal-mode)
-(setq-default scroll-conservatively 1)
-(setq-default scroll-margin 1)
+(setq scroll-margin 1
+      scroll-conservatively 0
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01)
+(setq-default scroll-up-aggressively 0.01
+              scroll-down-aggressively 0.01)
 (setq-default truncate-lines t)
 (setq-default truncate-partial-width-windows t)
 (setq-default indent-tabs-mode nil)
@@ -128,7 +132,7 @@
 ;;; Packages
 
 (use-package elec-pair
-  :straight nil
+  :straight t
   :hook (prog-mode . electric-pair-local-mode))
 
 (use-package exec-path-from-shell
@@ -140,6 +144,7 @@
 (use-package org
   :straight t
   :custom
+  (truncate-lines nil)
   (org-directory "~/org/")
   (org-default-notes-file (concat org-directory "note.org"))
   (org-startup-truncated nil)
@@ -219,11 +224,10 @@
   (evil-move-beyond-eol t)
   :config
   (evil-mode 1)
-  (evil-set-initial-state 'dired-mode 'emacs)
-  (evil-set-initial-state 'treemacs-mode 'emacs)
   (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
   (evil-set-initial-state 'imenu-list-major-mode 'emacs)
-  (evil-set-initial-state 'slime-repl-mode 'emacs)
+  (evil-set-initial-state 'dired-mode 'emacs)
+  (evil-set-initial-state 'treemacs-mode 'emacs)
   (use-package evil-leader
     :straight t
     :config
@@ -236,7 +240,7 @@
       "cl" 'evilnc-comment-or-uncomment-lines
       "cp" 'evilnc-comment-or-uncomment-paragraphs
       "cr" 'comment-or-uncomment-region
-      "h" 'lsp-ui-doc-show))
+      "h" 'lsp-ui-doc-glance))
   (use-package evil-nerd-commenter
     :straight t)
   (use-package undo-fu
@@ -267,11 +271,9 @@
   :custom
   (doom-themes-enable-italic t)
   (doom-themes-enable-bold t)
-  (doom-themes-treemacs-theme "doom-colors")
   :config
   (load-theme 'doom-one t)
   (doom-themes-org-config)
-  (doom-themes-treemacs-config)
   (use-package doom-modeline
     :straight t
     :hook (after-init . doom-modeline-mode)))
@@ -282,16 +284,23 @@
 
 (use-package projectile
   :straight t
-  :init
-  (projectile-mode +1)
-  :bind (:map projectile-mode-map
-              ("C-c p" . projectile-command-map)))
+  :config
+  (use-package counsel-projectile
+    :straight t
+    :bind (:map projectile-mode-map
+                ("C-c p" . projectile-command-map))
+    :init
+    (counsel-projectile-mode 1)))
 
 (use-package treemacs
   :straight t
   :bind (("C-q" . treemacs)
-         ("M-q" . treemacs-select-window))
+         ("C-S-q" . treemacs-select-window))
   :config
+  (use-package treemacs-all-the-icons
+    :straight t
+    :config
+    (treemacs-load-theme "all-the-icons"))
   (use-package treemacs-projectile
     :straight t))
 
@@ -301,8 +310,6 @@
 
 (use-package nyan-mode
   :straight t
-  :custom
-  (nyan-animate-nyancat t)
   :config
   (nyan-mode))
 
@@ -331,7 +338,7 @@
   (global-git-gutter-mode +1))
 
 (use-package ibuffer
-  :straight nil
+  :straight t
   :bind ("C-x C-b" . ibuffer))
 
 (use-package highlight-indent-guides
@@ -409,17 +416,18 @@
   (use-package swiper
     :straight t
     :bind (("C-s" . swiper)
-           ("C-M-s" . swiper-thing-at-point)))
-  (use-package counsel-ghq
-    :straight (:host github :repo "windymelt/counsel-ghq" :branch "master")
-    :bind ("C-x g" . counsel-ghq))
+           ("C-S-s" . swiper-thing-at-point)))
   (use-package counsel
     :straight t
+    :hook (after-init . counsel-mode)
     :bind (("M-x" . counsel-M-x)
            ("C-x b" . counsel-switch-buffer)
            ("C-x B" . counsel-switch-buffer-other-window)
            ("C-x C-f" . counsel-find-file)
-           ("C-x C-r" . counsel-recentf))))
+           ("C-x C-r" . counsel-recentf)))
+  (use-package counsel-ghq
+    :straight (:host github :repo "windymelt/counsel-ghq" :branch "master")
+    :bind ("C-x g" . counsel-ghq)))
 
 (use-package imenu-list
   :straight t
@@ -518,11 +526,10 @@
     (lsp-ui-doc-enable nil)
     (lsp-ui-doc-header t)
     (lsp-ui-doc-include-signature t)
-    (lsp-ui-doc-position 'top)
+    (lsp-ui-doc-position 'at-point)
     (lsp-ui-doc-use-childframe t)
     (lsp-ui-doc-use-webkit t)
     (lsp-ui-doc-border nil)
-    (lsp-ui-doc-position 'top)
     (lsp-ui-doc-max-width 160)
     (lsp-ui-doc-max-height 160)
     (lsp-ui-sideline-enable t)
@@ -591,14 +598,19 @@
               ("C-c C-n" . rust-run)
               ("C-c ." . rust-test)))
 
-(use-package auto-virtualenvwrapper
+(use-package virtualenvwrapper
   :straight t
-  :hook (python-mode . auto-virtualenvwrapper-activate))
+  :config
+  (venv-initialize-interactive-shells)
+  (venv-initialize-eshell)
+  (use-package auto-virtualenvwrapper
+    :straight t
+    :hook (python-mode . auto-virtualenvwrapper-activate)))
 
 (use-package python-mode
-  :straight nil
+  :straight t
   :hook ((python-mode . python-black-on-save-mode)
-	 (python-mode . python-isort-on-save-mode)))
+	     (python-mode . python-isort-on-save-mode)))
 
 (use-package lsp-python-ms
   :straight t
@@ -628,7 +640,8 @@
   :mode ("\\.html\\'"
          "\\.jsx\\'"
          "\\.tsx\\'"
-         "\\.vue\\'"))
+         "\\.vue\\'"
+         "\\.jsp\\'"))
 
 (use-package js2-mode
   :straight t
@@ -659,6 +672,7 @@
   :straight t
   :mode (("README\\.md\\'" . gfm-mode))
   :custom
+  (truncate-lines nil)
   (markdown-command "multimarkdown"))
 
 (use-package json-mode
@@ -666,6 +680,16 @@
 
 (use-package yaml-mode
   :straight t)
+
+(use-package writeroom-mode
+  :straight t
+  :bind (("C-M-z" . writeroom-mode)
+         :map writeroom-mode-map
+         ("C-M-<" . writeroom-decrease-width)
+         ("C-M->" . writeroom-increase-width)
+         ("C-M-=" . writeroom-adjust-width))
+  :custom
+  (writeroom-width 120))
 
 (provide 'init)
 

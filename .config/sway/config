@@ -41,7 +41,7 @@ output eDP-1 resolution 2880x1800 position 2400,0 scale 1.2
 output HDMI-A-3 resolution 1920x1080 position 0,0 scale 0.8
 
 # Wallpaper
-output * bg $HOME/.local/share/backgrounds/dracula-arch.png fill
+output * bg $HOME/.local/share/backgrounds/xfce-blue.jpg fill
 
 
 #
