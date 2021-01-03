@@ -287,6 +287,9 @@ exec fcitx-autostart
 # Notification
 exec mako
 
+# Input gesture
+exec libinput-gestures
+
 
 #
 # Load other configulation files

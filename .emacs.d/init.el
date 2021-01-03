@@ -9,11 +9,11 @@
 
 (set-face-attribute 'default nil
                     :family "Hack Nerd Font"
-                    :height 130)
+                    :height 140)
 (set-fontset-font nil 'japanese-jisx0208
-                  (font-spec :family "Rounded Mgen+ 1m"))
+                  (font-spec :family "Rounded Mgen+ 1mn"))
 (set-fontset-font nil 'katakana-jisx0201
-                  (font-spec :family "Rounded Mgen+ 1m"))
+                  (font-spec :family "Rounded Mgen+ 1mn"))
 (set-fontset-font t 'symbol "Noto Color Emoji")
 
 

@@ -1,0 +1,69 @@
+Config {
+    font = "xft:monospace:size=14:medium:antialias=true,Rounded Mgen+ 1mn:size=14:antialias=true"
+  , additionalFonts     = []
+  , bgColor             = "#282C34"
+  , fgColor             = "#ABB2BF"
+  , position            = Top
+  , template            = " %StdinReader%}{| %cpu% | %memory% | %dynnetwork% %wi% | %alsa:default:Master% | %battery% | %date% "
+  , commands            = 
+      [
+        Run StdinReader
+      , Run Cpu
+          [
+            "--template"  , " CPU: <total>%"
+          , "--minwidth"  , "3"
+          , "--Low"       , "30"
+          , "--High"      , "80"
+          , "--low"       , "#61AFEF"
+          , "--normal"    , "#98C379"
+          , "--high"      , "#E06C75"
+          ] 60
+      , Run Memory
+          [
+            "--template"  , " MEM: <usedratio>%"
+          , "--minwidth"  , "3"
+          , "--Low"       , "30"
+          , "--High"      , "80"
+          , "--low"       , "#61AFEF"
+          , "--normal"    , "#98C379"
+          , "--high"      , "#E06C75"
+          ] 60                
+      , Run Battery
+          [
+            "--template"  , "  BAT: <left>%"
+          , "--Low"       , "15"
+          , "--High"      , "60"
+          , "--low"       , "#E06C75"
+          , "--normal"    , "#61AFEF"
+          , "--high"      , "#98C379"
+          , "--"
+          , "-o"          , "BAT: <left>%"
+          , "-O"          , "AC: <left>%"
+          , "-i"          , "AC: <left>%"
+          ] 60
+      , Run DynNetwork
+          [
+            "--template"  , " <dev>: <fc=#C678DD></fc> <tx>KB <fc=#C678DD></fc> <rx>KB"
+          , "--minwidth"  , "4"
+          , "--Low"       , "500000"
+          , "--High"      , "2000000"
+          , "--low"       , "#E06C75"
+          , "--normal"    , "#61AFEF"
+          , "--high"      , "#98C379"
+          ] 20
+      , Run Wireless ""
+          [
+            "--template"  , "<fc=#282C34,#61AFEF><ssid></fc> <quality>"
+          , "--Low"       , "50"
+          , "--High"      , "70"
+          , "--low"       , "#E06C75"
+          , "--normal"    , "#61AFEF"
+          , "--high"      , "#98C379"
+          ] 20
+      , Run Alsa "default" "Master"
+          [
+            "--template"  , "墳 Vol: <volume>% <status>"
+          ]
+      , Run Date "<fc=#E06C75> </fc>%Y/%-m/%-d %a %H:%M " "date" 10
+      ]
+}
