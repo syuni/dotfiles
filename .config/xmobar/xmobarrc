@@ -1,5 +1,6 @@
+-- vim: ft=haskell
 Config {
-    font = "xft:monospace:size=14:medium:antialias=true,Rounded Mgen+ 1mn:size=14:antialias=true"
+    font = "xft:Hack Nerd Font:size=14:medium:antialias=true,Rounded Mgen+ 1mn:size=14:antialias=true"
   , additionalFonts     = []
   , bgColor             = "#282C34"
   , fgColor             = "#ABB2BF"

@@ -71,8 +71,8 @@ set signcolumn=yes
 " delete backword
 set whichwrap=b,s,h,l,<,>,[,],~
 set backspace=indent,eol,start
-" show break mark when word is wrapped
-set showbreak=↪
+" no wrap word
+set nowrap
 " hidden mode info
 set noshowmode
 " leave from insert mode by `jj`
