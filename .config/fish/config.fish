@@ -37,6 +37,10 @@ set -x PATH $GOPATH/bin $PATH
 # rust
 set -x PATH $HOME/.cargo/bin $PATH
 
+# haskell
+# set -x PATH $HOME/.cabal/bin $PATH
+# set -x PATH $HOME/.ghcup/bin $PATH
+
 # python
 set -x PIPENV_VENV_IN_PROJECT true
 

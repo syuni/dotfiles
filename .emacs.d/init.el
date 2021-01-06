@@ -14,8 +14,10 @@
                   (font-spec :family "Rounded Mgen+ 1mn"))
 (set-fontset-font nil 'katakana-jisx0201
                   (font-spec :family "Rounded Mgen+ 1mn"))
-(set-fontset-font t 'symbol "Noto Color Emoji")
-
+(set-fontset-font t 'symbol "Apple Color Emoji")
+(set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+(set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+(set-fontset-font t 'symbol "Symbola" nil 'append)
 
 ;;; Encoding
 
@@ -82,7 +84,7 @@
 (setq-default truncate-lines t)
 (setq-default truncate-partial-width-windows t)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+(setq-default tab-width 2)
 
 
 ;;; Standalone functions
@@ -144,7 +146,6 @@
 (use-package org
   :straight t
   :custom
-  (truncate-lines nil)
   (org-directory "~/org/")
   (org-default-notes-file (concat org-directory "note.org"))
   (org-startup-truncated nil)
@@ -227,7 +228,6 @@
   (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
   (evil-set-initial-state 'imenu-list-major-mode 'emacs)
   (evil-set-initial-state 'dired-mode 'emacs)
-  (evil-set-initial-state 'treemacs-mode 'emacs)
   (use-package evil-leader
     :straight t
     :config
@@ -296,7 +296,12 @@
   :straight t
   :bind (("C-q" . treemacs)
          ("C-S-q" . treemacs-select-window))
+  :custom
+  (treemacs-read-string-input 'from-minibuffer)
   :config
+  (treemacs-tag-follow-mode -1)
+  (use-package treemacs-evil
+    :straight t)
   (use-package treemacs-all-the-icons
     :straight t
     :config
@@ -365,8 +370,8 @@
 (use-package anzu
   :straight t
   :bind
-  ("C-r" . anzu-query-replace-regexp)
-  ("C-M-r" . anzu-query-replace-at-cursor-thing)
+  ("C-M-r" . anzu-query-replace-regexp)
+  ("C-S-M-r" . anzu-query-replace-at-cursor-thing)
   :hook
   (after-init . global-anzu-mode))
 
@@ -504,6 +509,8 @@
          (js2-mode . lsp-deferred)
          (typescript-mode . lsp-deferred)
          (lua-mode . lsp-deferred)
+         (haskell-mode . lsp-deferred)
+         (haskell-literate-mode . lsp-deferred)
          (terraform-mode . lsp-deferred))
   :commands (lsp lsp-deferred)
   :custom
@@ -607,7 +614,7 @@
     :straight t
     :hook (python-mode . auto-virtualenvwrapper-activate)))
 
-(use-package python-mode
+(use-package python
   :straight t
   :hook ((python-mode . python-black-on-save-mode)
 	     (python-mode . python-isort-on-save-mode)))
@@ -660,6 +667,12 @@
               ("C-c C-l" . lua-send-current-line)
               ("C-c C-r" . lua-send-region)))
 
+(use-package haskell-mode
+  :straight t)
+
+(use-package lsp-haskell
+  :straight t)
+
 (use-package terraform-mode
   :straight t
   :mode "\\.tf\\'"
@@ -672,7 +685,6 @@
   :straight t
   :mode (("README\\.md\\'" . gfm-mode))
   :custom
-  (truncate-lines nil)
   (markdown-command "multimarkdown"))
 
 (use-package json-mode

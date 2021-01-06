@@ -83,7 +83,6 @@ myLayout = avoidStruts $ gaps [(D,sp), (R,sp), (L,sp)] $ spacing sp $ toggleLayo
 
 myStartupHook = do
     spawnOnce "bash $HOME/.fehbg"
-    spawnOnce "xautolock -time 5 -locker 'i3lock-fancy' -notify 10 -notifier 'notify-send -t 5000 -i gtk-dialog-info \"Locking in 10 seconds\"' &"
 
 myBar = "xmobar"
 myPP = xmobarPP { ppOrder           = \(ws:l:t:_)  -> [ws,t]

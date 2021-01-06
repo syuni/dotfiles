@@ -285,9 +285,9 @@ inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 function! IMCtrl(cmd)
   let cmd = a:cmd
   if cmd == 'On'
-    let res = system('fcitx-remote -c')
-  elseif cmd == 'Off'
     let res = system('fcitx-remote -o')
+  elseif cmd == 'Off'
+    let res = system('fcitx-remote -c')
   endif
   return ''
 endfunction
@@ -319,7 +319,7 @@ let g:lua_tree_icons = {
   \   'open': ""
   \   }
   \ }
-nnoremap <C-n> :LuaTreeToggle<CR>
+nnoremap <C-n> :NvimTreeToggle<CR>
 
 " vista
 nnoremap <silent> <C-]> :Vista!!<CR>
