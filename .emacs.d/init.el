@@ -19,6 +19,7 @@
 (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
 (set-fontset-font t 'symbol "Symbola" nil 'append)
 
+
 ;;; Encoding
 
 (prefer-coding-system 'utf-8-unix)
@@ -341,7 +342,7 @@
   :custom
   (treemacs-read-string-input 'from-minibuffer)
   :config
-  (treemacs-tag-follow-mode -1)
+  (treemacs-follow-mode -1)
   (use-package treemacs-evil
     :straight t)
   (use-package treemacs-all-the-icons
