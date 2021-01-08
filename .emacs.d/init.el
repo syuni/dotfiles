@@ -352,6 +352,14 @@
   (use-package treemacs-projectile
     :straight t))
 
+(use-package ranger
+  :straight t
+  :custom
+  (ranger-cleanup-on-disable t)
+  (ranger-show-hidden t)
+  :config
+  (ranger-override-dired-mode t))
+
 (use-package which-key
   :straight t
   :hook (after-init . which-key-mode))
@@ -700,6 +708,9 @@
 (use-package typescript-mode
   :straight t
   :mode "\\.ts\\'")
+
+(use-package graphql-mode
+  :straight t)
 
 (use-package lua-mode
   :straight t
