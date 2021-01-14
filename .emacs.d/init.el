@@ -622,7 +622,7 @@
   (company-transformers '(company-sort-by-backend-importance))
   (company-tooltip-align-annotations t)
   (company-idle-delay 0)
-  (company-minimum-prefix-length 0)
+  (company-minimum-prefix-length 1)
   (company-dabbrev-downcase nil)
   (company-selection-wrap-around t)
   (completion-ignore-case t)
