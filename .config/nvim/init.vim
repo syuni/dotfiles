@@ -552,7 +552,7 @@ let g:goyo_linenr=0
 " ### Lua plugins
 lua require('treesitter')
 lua require('eviline')
-lua require('bline')
+" lua require('bline')
 
 " ### Load local .vimrc
 function! s:openLocalConfig()
