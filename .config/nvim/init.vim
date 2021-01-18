@@ -344,10 +344,12 @@ nnoremap <silent> <A-,> :BufferPrevious<CR>
 nnoremap <silent> <A-.> :BufferNext<CR>
 nnoremap <silent> <A-<> :BufferMovePrevious<CR>
 nnoremap <silent> <A->> :BufferMoveNext<CR>
-nnoremap <silent>[buf]d :BufferClose<CR>
-nnoremap <silent>[buf]ad :bufdo :BufferClose<CR>
+nnoremap <silent> [buf]d :BufferClose<CR>
+nnoremap <silent> [buf]ad :bufdo :BufferClose<CR>
 nnoremap <silent> [buf]D :bd<CR>
 nnoremap <silent> [buf]aD :bufdo :bd<CR>
+nnoremap <silent> [buf]od :BufferOrderByDirectory<CR>
+nnoremap <silent> [buf]ol :BufferOrderByLanguage<CR>
 
 " indentLine
 set list lcs=tab:\|\ 
