@@ -176,8 +176,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('easymotion/vim-easymotion')
 
   " buffer
-  call dein#add('moll/vim-bbye')
-  call dein#add('akinsho/nvim-bufferline.lua')
+  call dein#add('romgrk/barbar.nvim')
 
   " indent
   call dein#add('Yggdroot/indentLine')
@@ -191,6 +190,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('nvim-lua/popup.nvim')
   call dein#add('nvim-lua/plenary.nvim')
   call dein#add('nvim-telescope/telescope.nvim')
+  call dein#add('nvim-telescope/telescope-symbols.nvim')
 
   " zen
   call dein#add('junegunn/goyo.vim')
@@ -338,16 +338,14 @@ nmap <Leader><Leader>F <Plug>(easymotion-overwin-f)
 nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
-" nvim-bufferline
-nnoremap <silent> [buf]s :BufferLinePick<CR>
-nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
-nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
-nnoremap <silent> [buf]p :BufferLineCyclePrev<CR>
-nnoremap <silent> [buf]n :BufferLineCycleNext<CR>
-
-" vim-bbye
-nnoremap <silent>[buf]d :Bdelete<CR>
-nnoremap <silent>[buf]ad :bufdo :Bdelete<CR>
+" barbar.nvim
+nnoremap <silent> [buf]s :BufferPick<CR>
+nnoremap <silent> <A-,> :BufferPrevious<CR>
+nnoremap <silent> <A-.> :BufferNext<CR>
+nnoremap <silent> <A-<> :BufferMovePrevious<CR>
+nnoremap <silent> <A->> :BufferMoveNext<CR>
+nnoremap <silent>[buf]d :BufferClose<CR>
+nnoremap <silent>[buf]ad :bufdo :BufferClose<CR>
 nnoremap <silent> [buf]D :bd<CR>
 nnoremap <silent> [buf]aD :bufdo :bd<CR>
 
@@ -369,14 +367,15 @@ nnoremap [finder]f :Telescope find_files<CR>
 nnoremap [finder]g :Telescope live_grep<CR>
 nnoremap [finder]b :Telescope buffers<CR>
 nnoremap [finder]h :Telescope help_tags<CR>
+nnoremap [finder]s :Telescope symbols<CR>
 
 " ale
 let g:ale_linters={
   \ 'javascript': ['eslint'],
   \ 'javascriptreact': ['eslint'],
-  \ 'typescript': ['eslint', 'tslint'],
-  \ 'typescriptreact': ['eslint', 'tslint'],
-  \ 'vue': ['eslint', 'tslint'],
+  \ 'typescript': ['eslint'],
+  \ 'typescriptreact': ['eslint'],
+  \ 'vue': ['eslint'],
   \ 'svelte': ['eslint'],
   \ 'dart': ['dartanalyzer'],
   \ 'go': ['golangci-lint'],
@@ -388,10 +387,10 @@ let g:ale_linters={
   \ 'terraform': ['terraform']
   \ }
 let g:ale_fixers={
-  \ 'javascript': ['eslint'],
-  \ 'javascriptreact': ['eslint'],
-  \ 'typescript': ['eslint'],
-  \ 'typescriptreact': ['eslint'],
+  \ 'javascript': ['prettier', 'eslint'],
+  \ 'javascriptreact': ['prettier', 'eslint'],
+  \ 'typescript': ['prettier', 'eslint'],
+  \ 'typescriptreact': ['prettier', 'eslint'],
   \ 'vue': ['eslint'],
   \ 'svelte': ['eslint'],
   \ 'dart': ['dartfmt'],
@@ -457,11 +456,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
-" Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-" hi CocHighlightText ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
-" hi CoCHoverRange ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
 
 " Remap for rename current word
 nmap [coc]rn <Plug>(coc-rename)
@@ -552,7 +546,6 @@ let g:goyo_linenr=0
 " ### Lua plugins
 lua require('treesitter')
 lua require('eviline')
-" lua require('bline')
 
 " ### Load local .vimrc
 function! s:openLocalConfig()

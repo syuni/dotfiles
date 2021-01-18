@@ -24,7 +24,7 @@ colorBlue = "#61AFEF"
 colorPurple = "#C678DD"
 colorCyan = "#56B6C2"
 
-myTerminal = "alacritty"
+myTerminal = "kitty"
 
 myBorderWidth = 3
 
@@ -57,7 +57,7 @@ myConfig = defaultConfig
 
     `additionalKeysP`
     [
-      ("M-<Return>", spawn "alacritty") 
+      ("M-<Return>", spawn "kitty") 
     , ("M-f", sendMessage ToggleLayout)
     , ("M-S-h", sendMessage MirrorShrink)
     , ("M-S-l", sendMessage MirrorExpand)

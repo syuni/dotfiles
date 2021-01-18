@@ -16,6 +16,11 @@
     "UltiSnips",
     "gosnippets/UltiSnips"
   ],
+  "tsserver.formatOnType": false,
+  "typescript.suggest.autoImports": false,
+  "typescript.suggest.completeFunctionCalls": false,
+  "javascript.suggest.autoImports": false,
+  "javascript.suggest.completeFunctionCalls": false,
   "python.jediEnabled": false,
   "python.autoComplete.addBrackets": true,
   "rust.show_warnings": true,
