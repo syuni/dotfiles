@@ -297,15 +297,15 @@ endfunction
 let g:rainbow_active=1
 
 " nvimtree
-let g:lua_tree_side='left'
-let g:lua_tree_width=40
-let g:lua_tree_quit_on_open=0 
-let g:lua_tree_follow=1
-let g:lua_tree_indent_markers=1
-let g:lua_tree_hide_dotfiles=0
-let g:lua_tree_git_hl=1
-let g:lua_tree_allow_resize=1
-let g:lua_tree_icons = {
+let g:nvim_tree_side='left'
+let g:nvim_tree_width=40
+let g:nvim_tree_quit_on_open=0 
+let g:nvim_tree_follow=1
+let g:nvim_tree_indent_markers=1
+let g:nvim_tree_hide_dotfiles=0
+let g:nvim_tree_git_hl=1
+let g:nvim_tree_allow_resize=1
+let g:nvim_tree_icons = {
   \ 'default': '',
   \ 'symlink': '',
   \ 'git': {
@@ -557,8 +557,9 @@ let g:goyo_linenr=0
 
 " ### Lua plugins
 lua require('treesitter')
+lua require('nvim-web-devicons').setup()
+lua require('bufferline').setup()
 lua require('eviline')
-lua require'bufferline'.setup()
 
 " ### Load local .vimrc
 function! s:openLocalConfig()
