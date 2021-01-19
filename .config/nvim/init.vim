@@ -176,7 +176,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('easymotion/vim-easymotion')
 
   " buffer
-  call dein#add('romgrk/barbar.nvim')
+  call dein#add('moll/vim-bbye')
+  call dein#add('akinsho/nvim-bufferline.lua')
 
   " indent
   call dein#add('Yggdroot/indentLine')
@@ -338,18 +339,16 @@ nmap <Leader><Leader>F <Plug>(easymotion-overwin-f)
 nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
-" barbar.nvim
-nnoremap <silent> [buf]s :BufferPick<CR>
-nnoremap <silent> <A-,> :BufferPrevious<CR>
-nnoremap <silent> <A-.> :BufferNext<CR>
-nnoremap <silent> <A-<> :BufferMovePrevious<CR>
-nnoremap <silent> <A->> :BufferMoveNext<CR>
-nnoremap <silent> [buf]d :BufferClose<CR>
-nnoremap <silent> [buf]ad :bufdo :BufferClose<CR>
+" vim-bbye / nvim-bufferline.lua
+nnoremap <silent> [buf]s :BufferLinePick<CR>
+nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
+nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
+nnoremap <silent> <A-<> :BufferLineMovePrev<CR>
+nnoremap <silent> <A->> :BufferLineMoveNext<CR>
+nnoremap <silent> [buf]d :Bdelete<CR>
+nnoremap <silent> [buf]ad :bufdo :Bdelete<CR>
 nnoremap <silent> [buf]D :bd<CR>
 nnoremap <silent> [buf]aD :bufdo :bd<CR>
-nnoremap <silent> [buf]od :BufferOrderByDirectory<CR>
-nnoremap <silent> [buf]ol :BufferOrderByLanguage<CR>
 
 " indentLine
 set list lcs=tab:\|\ 
@@ -559,6 +558,7 @@ let g:goyo_linenr=0
 " ### Lua plugins
 lua require('treesitter')
 lua require('eviline')
+lua require'bufferline'.setup()
 
 " ### Load local .vimrc
 function! s:openLocalConfig()

@@ -16,7 +16,6 @@
     "UltiSnips",
     "gosnippets/UltiSnips"
   ],
-  "tsserver.formatOnType": false,
   "typescript.suggest.autoImports": false,
   "typescript.suggest.completeFunctionCalls": false,
   "javascript.suggest.autoImports": false,
