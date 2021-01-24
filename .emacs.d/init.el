@@ -190,18 +190,27 @@
   :straight t
   :custom
   (org-directory "~/org/")
-  (org-default-notes-file (concat org-directory "note.org"))
+  (org-agenda-files '("~/org/" "~/org/notes"))
+  (org-default-notes-file (concat org-directory "memo.org"))
   (org-startup-truncated nil)
   (org-src-fontify-natively t)
   (org-confirm-babel-evaluate nil)
   (org-clock-out-remove-zero-time-clocks t)
   (org-startup-indented t)
   (org-startup-folded 'content)
+  (org-capture-templates
+   '(("t" "Task" entry (file+headline "~/org/task.org" "Task")
+      "* TODO %?" :empty-lines 1)
+     ("m" "Memo" entry (file+headline "~/org/memo.org" "Memo")
+      "* %?" :empty-lines 1)
+     ("r" "Reading" entry (file+headline "~/org/reading.org" "Reading")
+      "* %?\n%a" :empty-lines 1)))
   :custom-face
   (org-document-title ((t (:height 1.5))))
   (org-level-1 ((t (:inherit outline-1 :height 1.3))))
   (org-level-2 ((t (:inherit outline-2 :height 1.2))))
   (org-level-3 ((t (:inherit outline-3 :height 1.1))))
+  :hook (org-agenda-mode . hack-dir-local-variables-non-file-buffer)
   :bind
   (("C-c a" . org-agenda)
    ("C-c c" . org-capture)

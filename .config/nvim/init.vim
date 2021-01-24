@@ -341,6 +341,8 @@ nmap <Leader><Leader>W <Plug>(easymotion-overwin-w)
 
 " vim-bbye / nvim-bufferline.lua
 nnoremap <silent> [buf]s :BufferLinePick<CR>
+nnoremap <silent> [buf]p :BufferLineCyclePrev<CR>
+nnoremap <silent> [buf]n :BufferLineCycleNext<CR>
 nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
 nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
 nnoremap <silent> <A-<> :BufferLineMovePrev<CR>
