@@ -89,6 +89,14 @@ nnoremap <silent> <A-h> <C-w>h
 nnoremap <silent> <A-j> <C-w>j
 nnoremap <silent> <A-k> <C-w>k
 nnoremap <silent> <A-l> <C-w>l
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+cnoremap <C-d> <Del>
+
 
 " ### general settings (search)
 " ignore uppercase and lowercase
