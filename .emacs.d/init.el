@@ -190,7 +190,7 @@
   :straight t
   :custom
   (org-directory "~/org/")
-  (org-agenda-files '("~/org/" "~/org/notes"))
+  (org-agenda-files '("~/org/" "~/org/notes/"))
   (org-default-notes-file (concat org-directory "memo.org"))
   (org-startup-truncated nil)
   (org-src-fontify-natively t)

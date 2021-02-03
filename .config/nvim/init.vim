@@ -2,9 +2,11 @@ autocmd!
 
 " ### general settings (file)
 " charset
-scriptencoding utf-8
 set enc=utf-8
 set fenc=utf-8
+set fencs=utf-8,sjis,euc-jp
+set ffs=unix,dos,mac
+scriptencoding utf-8
 set ambiwidth=single
 " don't make backupfile
 set nobackup
