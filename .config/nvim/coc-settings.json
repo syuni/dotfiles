@@ -1,6 +1,6 @@
 {
   "suggest.noselect": true,
-  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnType": false,
   "diagnostic.displayByAle": false,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.enableSign": true,

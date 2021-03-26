@@ -391,7 +391,7 @@ let g:ale_linters={
   \ 'vue': ['eslint'],
   \ 'svelte': ['eslint'],
   \ 'dart': ['dartanalyzer'],
-  \ 'go': ['golangci-lint'],
+  \ 'go': ['govet'],
   \ 'rust': ['rls'],
   \ 'haskell': ['hlint'],
   \ 'python': ['flake8', 'mypy'],
