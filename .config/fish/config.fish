@@ -41,6 +41,9 @@ set -x PATH $HOME/.cargo/bin $PATH
 # set -x PATH $HOME/.cabal/bin $PATH
 # set -x PATH $HOME/.ghcup/bin $PATH
 
+# node
+set -x NPM_CONFIG_PREFIX $HOME/.local
+
 # python
 set -x PIPENV_VENV_IN_PROJECT true
 

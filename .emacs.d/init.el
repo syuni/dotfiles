@@ -250,7 +250,7 @@
          (prog-mode . (lambda () (skk-mode) (skk-latin-mode-on))))
   :custom
   (skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
-  (skk-user-directory "~/.ddskk")
+  (skk-user-directory "~/.skk")
   (skk-isearch-start-mode 'latin)
   (skk-search-katakana 'jisx0201-kana)
   (skk-japanese-message-and-error nil)
@@ -441,7 +441,7 @@
   (migemo-command "cmigemo")
   (migemo-options '("-q" "--emacs"))
   (migemo-coding-system 'utf-8-unix)
-  (migemo-dictionary "/usr/share/migemo/utf-8/migemo-dict")
+  (migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
   (migemo-user-dictionary nil)
   (migemo-regex-dictionary nil)
   :config

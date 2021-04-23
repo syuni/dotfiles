@@ -138,8 +138,8 @@ endif
 " ### nvim clients
 let g:python_host_prog='/usr/bin/python2'
 let g:python3_host_prog='/usr/bin/python3'
-let g:ruby_host_prog='/usr/bin/neovim-ruby-host'
-let g:node_host_prog='/usr/bin/neovim-node-host'
+let g:ruby_host_prog='$HOME/.local/bin/neovim-ruby-host'
+let g:node_host_prog='$HOME/.local/bin/neovim-node-host'
 
 " ### Language Pack
 " polyglot
@@ -158,11 +158,8 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  " ime
-  call dein#add('fuenor/im_control.vim')
-
   " color schema
-  call dein#add('joshdick/onedark.vim')
+  call dein#add('sainnhe/sonokai')
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -282,26 +279,17 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme onedark
+let g:sonokai_style='default'
+let g:sonokai_enable_italic=1
+let g:sonokai_disable_italic_comment=0
+
+colorscheme sonokai
 
 " ### Packages
 " terminal (& split-term.vim)
 autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 nnoremap <silent> [term]s :Term<CR>
 nnoremap <silent> [term]v :VTerm<CR>
-
-" ime
-let IM_CtrlMode = 1
-inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
-function! IMCtrl(cmd)
-  let cmd = a:cmd
-  if cmd == 'On'
-    let res = system('fcitx-remote -o')
-  elseif cmd == 'Off'
-    let res = system('fcitx-remote -c')
-  endif
-  return ''
-endfunction
 
 " rainbow
 let g:rainbow_active=1

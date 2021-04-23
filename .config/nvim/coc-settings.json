@@ -23,6 +23,7 @@
   "python.jediEnabled": false,
   "python.autoComplete.addBrackets": true,
   "rust.show_warnings": true,
+  "rust-analyzer.inlayHints.enable": false,
   "java.referencesCodeLens.enabled": true,
   "java.implementationsCodeLens.enabled": true,
   "java.signatureHelp.enabled": true,

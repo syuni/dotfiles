@@ -23,8 +23,10 @@
 [mergetool]
 	prompt = false
 [credential]
-	helper = /usr/share/git/credential/libsecret/git-credential-libsecret
+	helper = /usr/libexec/git-core/git-credential-libsecret
 [pull]
 	rebase = false
 [alias]
 	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+[ghq]
+	root = ~/.local/src
