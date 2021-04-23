@@ -172,31 +172,38 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Sonokai - default)
+# Colors (Tokyonight - storm)
 colors:
+  # Default colors
   primary:
-    background: "0x2c2e34"
-    foreground: "0xe2e2e3"
+    background: '0x24283b'
+    foreground: '0xc0caf5'
 
+  # Normal colors
   normal:
-    black: "0x181819"
-    red: "0xfc5d7c"
-    green: "0x9ed072"
-    yellow: "0xe7c664"
-    blue: "0x76cce0"
-    magenta: "0xb39df3"
-    cyan: "0xf39660"
-    white: "0xe2e2e3"
+    black:   '0x1D202F'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xa9b1d6'
 
+  # Bright colors
   bright:
-    black: "0x181819"
-    red: "0xfc5d7c"
-    green: "0x9ed072"
-    yellow: "0xe7c664"
-    blue: "0x76cce0"
-    magenta: "0xb39df3"
-    cyan: "0xf39660"
-    white: "0xe2e2e3"
+    black:   '0x1D202F'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xc0caf5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff9e64' }
+    - { index: 17, color: '0xdb4b4b' }
 
   # Indexed Colors
   #
@@ -206,7 +213,7 @@ colors:
   # Example:
   #   `- { index: 16, color: '0xff00ff' }`
   #
-  indexed_colors: []
+  #indexed_colors: []
 
 # Bell
 #

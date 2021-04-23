@@ -158,8 +158,11 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
+  " nvim-lua
+  call dein#add('nvim-lua/plenary.nvim')
+
   " color schema
-  call dein#add('sainnhe/sonokai')
+  call dein#add('folke/tokyonight.nvim')
 
   " terminal
   call dein#add('vimlab/split-term.vim')
@@ -188,6 +191,7 @@ if dein#load_state('~/.cache/dein')
 
   " indent
   call dein#add('Yggdroot/indentLine')
+  call dein#add('lukas-reineke/indent-blankline.nvim')
 
   " comment
   call dein#add('scrooloose/nerdcommenter')
@@ -196,7 +200,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('junegunn/fzf', { 'build': './install --bin', 'merged': 0 })
   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
   call dein#add('nvim-lua/popup.nvim')
-  call dein#add('nvim-lua/plenary.nvim')
   call dein#add('nvim-telescope/telescope.nvim')
   call dein#add('nvim-telescope/telescope-symbols.nvim')
 
@@ -212,7 +215,7 @@ if dein#load_state('~/.cache/dein')
 
   " git
   call dein#add('tpope/vim-fugitive')
-  call dein#add('mhinz/vim-signify')
+  call dein#add('lewis6991/gitsigns.nvim')
 
   " snippet
   call dein#add('honza/vim-snippets')
@@ -279,11 +282,13 @@ if has('termguicolors')
   set termguicolors
 endif
 
-let g:sonokai_style='default'
-let g:sonokai_enable_italic=1
-let g:sonokai_disable_italic_comment=0
+let g:tokyonight_italic_comments=1
+let g:tokyonight_italic_keywords=1
+let g:tokyonight_italic_functions=1
+let g:tokyonight_italic_variables=0
+let g:tokyonight_sidebars=['quickfix', '__vista__', 'terminal']
 
-colorscheme sonokai
+colorscheme tokyonight
 
 " ### Packages
 " terminal (& split-term.vim)
@@ -330,6 +335,7 @@ let g:vista#renderer#enable_icon=1
 " easy-motion
 let g:EasyMotion_do_mapping=0
 let g:EasyMotion_smartcase=1
+let g:EasyMotion_use_migemo=1
 nmap s <Plug>(easymotion-bd-f2)
 nmap S <Plug>(easymotion-overwin-f2)
 nmap <Leader><Leader>f <Plug>(easymotion-bd-f)
@@ -560,6 +566,7 @@ lua require('treesitter')
 lua require('nvim-web-devicons').setup()
 lua require('bufferline').setup()
 lua require('eviline')
+lua require('gitsigns').setup()
 
 " ### Load local .vimrc
 function! s:openLocalConfig()
