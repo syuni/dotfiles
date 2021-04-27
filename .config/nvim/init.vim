@@ -1,5 +1,8 @@
 autocmd!
 
+" load project local settings (.nvimrc)
+set exrc
+
 " ### general settings (file)
 " charset
 set enc=utf-8
@@ -286,7 +289,7 @@ let g:tokyonight_italic_comments=1
 let g:tokyonight_italic_keywords=1
 let g:tokyonight_italic_functions=1
 let g:tokyonight_italic_variables=0
-let g:tokyonight_sidebars=['quickfix', '__vista__', 'terminal']
+let g:tokyonight_sidebars=['qf', 'vista', 'terminal', 'packer']
 
 colorscheme tokyonight
 
