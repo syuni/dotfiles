@@ -44,6 +44,7 @@ require('packer').startup(function()
     'kyazdani42/nvim-tree.lua',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
+      vim.g.nvim_tree_width = 40
       vim.g.nvim_tree_follow = 1
       vim.g.nvim_tree_indent_markers = 1
       vim.g.nvim_tree_hide_dotfiles = 0
@@ -165,6 +166,14 @@ require('packer').startup(function()
     config = function()
       vim.g.NERDSpaceDelims = 1
       vim.g.NERDDefaultAlign = 'left'
+    end,
+  }
+  use {
+    'folke/todo-comments.nvim',
+    requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+    config = function()
+      require('todo-comments').setup{}
+      vim.api.nvim_set_keymap('n', '<Leader>ft', '<Cmd>TodoTelescope<Cr>', { noremap = true })
     end,
   }
   use 'Raimondi/delimitMate'
@@ -307,7 +316,14 @@ require('packer').startup(function()
   }
 
   -- syntax highlight / language supports
-  use 'sheerun/vim-polyglot'
+  use {
+    'sheerun/vim-polyglot',
+    config = function()
+      -- markdown
+      vim.g.vim_markdown_conceal = 0
+      vim.g.vim_markdown_conceal_code_blocks = 0
+    end,
+  }
   use 'jceb/vim-orgmode'
   use {
     'kovisoft/slimv',

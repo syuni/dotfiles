@@ -45,8 +45,10 @@ lsp.gopls.setup{ on_attach = on_attach }
 lsp.rls.setup{ on_attach = on_attach }
 lsp.tsserver.setup{ on_attach = on_attach }
 lsp.vuels.setup{ on_attach = on_attach }
-lsp.terraformls.setup{ on_attach = on_attach }
+lsp.svelte.setup{ on_attach = on_attach }
+lsp.pyright.setup{ on_attach = on_attach }
 lsp.vimls.setup{ on_attach = on_attach }
+lsp.terraformls.setup{ on_attach = on_attach }
 
 -- lsp provider lua
 
