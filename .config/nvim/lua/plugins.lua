@@ -22,11 +22,12 @@ require('packer').startup(function()
 
   -- terminal
   use {
-    'vimlab/split-term.vim',
-    cmd = { 'Term', 'VTerm' },
-    setup = function()
-      vim.api.nvim_set_keymap('n', '<Leader>ts', '<Cmd>Term<Cr>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>tv', '<Cmd>VTerm<Cr>', { noremap = true, silent = true })
+    'akinsho/nvim-toggleterm.lua',
+    config = function()
+      require('toggleterm').setup{
+        open_mapping = [[<c-\>]],
+        direction = 'float',
+      }
     end,
   }
 
@@ -181,6 +182,18 @@ require('packer').startup(function()
   use 'tpope/vim-surround'
   use 'andymass/vim-matchup'
 
+  -- snippets
+  use {
+    'SirVer/ultisnips',
+    config = function()
+      vim.g.UltiSnipsExpandTrigger = '<Tab>'
+      vim.g.UltiSnipsJumpForwardTrigger = '<C-f>'
+      vim.g.UltiSnipsJumpBackwardTrigger = '<C-b>'
+      vim.g.UltiSnipsEditSplit = 'vertical'
+    end,
+  }
+  use 'honza/vim-snippets'
+
   -- syntax check
   use {
     'dense-analysis/ale',
@@ -273,6 +286,7 @@ require('packer').startup(function()
           nvim_lsp = true,
           nvim_lua = true,
           vsnip = false,
+          ultisnips = true,
           emoji = false,
         },
       }
@@ -311,7 +325,6 @@ require('packer').startup(function()
       vim.g.vista_default_executive = 'nvim_lsp'
       vim.g.vista_icon_indent = { '╰─▸ ', '├─▸ ' }
       vim.api.nvim_set_keymap('n', '<C-]>', '<Cmd>Vista!!<Cr>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<C-\\>', '<Cmd>Vista finder<Cr>', { noremap = true, silent = true })
     end,
   }
 

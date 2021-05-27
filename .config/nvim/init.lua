@@ -113,5 +113,8 @@ vim.g.node_host_prog = '$HOME/.local/bin/neovim-node-host'
 vim.o.t_Co = '256'
 vim.o.termguicolors = true
 
+-- Terminal
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+
 -- Plugins
 require('plugins')
