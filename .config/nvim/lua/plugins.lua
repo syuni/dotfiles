@@ -7,16 +7,16 @@ require('packer').startup(function()
 
   -- color schema
   use {
-    'folke/tokyonight.nvim',
+    'monsonjeremy/onedark.nvim',
     setup = function()
-      vim.g.tokyonight_italic_comments = 1
-      vim.g.tokyonight_italic_keywords = 1
-      vim.g.tokyonight_italic_functions = 1
-      vim.g.tokyonight_italic_variables = 0
-      vim.g.tokyonight_sidebars = { 'qf', 'vista', 'terminal', 'packer' }
+      vim.g.onedark_italic_comments = 1
+      vim.g.onedark_italic_keywords = 1
+      vim.g.onedark_italic_functions = 1
+      vim.g.onedark_italic_variables = 0
+      vim.g.onedark_sidebars = { 'qf', 'NvimTree', 'vista_kind', 'terminal', 'packer' }
     end,
     config = function()
-      vim.cmd [[colorscheme tokyonight]]
+      vim.cmd [[colorscheme onedark]]
     end,
   }
 
@@ -25,8 +25,11 @@ require('packer').startup(function()
     'akinsho/nvim-toggleterm.lua',
     config = function()
       require('toggleterm').setup{
-        open_mapping = [[<c-\>]],
+        open_mapping = [[<C-]>]],
         direction = 'float',
+        float_opts = {
+          border = 'shadow',
+        },
       }
     end,
   }
@@ -75,7 +78,14 @@ require('packer').startup(function()
     'akinsho/nvim-bufferline.lua',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
-      require('bufferline').setup()
+      require('bufferline').setup{
+        options = {
+          offsets = {
+            {filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left'},
+            {filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left'},
+          },
+        },
+      }
       vim.api.nvim_set_keymap('n', '<Leader>bs', '<Cmd>BufferLinePick<Cr>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<Leader>bp', '<Cmd>BufferLineCyclePrev<Cr>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<Leader>bn', '<Cmd>BufferLineCycleNext<Cr>', { noremap = true, silent = true })
@@ -324,7 +334,8 @@ require('packer').startup(function()
     setup = function()
       vim.g.vista_default_executive = 'nvim_lsp'
       vim.g.vista_icon_indent = { '╰─▸ ', '├─▸ ' }
-      vim.api.nvim_set_keymap('n', '<C-]>', '<Cmd>Vista!!<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>vv', '<Cmd>Vista!!<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>vf', '<Cmd>Vista finder<Cr>', { noremap = true, silent = true })
     end,
   }
 
