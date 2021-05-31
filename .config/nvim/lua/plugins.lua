@@ -20,20 +20,6 @@ require('packer').startup(function()
     end,
   }
 
-  -- terminal
-  use {
-    'akinsho/nvim-toggleterm.lua',
-    config = function()
-      require('toggleterm').setup{
-        open_mapping = [[<C-]>]],
-        direction = 'float',
-        float_opts = {
-          border = 'shadow',
-        },
-      }
-    end,
-  }
-
   -- treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -270,18 +256,18 @@ require('packer').startup(function()
         infor_sign = '',
       }
       local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Lspsaga rename<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'gs', '<Cmd>Lspsaga signature_help<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<C-b>', '<Cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<leader><leader>ca', '<Cmd>Lspsaga code_action<CR>', opts)
-      vim.api.nvim_set_keymap('v', '<leader><leader>ca', ':<C-u>Lspsaga range_code_action<CR>', opts)
-      vim.api.nvim_set_keymap('n', ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
-      vim.api.nvim_set_keymap('n', '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<A-t>', '<Cmd>Lspsaga open_floaterm<CR>', opts)
-      vim.api.nvim_set_keymap('t', '<A-t>', '<C-\\><C-n><Cmd>Lspsaga close_floaterm<CR>', opts)
+      vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Lspsaga lsp_finder<Cr>', opts)
+      vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Lspsaga rename<Cr>', opts)
+      vim.api.nvim_set_keymap('n', 'gs', '<Cmd>Lspsaga signature_help<Cr>', opts)
+      vim.api.nvim_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<C-f>', '<Cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<C-b>', '<Cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader><Leader>ca', '<Cmd>Lspsaga code_action<Cr>', opts)
+      vim.api.nvim_set_keymap('v', '<Leader><Leader>ca', ':<C-u>Lspsaga range_code_action<Cr>', opts)
+      vim.api.nvim_set_keymap('n', ']d', '<Cmd>Lspsaga diagnostic_jump_next<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '[d', '<Cmd>Lspsaga diagnostic_jump_prev<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<C-\\>', '<Cmd>Lspsaga open_floaterm<Cr>', opts)
+      vim.api.nvim_set_keymap('t', '<C-\\>', '<C-\\><C-n><Cmd>Lspsaga close_floaterm<Cr>', opts)
     end,
   }
   use {
@@ -302,7 +288,7 @@ require('packer').startup(function()
       }
       local opts_expr = { noremap = true, silent = true, expr = true }
       vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()', opts_expr)
-      vim.api.nvim_set_keymap('i', '<CR>', 'compe#confirm({ "keys": "<Plug>delimitMateCR", "mode": "" })', opts_expr)
+      vim.api.nvim_set_keymap('i', '<Cr>', 'compe#confirm({ "keys": "<Plug>delimitMateCR", "mode": "" })', opts_expr)
       vim.api.nvim_set_keymap('i', '<C-e>', 'compe#close("<C-e>")', opts_expr)
       vim.api.nvim_set_keymap('i', '<C-f>', 'compe#scroll({ "delta": +4 })', opts_expr)
       vim.api.nvim_set_keymap('i', '<C-b>', 'compe#scroll({ "delta": -4 })', opts_expr)
@@ -319,7 +305,7 @@ require('packer').startup(function()
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
       require('trouble').setup{}
-      vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle<Cr>', { noremap = true, silent = true })
     end,
   }
   use {

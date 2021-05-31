@@ -29,10 +29,11 @@ local on_attach = function(client, bufnr)
       bind = true,
       doc_lines = 10,
       hint_enable = true,
-      hint_prefix = '',
+      hint_prefix = ' ',
       hint_scheme = 'String',
+      use_lspsaga = false,
       handler_opts = {
-        border = 'shadow',
+        border = 'single',
       },
       decorator = { '`', '`' },
     })
