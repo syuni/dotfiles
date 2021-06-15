@@ -21,6 +21,7 @@ require('packer').startup(function()
       require('treesitter')
     end,
   }
+  use 'p00f/nvim-ts-rainbow'
 
   -- explorer
   use {
@@ -135,12 +136,6 @@ require('packer').startup(function()
     end,
   }
   use 'lukas-reineke/indent-blankline.nvim'
-  use {
-    'luochen1990/rainbow',
-    config = function()
-      vim.g.rainbow_active = 1
-    end,
-  }
   use {
     'easymotion/vim-easymotion',
     config = function()
