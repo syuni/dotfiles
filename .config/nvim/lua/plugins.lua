@@ -7,16 +7,10 @@ require('packer').startup(function()
 
   -- color schema
   use {
-    'monsonjeremy/onedark.nvim',
-    setup = function()
-      vim.g.onedark_italic_comments = 1
-      vim.g.onedark_italic_keywords = 1
-      vim.g.onedark_italic_functions = 1
-      vim.g.onedark_italic_variables = 0
-      vim.g.onedark_sidebars = { 'qf', 'NvimTree', 'vista_kind', 'terminal', 'packer' }
-    end,
+    'Mofiqul/dracula.nvim',
     config = function()
-      vim.cmd [[colorscheme onedark]]
+      vim.cmd [[colorscheme dracula]]
+      vim.cmd [[highlight StatusLine guibg=#202328]]
     end,
   }
 
@@ -27,7 +21,6 @@ require('packer').startup(function()
       require('treesitter')
     end,
   }
-  use 'romgrk/nvim-treesitter-context'
 
   -- explorer
   use {
@@ -238,6 +231,18 @@ require('packer').startup(function()
     end,
   }
 
+  use {
+    'akinsho/nvim-toggleterm.lua',
+    config = function()
+      require('toggleterm').setup{
+        size = 20,
+        open_mapping = [[<C-\>]],
+        hide_numbers = true,
+        direction = 'horizontal',
+      }
+    end,
+  }
+
   -- lsp
   use {
     'neovim/nvim-lspconfig',
@@ -266,8 +271,6 @@ require('packer').startup(function()
       vim.api.nvim_set_keymap('v', '<Leader><Leader>ca', ':<C-u>Lspsaga range_code_action<Cr>', opts)
       vim.api.nvim_set_keymap('n', ']d', '<Cmd>Lspsaga diagnostic_jump_next<Cr>', opts)
       vim.api.nvim_set_keymap('n', '[d', '<Cmd>Lspsaga diagnostic_jump_prev<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<C-\\>', '<Cmd>Lspsaga open_floaterm<Cr>', opts)
-      vim.api.nvim_set_keymap('t', '<C-\\>', '<C-\\><C-n><Cmd>Lspsaga close_floaterm<Cr>', opts)
     end,
   }
   use {

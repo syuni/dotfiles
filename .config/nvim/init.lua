@@ -1,6 +1,3 @@
--- Load project local settings (.nvimrc)
-vim.o.exrc = true
-
 -- Leader
 vim.g.mapleader = ' '
 
@@ -110,7 +107,6 @@ vim.g.ruby_host_prog = '$HOME/.local/bin/neovim-ruby-host'
 vim.g.node_host_prog = '$HOME/.local/bin/neovim-node-host'
 
 -- Colors
-vim.o.t_Co = '256'
 vim.o.termguicolors = true
 
 -- Terminal

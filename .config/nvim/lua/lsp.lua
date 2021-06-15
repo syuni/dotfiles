@@ -44,6 +44,11 @@ end
 lsp.clangd.setup{ on_attach = on_attach }
 lsp.gopls.setup{ on_attach = on_attach }
 lsp.rls.setup{ on_attach = on_attach }
+lsp.denols.setup{
+  on_attach = on_attach,
+  root_dir = lsp.util.root_pattern('.deno'),
+  init_options = { enable = true, lint = true, unstable = true },
+}
 lsp.tsserver.setup{ on_attach = on_attach }
 lsp.vuels.setup{ on_attach = on_attach }
 lsp.svelte.setup{ on_attach = on_attach }
