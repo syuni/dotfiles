@@ -265,6 +265,11 @@ require('packer').startup(function()
     requires = { 'ray-x/lsp_signature.nvim' },
     config = function()
       require('lsp')
+      local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+      for type, icon in pairs(signs) do
+        local hl = "LspDiagnosticsSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+      end
     end,
   }
   use {
@@ -303,12 +308,6 @@ require('packer').startup(function()
     config = function()
       require('trouble').setup{}
       vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle<Cr>', { noremap = true, silent = true })
-    end,
-  }
-  use {
-    'folke/lsp-colors.nvim',
-    config = function()
-      require('lsp-colors').setup{}
     end,
   }
   use {
