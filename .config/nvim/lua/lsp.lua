@@ -14,6 +14,9 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("v", "<leader><leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
       augroup lsp_document_highlight
