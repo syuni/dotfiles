@@ -89,8 +89,7 @@ require('packer').startup(function()
   use {
     'nvim-telescope/telescope.nvim',
     requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
-    cmd = { 'Telescope' },
-    setup = function()
+    config = function()
       vim.api.nvim_set_keymap('n', '<C-s>', '<Cmd>Telescope current_buffer_fuzzy_find<Cr>', { noremap = true })
       vim.api.nvim_set_keymap('n', '<Leader>ff', '<Cmd>Telescope find_files<Cr>', { noremap = true })
       vim.api.nvim_set_keymap('n', '<Leader>fg', '<Cmd>Telescope live_grep<Cr>', { noremap = true })

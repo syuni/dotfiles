@@ -2,9 +2,9 @@
 vim.g.mapleader = ' '
 
 -- Encoding
-vim.o.enc = 'utf-8'
-vim.o.fenc = 'utf-8'
-vim.o.fencs = 'utf-8,sjis,ejc-jp'
+vim.o.enc = 'utf8'
+vim.o.fenc = 'utf8'
+vim.o.fencs = 'utf8,ms932,cp932,sjis,eucjp-ms,eucjp,latin1'
 vim.o.ffs = 'unix,dos,mac'
 
 -- Fixed width
