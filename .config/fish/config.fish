@@ -44,6 +44,9 @@ set -x PATH $HOME/.cargo/bin $PATH
 # node
 set -x NPM_CONFIG_PREFIX $HOME/.local
 
+# deno
+set -x DENO_INSTALL_ROOT $HOME/.local
+
 # python
 set -x PIPENV_VENV_IN_PROJECT true
 
