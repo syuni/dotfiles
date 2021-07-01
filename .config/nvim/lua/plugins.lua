@@ -28,6 +28,7 @@ require('packer').startup(function()
     'kyazdani42/nvim-tree.lua',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
+      local sign = require('config').sign
       vim.g.nvim_tree_width = 40
       vim.g.nvim_tree_follow = 1
       vim.g.nvim_tree_quit_on_open = 1
@@ -41,6 +42,14 @@ require('packer').startup(function()
       vim.g.nvim_tree_disable_netrw = 0
       vim.g.nvim_tree_hijack_netrw = 0
       vim.g.nvim_tree_update_cwd = 1
+      vim.g.nvim_tree_icons = {
+        lsp = {
+          hint = sign.hint,
+          info = sign.info,
+          warning = sign.warn,
+          error = sign.error,
+        },
+      }
       vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
     end,
   }
@@ -211,6 +220,7 @@ require('packer').startup(function()
   use {
     'dense-analysis/ale',
     config = function()
+      local sign = require('config').sign
       vim.g.ale_linters = {
         javascript = { 'eslint' },
         javascriptreact = { 'eslint' },
@@ -243,9 +253,9 @@ require('packer').startup(function()
       vim.g.ale_echo_msg_error_str = 'E'
       vim.g.ale_echo_msg_warning_str = 'W'
       vim.g.ale_echo_msg_format = '[%linter%] %s [%severity%]'
-      vim.g.ale_sign_error = ''
-      vim.g.ale_sign_warning = ''
-      vim.g.ale_sign_info = ''
+      vim.g.ale_sign_error = sign.error
+      vim.g.ale_sign_warning = sign.warn
+      vim.g.ale_sign_info = sign.info
       vim.g.ale_set_loclist = 1
       vim.g.ale_set_quickfix = 0
       vim.g.ale_open_list = 0
@@ -273,7 +283,8 @@ require('packer').startup(function()
     requires = { 'ray-x/lsp_signature.nvim' },
     config = function()
       require('lsp')
-      local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+      local sign = require('config').sign
+      local signs = { Error = sign.error, Warning = sign.warn, Hint = sign.hint, Information = sign.info }
       for type, icon in pairs(signs) do
         local hl = "LspDiagnosticsSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -315,7 +326,8 @@ require('packer').startup(function()
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       require('trouble').setup{}
-      vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle lsp_document_diagnostics<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>D', '<Cmd>LspTroubleToggle lsp_workspace_diagnostics<Cr>', { noremap = true, silent = true })
     end,
   }
   use {

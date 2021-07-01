@@ -1,7 +1,10 @@
 local gl = require('galaxyline')
 local colors = require('galaxyline.theme').default
 local condition = require('galaxyline.condition')
+local sign = require('config').sign
+
 local gls = gl.section
+
 gl.short_line_list = {'NvimTree','vista','dbui','packer'}
 
 gls.left[1] = {
@@ -72,14 +75,14 @@ gls.left[7] = {
 gls.left[8] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
-    icon = '  ',
+    icon = sign.error..' ',
     highlight = {colors.red,colors.bg}
   }
 }
 gls.left[9] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
-    icon = '  ',
+    icon = sign.warn..' ',
     highlight = {colors.yellow,colors.bg},
   }
 }
@@ -87,7 +90,7 @@ gls.left[9] = {
 gls.left[10] = {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
-    icon = '  ',
+    icon = sign.hint..' ',
     highlight = {colors.cyan,colors.bg},
   }
 }
@@ -95,7 +98,7 @@ gls.left[10] = {
 gls.left[11] = {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
-    icon = '  ',
+    icon = sign.info..' ',
     highlight = {colors.blue,colors.bg},
   }
 }

@@ -34,9 +34,8 @@ local on_attach = function(client, bufnr)
   require('lsp_signature').on_attach({
       bind = true,
       doc_lines = 10,
-      hint_enable = true,
-      hint_prefix = ' ',
-      hint_scheme = 'String',
+      fix_pos = true,
+      hint_enable = false,
       use_lspsaga = false,
       handler_opts = {
         border = 'single',
