@@ -30,9 +30,17 @@ require('packer').startup(function()
     config = function()
       vim.g.nvim_tree_width = 40
       vim.g.nvim_tree_follow = 1
+      vim.g.nvim_tree_quit_on_open = 1
       vim.g.nvim_tree_indent_markers = 1
       vim.g.nvim_tree_hide_dotfiles = 0
+      vim.g.nvim_tree_highlight_opened_files = 1
       vim.g.nvim_tree_git_hl = 1
+      vim.g.nvim_tree_add_trailing = 1
+      vim.g.nvim_tree_group_empty = 1
+      vim.g.nvim_tree_lsp_diagnostics = 1
+      vim.g.nvim_tree_disable_netrw = 0
+      vim.g.nvim_tree_hijack_netrw = 0
+      vim.g.nvim_tree_update_cwd = 1
       vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
     end,
   }
@@ -61,8 +69,8 @@ require('packer').startup(function()
       require('bufferline').setup{
         options = {
           offsets = {
-            {filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left'},
-            {filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left'},
+            { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
+            { filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left' },
           },
         },
       }
@@ -304,7 +312,7 @@ require('packer').startup(function()
   }
   use {
     'folke/lsp-trouble.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       require('trouble').setup{}
       vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle<Cr>', { noremap = true, silent = true })
