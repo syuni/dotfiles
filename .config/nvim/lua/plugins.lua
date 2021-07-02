@@ -171,6 +171,7 @@ require('packer').startup(function()
     'Yggdroot/indentLine',
     config = function()
       vim.g.indentLine_enabled = 1
+      vim.g.indentLine_setConceal = 0
     end,
   }
   use 'lukas-reineke/indent-blankline.nvim'
@@ -305,6 +306,7 @@ require('packer').startup(function()
           vsnip = false,
           ultisnips = true,
           emoji = false,
+          orgmode = true,
         },
       }
       local opts = { noremap = true, silent = true, expr = true }
@@ -345,12 +347,21 @@ require('packer').startup(function()
   use {
     'sheerun/vim-polyglot',
     config = function()
-      -- markdown
-      vim.g.vim_markdown_conceal = 0
+      -- disabled filetypes
+      vim.g.polyglot_disabled = { 'org' }
+      -- markdown behaviors
       vim.g.vim_markdown_conceal_code_blocks = 0
     end,
   }
-  use 'jceb/vim-orgmode'
+  use {
+    'kristijanhusak/orgmode.nvim',
+    config = function()
+      require('orgmode').setup{
+        org_agenda_file = { '~/org/*' },
+        org_default_notes_file = '~/org/notes.org',
+      }
+    end,
+  }
   use {
     'kovisoft/slimv',
     ft = { 'lisp' },
