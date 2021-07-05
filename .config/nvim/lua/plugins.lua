@@ -82,6 +82,8 @@ require('packer').startup(function()
       vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<Cr>', { noremap = true, silent = true })
     end,
   }
+
+  -- bufferline / statusline
   use {
     'akinsho/nvim-bufferline.lua',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
@@ -104,8 +106,6 @@ require('packer').startup(function()
       vim.api.nvim_set_keymap('n', '<A->>', '<Cmd>BufferLineMoveNext<Cr>', opts)
     end,
   }
-
-  -- bufferline / statusline
   use {
     'hoob3rt/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
