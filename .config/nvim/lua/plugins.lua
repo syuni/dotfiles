@@ -87,12 +87,24 @@ require('packer').startup(function()
     'akinsho/nvim-bufferline.lua',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
+      local sign = require('config').sign
+      local ws = ' '
       require('bufferline').setup{
         options = {
           offsets = {
             { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
             { filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left' },
           },
+          diagnostics = 'nvim_lsp',
+          diagnostics_indicator = function(_, _, diagnostics_dict, _)
+            local s = ' '
+            for e, n in pairs(diagnostics_dict) do
+              local sym = e == 'error' and sign.error..ws
+                or (e == 'warning' and sign.warn..ws or sign.info..ws)
+              s = s..n..sym
+            end
+            return s
+          end,
         },
       }
       local opts = { noremap = true, silent = true }
