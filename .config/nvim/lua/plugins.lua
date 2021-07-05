@@ -32,7 +32,6 @@ require('packer').startup(function()
       require('treesitter')
     end,
   }
-  use 'p00f/nvim-ts-rainbow'
 
   -- explorer
   use {
