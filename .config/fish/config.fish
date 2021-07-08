@@ -26,7 +26,7 @@ end
 source $HOME/.asdf/asdf.fish
 
 # java
-if test $XDG_SESSION_DESKTOP = "sway"
+if test "$XDG_SESSION_DESKTOP" = "sway"
   set -x _JAVA_AWT_WM_NONREPARENTING 1
 end
 

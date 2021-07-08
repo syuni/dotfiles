@@ -335,6 +335,7 @@ require('packer').startup(function()
     config = function()
       vim.o.completeopt = 'menuone,noselect'
       require('compe').setup{
+        documentation = true,
         source = {
           path = true,
           buffer = true,
@@ -384,11 +385,13 @@ require('packer').startup(function()
   -- syntax highlight / language supports
   use {
     'sheerun/vim-polyglot',
-    config = function()
+    setup = function()
       -- disabled filetypes
       vim.g.polyglot_disabled = { 'org' }
       -- markdown behaviors
       vim.g.vim_markdown_conceal_code_blocks = 0
+      -- vue behaviors
+      vim.g.vue_pre_processors = 'detect_on_enter'
     end,
   }
   use {
