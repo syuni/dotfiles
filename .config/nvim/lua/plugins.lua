@@ -9,14 +9,14 @@ require('packer').startup(function()
   use {
     'folke/tokyonight.nvim',
     setup = function()
-      vim.g.tokyonight_style = 'storm'
+      vim.g.tokyonight_style = 'night'
       vim.g.tokyonight_italic_comments = true
       vim.g.tokyonight_italic_keywords = true
       vim.g.tokyonight_italic_functions = true
       vim.g.tokyonight_italic_variables = false
       vim.g.tokyonight_hide_inactive_statusline = true
-      vim.g.tokyonight_sidebars = { 'qf', 'terminal', 'packer', 'NvimTree', 'vista_kind', 'Trouble' }
-      vim.g.tokyonight_dark_sidebar = true
+      vim.g.tokyonight_sidebars = { 'qf', 'terminal', 'toggleterm', 'packer', 'NvimTree', 'vista_kind', 'Trouble' }
+      vim.g.tokyonight_dark_sidebar = false
       vim.g.tokyonight_dark_float = true
       vim.g.tokyonight_lualine_bold = true
     end,
@@ -47,7 +47,7 @@ require('packer').startup(function()
       vim.g.nvim_tree_highlight_opened_files = 1
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
-      vim.g.nvim_tree_group_empty = 1
+      vim.g.nvim_tree_group_empty = 0
       vim.g.nvim_tree_lsp_diagnostics = 1
       vim.g.nvim_tree_disable_netrw = 0
       vim.g.nvim_tree_hijack_netrw = 0
