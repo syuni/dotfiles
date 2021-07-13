@@ -91,6 +91,11 @@ require('packer').startup(function()
       local ws = ' '
       require('bufferline').setup{
         options = {
+        custom_filter = function(buf_number)
+          if vim.bo[buf_number].filetype ~= "qf" then
+            return true
+          end
+        end,
           offsets = {
             { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
             { filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left' },
@@ -188,7 +193,13 @@ require('packer').startup(function()
   }
 
   -- list
-  use 'Valloric/ListToggle'
+  use {
+    'Valloric/ListToggle',
+    setup = function()
+      vim.g.lt_location_list_toggle_map = '<Leader>ll'
+      vim.g.lt_quickfix_list_toggle_map = '<Leader>qq'
+    end,
+  }
 
   -- zen
   use {
@@ -273,11 +284,11 @@ require('packer').startup(function()
         terraform = { 'terraform' },
       }
       vim.g.ale_fixers = {
-        javascript = { 'prettier', 'eslint' },
-        javascriptreact = { 'prettier', 'eslint' },
-        typescript = { 'prettier', 'eslint' },
-        typescriptreact = { 'prettier', 'eslint' },
-        vue = { 'eslint' },
+        javascript = { 'eslint', 'prettier' },
+        javascriptreact = { 'eslint', 'prettier' },
+        typescript = { 'eslint', 'prettier' },
+        typescriptreact = { 'eslint', 'prettier' },
+        vue = { 'eslint', 'prettier' },
         svelte = { 'eslint' },
         go = { 'goimports' },
         rust = { 'rustfmt' },
