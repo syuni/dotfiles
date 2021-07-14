@@ -369,7 +369,7 @@ require('packer').startup(function()
       }
       local opts = { noremap = true, silent = true, expr = true }
       vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()', opts)
-      vim.api.nvim_set_keymap('i', '<Cr>', 'compe#confirm({ "keys": "<Plug>delimitMateCR", "mode": "" })', opts)
+      vim.api.nvim_set_keymap('i', '<Cr>', 'compe#confirm({ "keys": "<Plug>delimitMateCR", "mode": "", "select": v:true })', opts)
       vim.api.nvim_set_keymap('i', '<C-e>', 'compe#close("<C-e>")', opts)
       vim.api.nvim_set_keymap('i', '<C-f>', 'compe#scroll({ "delta": +4 })', opts)
       vim.api.nvim_set_keymap('i', '<C-b>', 'compe#scroll({ "delta": -4 })', opts)
