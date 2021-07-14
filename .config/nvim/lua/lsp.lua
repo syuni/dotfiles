@@ -47,7 +47,7 @@ end
 
 -- lsp providers
 
-lsp.clangd.setup{ on_attach = on_attach }
+lsp.ccls.setup{ on_attach = on_attach }
 lsp.gopls.setup{ on_attach = on_attach }
 lsp.rls.setup{ on_attach = on_attach }
 lsp.denols.setup{
