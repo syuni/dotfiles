@@ -5,11 +5,11 @@ require('packer').startup(function()
   -- package manager
   use 'wbthomason/packer.nvim'
 
-  -- color schema
+  -- color
   use {
     'folke/tokyonight.nvim',
     setup = function()
-      vim.g.tokyonight_style = 'night'
+      vim.g.tokyonight_style = 'storm'
       vim.g.tokyonight_italic_comments = true
       vim.g.tokyonight_italic_keywords = true
       vim.g.tokyonight_italic_functions = true
@@ -91,11 +91,11 @@ require('packer').startup(function()
       local ws = ' '
       require('bufferline').setup{
         options = {
-        custom_filter = function(buf_number)
-          if vim.bo[buf_number].filetype ~= "qf" then
-            return true
-          end
-        end,
+          custom_filter = function(buf_number)
+            if vim.bo[buf_number].filetype ~= "qf" then
+              return true
+            end
+          end,
           offsets = {
             { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
             { filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left' },
@@ -222,8 +222,16 @@ require('packer').startup(function()
     end,
   }
 
-  -- editor support
-  use 'lukas-reineke/indent-blankline.nvim'
+  -- edit support
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      vim.g.indent_blankline_char = '│'
+      vim.g.indent_blankline_use_treesitter = true
+      vim.g.indent_blankline_show_trailing_blankline_indent = false
+      vim.g.indent_blankline_show_current_context = true
+    end,
+  }
   use {
     'easymotion/vim-easymotion',
     config = function()
