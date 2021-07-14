@@ -47,7 +47,14 @@ end
 
 -- lsp providers
 
-lsp.ccls.setup{ on_attach = on_attach }
+lsp.ccls.setup{
+  on_attach = on_attach,
+  init_options = {
+    cache = {
+      directory = '/tmp/ccls-cache',
+    },
+  },
+}
 lsp.gopls.setup{ on_attach = on_attach }
 lsp.rls.setup{ on_attach = on_attach }
 lsp.denols.setup{
